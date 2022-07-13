@@ -1,5 +1,6 @@
-![Thyme is Money](docs/thyme.jpg)
 # Thyme is Monkey
+
+![Thyme is Money](docs/thyme.jpg "Photo by Alejandro Piñero Amerio. Source https://unsplash.com/photos/Ut3vw1iLBgk")
 
 A simple time keeping and invoicing application for freelancers.
 
@@ -19,12 +20,7 @@ A simple time keeping and invoicing application for freelancers.
 - Downloadable CSV of all invoices
 - Group tasks into projects and track task status
 
-# Documentation
-
 ## Database Schema
 
 ![Database Schema Diagram](docs/db-schema.jpg)
 
-
-----
-Header image by [Alejandro Piñero Amerio](https://unsplash.com/photos/Ut3vw1iLBgk).
