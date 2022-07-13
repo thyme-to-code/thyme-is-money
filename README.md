@@ -19,7 +19,11 @@ A simple time keeping and invoicing application for freelancers.
 - Downloadable CSV of all invoices
 - Group tasks into projects and track task status
 
+# Documentation
 
+## Database Schema
+
+![Database Schema Diagram](docs/db-schema.jpg)
 
 
 ----
