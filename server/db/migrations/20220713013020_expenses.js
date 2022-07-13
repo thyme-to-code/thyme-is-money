@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema.createTable('billable_expenses', (t) => {
+  return knex.schema.createTable('expenses', (t) => {
     t.increments('id').primary()
     t.string('description')
     t.integer('invoice_id').references('invoices.id')
@@ -19,5 +19,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-  return knex.schema.dropTable('billable_expenses')
+  return knex.schema.dropTable('expenses')
 }

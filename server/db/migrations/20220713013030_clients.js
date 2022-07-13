@@ -11,6 +11,7 @@ exports.up = function (knex) {
     t.string('phone')
     t.text('address')
     t.float('rate')
+    t.boolean('isActive')
     t.timestamps()
   })
 }
