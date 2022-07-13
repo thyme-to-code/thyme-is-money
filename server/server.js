@@ -9,6 +9,9 @@ const invoiceRoutes = require('./routes/invoices')
 server.use(express.json())
 server.use(express.static(path.join(__dirname, 'public')))
 
+const tasks = require('./routes/tasks')
+
+server.use('/api/tasks', tasks)
 server.use('/api/v1/clients', clientRoutes)
 server.use('/api/v1/invoices', invoiceRoutes)
 
