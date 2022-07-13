@@ -40,4 +40,16 @@ router.post('/add', (req, res) => {
     })
 })
 
+// DELETE /api/tasks/delete/:id
+router.delete('/delete/:id', (req, res) => {
+  const id = Number(req.params.id)
+  db.deleteTaskById(id)
+    .then(() => {
+      res.sendStatus(200)
+    })
+    .catch((err) => {
+      res.status(500).send(err.message)
+    })
+})
+
 module.exports = router

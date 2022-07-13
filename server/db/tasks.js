@@ -4,7 +4,8 @@ const connection = require('knex')(config)
 module.exports = {
   getAllTasks,
   getUninvoicedTasksByClient,
-  addTaskByClient
+  addTaskByClient,
+  deleteTaskById,
 }
 
 function getAllTasks(db = connection) {
@@ -29,9 +30,9 @@ function getUninvoicedTasksByClient(client, db = connection) {
 }
 
 function addTaskByClient(task, db = connection) {
-  const {description, hours, rate, status, client_id } = task
+  const { description, hours, rate, status, client_id } = task
   return db('tasks').insert({
-    description, 
+    description,
     hours,
     rate,
     status,
@@ -39,17 +40,6 @@ function addTaskByClient(task, db = connection) {
   })
 }
 
-
-
-
-
-
-
-// t.increments('id').primary()
-//     t.string('description')
-//     t.float('hours')
-//     t.float('rate')
-//     t.string('status')
-//     t.integer('client_id').references('clients.id')
-//     t.integer('invoice_id').references('invoices.id')
-//     t.timestamps()
+function deleteTaskById(id, db = connection) {
+  return db('tasks').where({ id }).delete()
+}
