@@ -9,6 +9,10 @@ function getInvoices(id = null, db = conn) {
   }
 }
 
+function getInvoiceByClientID(client_id, db = conn) {
+  return db('invoices').where({ client_id })
+}
+
 function addInvoice(invoice, db = conn) {
   return db('invoices').insert(invoice)
 }
@@ -21,4 +25,5 @@ module.exports = {
   getInvoices,
   addInvoice,
   updateInvoice,
+  getInvoiceByClientID,
 }

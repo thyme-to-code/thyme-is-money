@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     })
     .catch((err) => {
       console.error(err)
-      throw new Error('Failed to fetch clients')
+      throw new Error('Failed to fetch invoices')
     })
 })
 
@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
     })
     .catch((err) => {
       console.error(err)
-      throw new Error('Failed to fetch client id: ' + req.params.id)
+      throw new Error('Failed to fetch invoice id: ' + req.params.id)
     })
 })
 
@@ -32,7 +32,7 @@ router.post('/add', (req, res) => {
     })
     .catch((err) => {
       console.error(err)
-      throw new Error('Failed to add client')
+      throw new Error('Failed to add invoice')
     })
 })
 
@@ -43,7 +43,7 @@ router.post('/update', (req, res) => {
     })
     .catch((err) => {
       console.error(err)
-      throw new Error('Failed to update client')
+      throw new Error('Failed to update invoice')
     })
 })
 
