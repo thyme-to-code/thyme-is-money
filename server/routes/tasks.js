@@ -28,4 +28,16 @@ router.get('/:client', (req, res) => {
     })
 })
 
+// POST /api/tasks/add
+router.post('/add', (req, res) => {
+  const task = req.body
+  db.addTaskByClient(task)
+    .then(() => {
+      res.sendStatus(200)
+    })
+    .catch((err) => {
+      res.status(500).send(err.message)
+    })
+})
+
 module.exports = router
