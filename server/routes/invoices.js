@@ -1,7 +1,12 @@
 const express = require('express')
 const router = express.Router()
 
-const { getInvoices, addInvoice, updateInvoice } = require('../db/invoices')
+const {
+  getInvoices,
+  addInvoice,
+  updateInvoice,
+  getInvoiceByClientID,
+} = require('../db/invoices')
 
 router.get('/', (req, res) => {
   getInvoices()
@@ -22,6 +27,19 @@ router.get('/:id', (req, res) => {
     .catch((err) => {
       console.error(err)
       throw new Error('Failed to fetch invoice id: ' + req.params.id)
+    })
+})
+
+router.get('/client/:client_id', (req, res) => {
+  getInvoiceByClientID(req.params.client_id)
+    .then((invoice) => {
+      res.json(invoice)
+    })
+    .catch((err) => {
+      console.error(err)
+      throw new Error(
+        'Failed to fetch invoices for client id: ' + req.params.client_id
+      )
     })
 })
 
