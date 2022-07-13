@@ -1,4 +1,4 @@
-![Thyme is Money](thyme.avif)
+![Thyme is Money](thyme.jpg)
 # Thyme is Monkey
 
 A simple time keeping and invoicing application for freelancers.
