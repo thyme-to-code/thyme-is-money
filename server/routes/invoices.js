@@ -19,6 +19,8 @@ router.get('/', (req, res) => {
     })
 })
 
+//* TODO impliment getInvoicesByYear
+
 router.get('/:id', (req, res) => {
   getInvoices(req.params.id)
     .then((client) => {
