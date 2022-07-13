@@ -13,7 +13,12 @@ function addClient(client, db = conn) {
   return db('clients').insert(client)
 }
 
+function updateClient(client, db = conn) {
+  return db('clients').where('id', client.id).update(client)
+}
+
 module.exports = {
   getClients,
   addClient,
+  updateClient,
 }
