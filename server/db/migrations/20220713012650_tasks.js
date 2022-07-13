@@ -9,8 +9,8 @@ exports.up = function (knex) {
     t.float('hours')
     t.float('rate')
     t.string('status')
-    t.integer('client_id')
-    t.integer('invoice_id')
+    t.integer('client_id').references('clients.id')
+    t.integer('invoice_id').references('invoices.id')
     t.timestamps()
   })
 }

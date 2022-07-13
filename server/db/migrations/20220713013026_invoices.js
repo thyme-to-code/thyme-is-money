@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('invoices', (t) => {
     t.increments('id').primary()
-    t.integer('client_id')
+    t.integer('client_id').references('clients.id')
     t.float('total')
     t.datetime('date_sent')
     t.datetime('date_paid')

@@ -9,8 +9,8 @@ exports.up = function (knex) {
     t.string('contact_name')
     t.string('email')
     t.string('phone')
-    t.string('address')
-    t.float('raite')
+    t.text('address')
+    t.float('rate')
     t.timestamps()
   })
 }
