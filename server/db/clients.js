@@ -8,6 +8,12 @@ function getClients(id = null, db = conn) {
     return db('clients').select()
   }
 }
+
+function addClient(client, db = conn) {
+  return db('clients').insert(client)
+}
+
 module.exports = {
   getClients,
+  addClient,
 }
