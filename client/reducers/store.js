@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-// import stuff from './stuff'
+import loading from './loading'
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    // when we call useSelector (state.loading)
+    loading,
+  },
 })
