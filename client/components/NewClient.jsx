@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   useDisclosure,
+  useNumberInput,
   Modal,
   ModalOverlay,
   ModalBody,
@@ -13,13 +14,30 @@ import {
   FormControl,
   FormLabel,
   Textarea,
+  HStack,
+  NumberInput,
+  NumberInputField,
   FormErrorMessage,
   FormHelperText,
+  InputGroup,
+  InputLeftElement,
 } from '@chakra-ui/react'
 
 export function NewClient() {
   // function handleClick() {}
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+    useNumberInput({
+      step: 5,
+      defaultValue: 50,
+      min: 0,
+      max: 200,
+      precision: 0,
+    })
+
+  const inc = getIncrementButtonProps()
+  const dec = getDecrementButtonProps()
+  const input = getInputProps()
 
   return (
     <>
@@ -30,13 +48,16 @@ export function NewClient() {
           <ModalHeader>Add new client</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="name">Business Name</FormLabel>
               <Input id="name" type="text" />
               <FormLabel htmlFor="contact-name">Primary Contact</FormLabel>
               <Input id="contact-name" type="text" />
               <FormLabel htmlFor="contact-phone">Contact Phone</FormLabel>
-              <Input id="contact-phone" type="text" />
+              <InputGroup>
+                <InputLeftElement color="gray.300">+</InputLeftElement>
+                <Input id="tel" type="text" />
+              </InputGroup>
               <FormLabel htmlFor="email">Email address</FormLabel>
               <Input id="email" type="email" />
               <FormLabel htmlFor="address">Address</FormLabel>
@@ -46,7 +67,18 @@ export function NewClient() {
                 size="sm"
               />
               <FormLabel htmlFor="rate">Hourly Rate</FormLabel>
-              <Input id="rate" type="number" />
+              <HStack maxW="320px">
+                <InputGroup>
+                  <InputLeftElement color="gray.300">$</InputLeftElement>
+                  <Input {...input} />
+                </InputGroup>
+                <Button {...dec}>-</Button>
+                <Button {...inc}>+</Button>
+              </HStack>
+
+              {/* <NumberInput min={0}>
+                <NumberInputField id="rate" />
+              </NumberInput> */}
             </FormControl>
           </ModalBody>
           <ModalFooter>
