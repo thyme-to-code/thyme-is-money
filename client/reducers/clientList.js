@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-// import { getAllClients } from '../apis/clients'
 
 let initialState = [] // array of {client}
 
