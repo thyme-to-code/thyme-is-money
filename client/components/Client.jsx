@@ -16,6 +16,7 @@ import {
   Input,
   Textarea,
 } from '@chakra-ui/react'
+import { addTask } from '../apis/tasks'
 
 export function Client() {
   const dispatch = useDispatch()
@@ -36,13 +37,14 @@ export function Client() {
     setNewTask({
       ...task,
       [e.target.name]: e.target.value,
+      status: 'uninvoiced',
       client_id: selectedClient.id,
     })
   }
 
   function handleSubmit() {
-    // call api function
-    // pass through task
+    addTask(task)
+    return onClose()
   }
 
   return (
@@ -115,7 +117,3 @@ export function Client() {
   )
 }
 
-// Create modal
-// update modal to correct fields
-// update modal form using state
-// on submit take state value and push to database

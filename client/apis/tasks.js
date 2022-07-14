@@ -7,3 +7,16 @@ export function getUninvoicedTasks(clientId) {
     return res.body
   })
 }
+
+// /api/v1/tasks/add
+export function addTask(task) {
+  return request
+    .post(`${rootUrl}/add`)
+    .send(task)
+    .then((res) => {
+      return res.status
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
