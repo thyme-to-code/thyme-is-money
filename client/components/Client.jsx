@@ -5,11 +5,11 @@ import { getActiveClientTasks } from '../reducers/taskList'
 export function Client() {
   const dispatch = useDispatch()
   const { selectedClient } = useSelector((state) => state.clientList)
-  // const taskList = useSelector((state) => state.taskList)
+  const taskList = useSelector((state) => state.taskList)
 
-  // useEffect(() => {
-  //   dispatch(getActiveClientTasks(selectedClient.id))
-  // })
+  useEffect(() => {
+    dispatch(getActiveClientTasks(selectedClient.id))
+  }, [selectedClient])
 
   return (
     <>
@@ -25,12 +25,12 @@ export function Client() {
           <button>Create Invoice</button>
         </>
       )}
-      {/* <h1>Uninvoiced Tasks</h1>
+      <h1>Uninvoiced Tasks</h1>
       <div className="tasks">
         {taskList?.data.map((task, i) => (
           <li key={i}>{task.description}</li>
         ))}
-      </div> */}
+      </div>
     </>
   )
 }
