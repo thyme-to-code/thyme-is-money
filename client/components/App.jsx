@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ChakraProvider, Grid, GridItem } from '@chakra-ui/react'
+import { useDispatch } from 'react-redux'
 import { Client } from './Client'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { Navbar } from './Navbar'
+import { getAllClients } from '../apis/clients'
+import { loadClients } from '../reducers/clientList'
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    getAllClients()
+      .then((clients) => dispatch(loadClients(clients)))
+      .catch((err) => {
+        throw err
+      })
+  })
+
   return (
     <>
       <ChakraProvider>
