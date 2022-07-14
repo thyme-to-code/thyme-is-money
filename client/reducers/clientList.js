@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-// import request from 'superagent'
 
 const rootUrl = 'http://localhost:3000/api/v1/clients'
 
@@ -38,28 +37,4 @@ export const clientList = createSlice({
   },
 })
 
-// export const clientList = createSlice({
-//   name: 'clientList',
-//   initialState,
-//   reducers: {
-//     // loadClients: (state, action) => {
-//     //   return action.payload
-//     // },
-//   },
-//   extraReducers: {
-//     [getClients.pending]: (state) => {
-//       state.loading = true
-//     },
-//     [getClients.fulfilled]: (state, { payload }) => {
-//       state.loading = false
-//       state.data = payload
-//     },
-//     [getClients.rejected]: (state) => {
-//       state.loading = false
-//     },
-//   },
-// })
-
-// export const { loadClients } = clientListSlice.actions
 export default clientList.reducer
-// export const clientList = clientListSlice.reducer
