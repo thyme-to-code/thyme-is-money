@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 // import { getAllClients } from '../apis/clients'
 
-const initialState = [] // array of {client}
+let initialState = [] // array of {client}
 
 export const clientListSlice = createSlice({
   name: 'clientList',
