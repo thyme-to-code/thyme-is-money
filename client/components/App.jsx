@@ -22,9 +22,9 @@ function App() {
           templateAreas={`"header header"
                   "nav main"
                   "nav footer"`}
-          gridTemplateRows={'50px 1fr 30px'}
+          gridTemplateRows={'20px 1fr 30px'}
           gridTemplateColumns={'150px 1fr'}
-          h="200px"
+          h="100%"
           gap="1"
           color="blackAlpha.700"
           fontWeight="bold"

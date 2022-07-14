@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
-import { Invoice } from './Invoice'
 import { getUninvoicedTasks } from '../apis/tasks'
 import { loadTasks } from '../reducers/taskList'
 
@@ -19,7 +17,14 @@ export function Client() {
 
   return (
     <>
-      <Invoice />
+      <div className="client">
+        <h1>{selectedClient.business_name}</h1>
+        <p>{selectedClient.contact_name}</p>
+        <p>{selectedClient.email}</p>
+        <p>{selectedClient.phone}</p>
+      </div>
+      {selectedClient.business_name && <button>Create Task</button>}
+      {selectedClient.business_name && <button>Create Invoice</button>}
     </>
   )
 }
