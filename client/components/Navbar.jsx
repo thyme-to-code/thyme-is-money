@@ -16,7 +16,7 @@ export function Navbar() {
 
   function handleClick(company) {
     const myClient = clients.find((client) => client.business_name == company)
-    return dispatch(setSelectedClient(myClient))
+    return dispatch(setSelectedClient(myClient.id))
   }
 
   return (
