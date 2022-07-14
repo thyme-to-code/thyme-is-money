@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+// import { getAllClients } from '../apis/clients'
 
 const initialState = [] // array of {client}
 
@@ -7,7 +8,7 @@ export const clientListSlice = createSlice({
   initialState,
   reducers: {
     loadClients: (state, action) => {
-      state = action.payload
+      return action.payload
     },
   },
 })
