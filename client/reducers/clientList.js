@@ -1,43 +1,65 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // import request from 'superagent'
 
-const rootUrl = '/api/v1/clients'
+const rootUrl = 'http://localhost:3000/api/v1/clients'
 
 let initialState = {
   data: [],
   loading: false,
 }
 
-const getClients = createAsyncThunk(
+export const getClients = createAsyncThunk(
   'clientsList/getClients',
-  async (thunkAPI) => {
-    const res = await fetch(rootUrl).then((data) => data.json())
-    return res
+  async (post, { rejectWithValue }) => {
+    try {
+      const res = await fetch(rootUrl).then((data) => data.json())
+      return res
+    } catch (err) {
+      return rejectWithValue('That failed')
+    }
   }
 )
 
-export const clientListSlice = createSlice({
+export const clientList = createSlice({
   name: 'clientList',
   initialState,
-  reducers: {
-    // loadClients: (state, action) => {
-    //   return action.payload
-    // },
-  },
-  extraReducers: {
-    [getClients.pending]: (state) => {
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(getClients.pending, (state) => {
       state.loading = true
-    },
-    [getClients.fulfilled]: (state, { payload }) => {
+    })
+    builder.addCase(getClients.rejected, (state) => {
+      state.loading = false
+    })
+    builder.addCase(getClients.fulfilled, (state, { payload }) => {
       state.loading = false
       state.data = payload
-    },
-    [getClients.rejected]: (state) => {
-      state.loading = false
-    },
+    })
   },
 })
 
+// export const clientList = createSlice({
+//   name: 'clientList',
+//   initialState,
+//   reducers: {
+//     // loadClients: (state, action) => {
+//     //   return action.payload
+//     // },
+//   },
+//   extraReducers: {
+//     [getClients.pending]: (state) => {
+//       state.loading = true
+//     },
+//     [getClients.fulfilled]: (state, { payload }) => {
+//       state.loading = false
+//       state.data = payload
+//     },
+//     [getClients.rejected]: (state) => {
+//       state.loading = false
+//     },
+//   },
+// })
+
 // export const { loadClients } = clientListSlice.actions
-// export default clientListSlice.reducer
-export const clientListReducer = clientListSlice.reducer
+export default clientList.reducer
+// export const clientList = clientListSlice.reducer

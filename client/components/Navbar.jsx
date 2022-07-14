@@ -5,7 +5,7 @@ import { setSelectedClient } from '../reducers/status'
 
 export function Navbar() {
   const dispatch = useDispatch()
-  const clients = useSelector((state) => state.clientList)
+  const clients = useSelector((state) => state.clientList.data)
 
   const allCompanyNames = clients.map((client) => {
     return client.business_name
