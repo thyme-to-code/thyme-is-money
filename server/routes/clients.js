@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
+  // TODO add error catching in getClients for invalid :id
   getClients(req.params.id)
     .then((client) => {
       res.json(client)
@@ -25,7 +26,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.post('/add', (req, res) => {
+router.post('/', (req, res) => {
   addClient(req.body)
     .then((id) => {
       res.json(id)
@@ -36,7 +37,7 @@ router.post('/add', (req, res) => {
     })
 })
 
-router.post('/update', (req, res) => {
+router.patch('/', (req, res) => {
   updateClient(req.body)
     .then((client) => {
       res.json(client)
