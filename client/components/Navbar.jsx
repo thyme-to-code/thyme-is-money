@@ -7,7 +7,6 @@ export function Navbar() {
   const dispatch = useDispatch()
   const clients = useSelector((state) => state.clientList)
 
-  console.log(clients)
   const allCompanyNames = clients.map((client) => {
     return client.business_name
   })
