@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getActiveClientTasks } from '../reducers/taskList'
 import {
@@ -21,6 +21,8 @@ export function Client() {
   const dispatch = useDispatch()
   const { selectedClient } = useSelector((state) => state.clientList)
   const taskList = useSelector((state) => state.taskList)
+  const initialState = { description: '', hours: '' }
+  const [task, setNewTask] = useState(initialState)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = React.useRef(null)
@@ -29,6 +31,19 @@ export function Client() {
   useEffect(() => {
     dispatch(getActiveClientTasks(selectedClient.id))
   }, [selectedClient])
+
+  function handleChange(e) {
+    setNewTask({
+      ...task,
+      [e.target.name]: e.target.value,
+      client_id: selectedClient.id,
+    })
+  }
+
+  function handleSubmit() {
+    // call api function
+    // pass through task
+  }
 
   return (
     <>
@@ -64,17 +79,32 @@ export function Client() {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Description</FormLabel>
-              <Textarea ref={initialRef} placeholder="Description" />
+              <Textarea
+                name="description"
+                onChange={handleChange}
+                ref={initialRef}
+                placeholder="Description"
+              />
             </FormControl>
 
             <FormControl mt={4}>
               <FormLabel>Hours</FormLabel>
-              <Input placeholder="Hours" />
+              <Input
+                type="number"
+                name="hours"
+                onChange={handleChange}
+                placeholder="Hours"
+              />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="green" mr={3}>
+            <Button
+              type="submit"
+              onClick={handleSubmit}
+              colorScheme="green"
+              mr={3}
+            >
               Save
             </Button>
             <Button onClick={onClose}>Cancel</Button>
