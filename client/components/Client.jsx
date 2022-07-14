@@ -15,8 +15,10 @@ import {
   FormLabel,
   Input,
   Textarea,
+  IconButton,
 } from '@chakra-ui/react'
-import { addTask } from '../apis/tasks'
+import { SmallCloseIcon } from '@chakra-ui/icons'
+import { addTask, deleteTask } from '../apis/tasks'
 
 export function Client() {
   const dispatch = useDispatch()
@@ -47,6 +49,13 @@ export function Client() {
     return onClose()
   }
 
+  function handleDelete(e) {
+    console.log(e.target)
+    const taskId = e.target.id
+    taskId && deleteTask(taskId)
+    return dispatch(getActiveClientTasks(selectedClient.id))
+  }
+
   return (
     <>
       <div className="client">
@@ -59,7 +68,16 @@ export function Client() {
       <h1>Uninvoiced Tasks</h1>
       <div className="tasks">
         {taskList?.data.map((task, i) => (
-          <li key={i}>{task.description}</li>
+          <>
+            <li key={i}>
+              {task.description}{' '}
+              <Button
+                id={task.id}
+                value={task.id}
+                onClick={handleDelete}
+              >x</Button>
+            </li>
+          </>
         ))}
       </div>
       {selectedClient.business_name && (
@@ -79,7 +97,7 @@ export function Client() {
           <ModalHeader>Create Task</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel>Description</FormLabel>
               <Textarea
                 name="description"
@@ -116,4 +134,3 @@ export function Client() {
     </>
   )
 }
-

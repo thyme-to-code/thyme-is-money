@@ -20,3 +20,16 @@ export function addTask(task) {
       console.log(err)
     })
 }
+
+// /api/v1/tasks/delete/:id
+export function deleteTask(id) {
+  return request
+    .del(`${rootUrl}/delete/${id}`)
+    .send()
+    .then((res) => {
+      return res.status
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
