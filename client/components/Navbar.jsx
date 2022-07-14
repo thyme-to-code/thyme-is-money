@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { InvoiceList } from './InvoiceList'
+import { UnorderedList, ListItem } from '@chakra-ui/react'
 
 export function Navbar() {
   const companyNames = [
@@ -22,12 +22,12 @@ export function Navbar() {
 
   return (
     <>
-      <InvoiceList />
+      <UnorderedList>
+        {orderedCompanyNames &&
+          orderedCompanyNames.map((company, i) => {
+            return <ListItem key={i}>{company}</ListItem>
+          })}
+      </UnorderedList>
     </>
   )
 }
-
-// step 0 - create an array of dummy company names
-// step 1 - show all company names in navbar
-// step 2 - order all company names by ABC
-// step 3 - add bar for company names
