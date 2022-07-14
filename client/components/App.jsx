@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { ChakraProvider, Grid, GridItem } from '@chakra-ui/react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Client } from './Client'
 import { Footer } from './Footer'
 import { Header } from './Header'
@@ -9,7 +9,7 @@ import { getClients } from '../reducers/clientList'
 
 function App() {
   const dispatch = useDispatch()
-  const clientList = useSelector((state) => state.clientList.data)
+  // const clientList = useSelector((state) => state.clientList.data)
 
   useEffect(() => {
     dispatch(getClients())

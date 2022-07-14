@@ -19,7 +19,7 @@ export const getClients = createAsyncThunk(
   }
 )
 
-export const clientList = createSlice({
+export const clientListSlice = createSlice({
   name: 'clientList',
   initialState,
   reducers: {},
@@ -37,4 +37,4 @@ export const clientList = createSlice({
   },
 })
 
-export default clientList.reducer
+export default clientListSlice.reducer
