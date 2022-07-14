@@ -17,9 +17,9 @@ router.get('/', (req, res) => {
 
 // GET /api/v1/tasks/:client?status=
 router.get('/:client', (req, res) => {
-  // const client = { id: Number(req.params.client), status: req.query.status }
+  const client = { id: Number(req.params.client), status: req.query.status }
   return db
-    .getTasksByClient(req.params.client)
+    .getTasksByClient(client)
     .then((tasks) => {
       res.json(tasks)
     })
