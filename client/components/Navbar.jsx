@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { UnorderedList, ListItem } from '@chakra-ui/react'
 import { setSelectedClient } from '../reducers/status'
