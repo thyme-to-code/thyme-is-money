@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import loading from './loading'
+import status from './status'
+import clientList from './clientList'
 
 export const store = configureStore({
   reducer: {
-    // when we call useSelector (state.loading)
-    loading,
+    status,
+    clientList,
   },
 })
