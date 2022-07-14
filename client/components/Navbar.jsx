@@ -1,17 +1,15 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { UnorderedList, ListItem } from '@chakra-ui/react'
-import { setSelectedClient } from '../reducers/status'
+import { setSelectedClient } from '../reducers/clientList'
 
 export function Navbar() {
   const dispatch = useDispatch()
-  const clients = useSelector((state) => state.clientList)
+  const clients = useSelector((state) => state.clientList.data)
 
-  const allCompanyNames = clients.map((client) => {
-    return client.business_name
-  })
-
-  const orderedCompanyNames = allCompanyNames.sort()
+  const orderedCompanyNames = clients
+    .map((client) => client.business_name)
+    .sort()
 
   function handleClick(company) {
     const myClient = clients.find((client) => client.business_name == company)
@@ -22,13 +20,11 @@ export function Navbar() {
     <>
       <UnorderedList>
         {orderedCompanyNames &&
-          orderedCompanyNames.map((company, i) => {
-            return (
-              <ListItem onClick={() => handleClick(company)} key={i}>
-                {company}
-              </ListItem>
-            )
-          })}
+          orderedCompanyNames.map((company, i) => (
+            <ListItem onClick={() => handleClick(company)} key={i}>
+              {company}
+            </ListItem>
+          ))}
       </UnorderedList>
     </>
   )
