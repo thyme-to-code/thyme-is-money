@@ -3,7 +3,7 @@ const router = express.Router()
 
 const db = require('../db/tasks')
 
-// GET /api/tasks
+// GET /api/v1/tasks
 router.get('/', (req, res) => {
   return db
     .getAllTasks()
@@ -15,20 +15,20 @@ router.get('/', (req, res) => {
     })
 })
 
-// GET /api/tasks/:client?status=
+// GET /api/v1/tasks/:client?status=
 router.get('/:client', (req, res) => {
-  const client = { id: Number(req.params.client), status: req.query.status }
+  // const client = { id: Number(req.params.client), status: req.query.status }
   return db
-    .getUninvoicedTasksByClient(client)
-    .then((uninvoicedTasks) => {
-      res.json(uninvoicedTasks)
+    .getTasksByClient(req.params.client)
+    .then((tasks) => {
+      res.json(tasks)
     })
     .catch((err) => {
       res.status(500).send(err.message)
     })
 })
 
-// POST /api/tasks/add
+// POST /api/v1/tasks/add
 router.post('/add', (req, res) => {
   const task = req.body
   db.addTaskByClient(task)
@@ -40,7 +40,7 @@ router.post('/add', (req, res) => {
     })
 })
 
-// DELETE /api/tasks/delete/:id
+// DELETE /api/v1/tasks/delete/:id
 router.delete('/delete/:id', (req, res) => {
   const id = Number(req.params.id)
   db.deleteTaskById(id)

@@ -6,6 +6,7 @@ module.exports = {
   getUninvoicedTasksByClient,
   addTaskByClient,
   deleteTaskById,
+  getTasksByClient,
 }
 
 function getAllTasks(db = connection) {
@@ -27,6 +28,10 @@ function getUninvoicedTasksByClient(client, db = connection) {
     )
     .where({ status })
     .andWhere({ client_id: id })
+}
+
+function getTasksByClient(client_id, db = connection) {
+  return db('tasks').where({ client_id })
 }
 
 function addTaskByClient(task, db = connection) {
