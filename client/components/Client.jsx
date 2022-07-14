@@ -18,7 +18,7 @@ export function Client() {
   return (
     <>
       <div className="client">
-        <h1>{selectedClient.business_name}</h1>
+        <h2>{selectedClient.business_name}</h2>
         <p>{selectedClient.contact_name}</p>
         <p>{selectedClient.email}</p>
         <p>{selectedClient.phone}</p>

@@ -3,7 +3,5 @@ import { useSelector, useDispatch } from 'react-redux'
 
 
 export function Header() {
-
-
-  return <p>header</p>
+  return <h1>Thyme is Money</h1>
 }
