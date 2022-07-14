@@ -5,7 +5,8 @@ import { loadTasks } from '../reducers/taskList'
 
 export function Client() {
   const dispatch = useDispatch()
-  const { selectedClient } = useSelector((state) => state.status)
+  // const { selectedClient } = useSelector((state) => state.status)
+  const { selectedClient } = useSelector((state) => state.clientList)
 
   useEffect(() => {
     getUninvoicedTasks(selectedClient.id)

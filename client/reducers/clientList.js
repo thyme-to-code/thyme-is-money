@@ -5,6 +5,7 @@ const rootUrl = 'http://localhost:3000/api/v1/clients'
 let initialState = {
   data: [],
   loading: false,
+  selectedClient: {},
 }
 
 export const getClients = createAsyncThunk(
@@ -22,7 +23,11 @@ export const getClients = createAsyncThunk(
 export const clientListSlice = createSlice({
   name: 'clientList',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedClient: (state, action) => {
+      state.selectedClient = action.payload
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getClients.pending, (state) => {
       state.loading = true
@@ -37,4 +42,5 @@ export const clientListSlice = createSlice({
   },
 })
 
+export const { setSelectedClient } = clientListSlice.actions
 export default clientListSlice.reducer
