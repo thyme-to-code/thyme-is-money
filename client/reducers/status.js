@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   isLoading: true,
-  selectedClient: 1,
+  selectedClient: {},
 }
 
 export const statusSlice = createSlice({
