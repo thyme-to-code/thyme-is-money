@@ -14,7 +14,7 @@ export function addTask(task) {
     .post(`${rootUrl}/add`)
     .send(task)
     .then((res) => {
-      return res.status
+      return res.body
     })
     .catch((err) => {
       console.log(err)

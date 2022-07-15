@@ -32,8 +32,8 @@ router.get('/:client', (req, res) => {
 router.post('/add', (req, res) => {
   const task = req.body
   db.addTaskByClient(task)
-    .then(() => {
-      res.sendStatus(200)
+    .then((task) => {
+      res.json(task)
     })
     .catch((err) => {
       res.status(500).send(err.message)
