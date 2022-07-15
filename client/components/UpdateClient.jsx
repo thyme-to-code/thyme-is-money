@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import request from 'superagent'
 import { Formik } from 'formik'
 import {
@@ -15,32 +15,26 @@ import {
 import { setSelectedClient, getClients } from '../reducers/clientList'
 import { ClientForm } from './ClientForm'
 
-export function NewClient() {
+export function UpdateClient() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch()
-
+  const { selectedClient } = useSelector((state) => state.clientList)
+  console.log(selectedClient)
   return (
     <>
-      <Button bgColor="green.600" onClick={onOpen}>
-        New Client
+      <Button mr={3} bgColor="orange.600" onClick={onOpen}>
+        Update Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add new client</ModalHeader>
+          <ModalHeader>Update client</ModalHeader>
           <ModalCloseButton />
           <Formik
-            initialValues={{
-              business_name: '',
-              contact_name: '',
-              phone: '',
-              email: '',
-              address: 'New Zealand',
-              rate: 50,
-            }}
+            initialValues={selectedClient}
             onSubmit={(values) => {
               request
-                .post('/api/v1/clients')
+                .patch('/api/v1/clients')
                 .send(values)
                 .then((res) => {
                   dispatch(getClients())
@@ -50,7 +44,7 @@ export function NewClient() {
                 .catch((err) => console.log(err))
             }}
           >
-            {(props) => <ClientForm isUpdate={false} onClose={onClose} />}
+            {() => <ClientForm isUpdate={true} onClose={onClose} />}
           </Formik>
         </ModalContent>
       </Modal>
