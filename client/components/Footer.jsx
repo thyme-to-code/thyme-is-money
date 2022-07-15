@@ -1,9 +1,6 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-
 export function Footer() {
-
-
-  return <p>footer</p>
+  return <p>&copy;2022 Nicole, Yuri, David & Adam. DevAcademy Final Project</p>
 }

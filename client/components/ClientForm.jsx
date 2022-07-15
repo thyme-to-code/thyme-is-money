@@ -7,7 +7,6 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
-  InputLeftElement,
   FormControl,
   FormLabel,
   Textarea,

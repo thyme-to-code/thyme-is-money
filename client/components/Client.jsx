@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getClients } from '../reducers/clientList'
-import { addClientTask, getActiveClientTasks } from '../reducers/taskList'
 import {
   Modal,
   ModalOverlay,
@@ -22,16 +20,15 @@ import {
   StatHelpText,
   SimpleGrid,
   Box,
-  CloseButton,
-  GridItem,
-  Grid,
 } from '@chakra-ui/react'
+
 import { addTask, deleteTask } from '../apis/tasks'
+import { addClientTask, getActiveClientTasks } from '../reducers/taskList'
 
 export function Client() {
   const dispatch = useDispatch()
-  const { selectedClient } = useSelector((state) => state.clientList)
-  let taskList = useSelector((state) => state.taskList)
+  const { selectedClient, loading } = useSelector((state) => state.clientList)
+  const taskList = useSelector((state) => state.taskList)
   const initialState = { description: '', hours: '' }
   const [task, setNewTask] = useState(initialState)
   const [stats, setStats] = useState({ uninvoicedAmount: 0, hours: 0 })
@@ -71,15 +68,17 @@ export function Client() {
 
   function handleSubmit() {
     dispatch(addClientTask(task))
-
     return onClose()
   }
 
   function handleDelete(e) {
-    console.log(e.target.value)
     const taskId = e.target.id
     taskId && deleteTask(taskId)
     return dispatch(getActiveClientTasks(selectedClient.id))
+  }
+
+  if (loading) {
+    return <>Loading...</>
   }
 
   return (
@@ -89,69 +88,64 @@ export function Client() {
         <p>{selectedClient.contact_name}</p>
         <p>{selectedClient.email}</p>
         <p>{selectedClient.phone}</p>
+        <p>{selectedClient.address}</p>
+        <p>
+          {selectedClient.rate && <>NZD$</>}
+          {selectedClient.rate}
+        </p>
       </div>
 
       {selectedClient.business_name && (
-        <>
-          <Stat>
-            <StatLabel>Uninvoiced Amount</StatLabel>
-            <StatNumber>${stats.uninvoicedAmount}</StatNumber>
-            <StatHelpText>Total Hours: {stats.hours}</StatHelpText>
-          </Stat>
-        </>
+        <Stat>
+          <StatLabel>Uninvoiced Amount</StatLabel>
+          <StatNumber>${stats.uninvoicedAmount}</StatNumber>
+          <StatHelpText>Total Hours: {stats.hours}</StatHelpText>
+        </Stat>
       )}
 
       <div className="tasks">
-        {selectedClient.business_name ? (
+        {selectedClient.business_name && (
           <SimpleGrid columns={4} spacing={10}>
             <Box w="50%">Task</Box>
             <Box>Hours</Box>
             <Box>Amount</Box>
             <Box>Remove</Box>
           </SimpleGrid>
-        ) : (
-          ''
         )}
 
         {taskList?.data.map((task, i) => (
-          <>
-            <SimpleGrid columns={4} spacing={10}>
-              <Box>
-                <p key={i}>{task.description} </p>
-              </Box>
-              <Box>
-                <p>{task.hours}</p>
-              </Box>
-              <Box>
-                <p>${task.hours * selectedClient.rate}</p>
-              </Box>
-              <Box>
-                <Button
-                  m={1}
-                  colorScheme="teal"
-                  size="sm"
-                  id={task.id}
-                  value={task.id}
-                  onClick={handleDelete}
-                >
-                  x
-                </Button>
-                {/* x
-                </Button> */}
-              </Box>
-            </SimpleGrid>
-          </>
+          <SimpleGrid key={task.id} columns={4} spacing={10}>
+            <Box>
+              <>{task.description} </>
+            </Box>
+            <Box>
+              <>{task.hours}</>
+            </Box>
+            <Box>
+              <>${task.hours * selectedClient.rate}</>
+            </Box>
+            <Box>
+              <Button
+                m={1}
+                colorScheme="teal"
+                size="sm"
+                id={task.id}
+                value={task.id}
+                onClick={handleDelete}
+              >
+                x
+              </Button>
+            </Box>
+          </SimpleGrid>
         ))}
       </div>
-      {selectedClient.business_name ? (
-        <div>
+      {selectedClient.business_name && (
+        <>
           <Button mr={3} onClick={onOpen}>
             Create Task
           </Button>
           <Button>Create Invoice</Button>
-        </div>
-      ) : (
-        ''
+        </>
       )}
       <Modal
         initialFocusRef={initialRef}
