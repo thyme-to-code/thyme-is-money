@@ -10,7 +10,9 @@ function getClients(id = null, db = conn) {
 }
 
 function addClient(client, db = conn) {
-  return db('clients').insert(client)
+  return db('clients')
+    .insert(client)
+    .then(([id]) => db('clients').where({ id }).first())
 }
 
 function updateClient(client, db = conn) {

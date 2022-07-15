@@ -1,4 +1,5 @@
 import React from 'react'
+import request from 'superagent'
 import { Formik, FormikProps, Field, Form } from 'formik'
 import {
   useDisclosure,
@@ -24,21 +25,10 @@ import {
   InputLeftElement,
 } from '@chakra-ui/react'
 
-export function NewClient() {
-  // function handleClick() {}
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  // const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
-  //   useNumberInput({
-  //     step: 5,
-  //     defaultValue: 50,
-  //     min: 0,
-  //     max: 200,
-  //     precision: 0,
-  //   })
+import { setSelectedClient } from '../reducers/clientList'
 
-  // const inc = getIncrementButtonProps()
-  // const dec = getDecrementButtonProps()
-  // const input = getInputProps()
+export function NewClient() {
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
@@ -50,29 +40,77 @@ export function NewClient() {
           <ModalCloseButton />
           <Formik
             initialValues={{
-              name: 'Business',
-              // contact: 'Fred',
-              // phone: '234324323423',
-              // email: '123@me.me',
-              // address: '42 Wallaby Way',
-              // rate: 50,
+              business_name: 'Foo',
+              contact_name: 'Bar',
+              phone: '021 123 456',
+              email: 'eat@sherman.com',
+              address: 'New Zealand',
+              rate: 50,
             }}
             onSubmit={(values) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2))
-              }, 100)
+              console.log(values)
+              request
+                .post('/api/v1/clients')
+                .send(values)
+                .then((res) => {
+                  setSelectedClient(res.body) // not working?
+                  onClose()
+                })
+                .catch((err) => console.log(err))
             }}
           >
             {(props) => (
-              <form onSubmit={props.handleSubmit}>
+              <Form>
                 <ModalBody>
                   <FormControl isRequired>
-                    <FormLabel htmlFor="name">Business Name</FormLabel>
+                    <FormLabel htmlFor="business_name">Business Name</FormLabel>
                     <Field
                       as={Input}
-                      name="name"
-                      id="name"
+                      name="business_name"
+                      id="business_name"
                       type="text"
+                      variant="filled"
+                    />
+                    <FormLabel htmlFor="contact_name">
+                      Primary Contact
+                    </FormLabel>
+                    <Field
+                      as={Input}
+                      name="contact_name"
+                      id="contact_name"
+                      type="text"
+                      variant="filled"
+                    />
+                    <FormLabel htmlFor="phone">Phone</FormLabel>
+                    <Field
+                      as={Input}
+                      name="phone"
+                      id="phone"
+                      type="tel"
+                      variant="filled"
+                    />
+                    <FormLabel htmlFor="email">Email</FormLabel>
+                    <Field
+                      as={Input}
+                      name="email"
+                      id="email"
+                      type="email"
+                      variant="filled"
+                    />
+                    <FormLabel htmlFor="address">Address</FormLabel>
+                    <Field
+                      as={Textarea}
+                      name="address"
+                      id="address"
+                      type="text"
+                      variant="filled"
+                    />
+                    <FormLabel htmlFor="rate">Hourly Rate</FormLabel>
+                    <Field
+                      as={Input}
+                      name="rate"
+                      id="reate"
+                      type="number"
                       variant="filled"
                     />
                   </FormControl>
@@ -85,7 +123,7 @@ export function NewClient() {
                     Submit
                   </Button>
                 </ModalFooter>
-              </form>
+              </Form>
             )}
           </Formik>
         </ModalContent>
