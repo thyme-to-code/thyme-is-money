@@ -29,7 +29,7 @@ function App() {
           color="blackAlpha.700"
           fontWeight="bold"
         >
-          <GridItem pl="2" bg="green.300" area={'header'} pt="25px" pl="50px">
+          <GridItem fontSize="3xl" pl="2" pb="2" bg="green.300" area={'header'} pt="25px" pl="50px">
             <Header />
           </GridItem>
           <GridItem pl="2" bg="blackAlpha.700" area={'nav'}pt="25px">
