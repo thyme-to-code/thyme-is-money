@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import request from 'superagent'
-import { setSelectedClient, getClients } from '../reducers/clientList'
 import { Formik, Field, Form } from 'formik'
 import {
   useDisclosure,
@@ -19,20 +18,22 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
+import { setSelectedClient, getClients } from '../reducers/clientList'
+
 export function UpdateClient() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch()
   const { selectedClient } = useSelector((state) => state.clientList)
-
+  console.log(selectedClient)
   return (
     <>
-      <Button bgColor="green.600" onClick={onOpen}>
+      <Button mr={3} bgColor="orange.600" onClick={onOpen}>
         Update Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add new client</ModalHeader>
+          <ModalHeader>Update client</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={selectedClient}
@@ -41,9 +42,9 @@ export function UpdateClient() {
               request
                 .patch('/api/v1/clients')
                 .send(values)
-                .then(() => {
+                .then((res) => {
                   dispatch(getClients())
-                  // dispatch(setSelectedClient(res.body))
+                  dispatch(setSelectedClient(res.body))
                   onClose()
                 })
                 .catch((err) => console.log(err))
@@ -109,8 +110,8 @@ export function UpdateClient() {
                   <Button colorScheme="gray" mr={3} onClick={onClose}>
                     Cancel
                   </Button>
-                  <Button colorScheme="green" type="submit">
-                    Submit
+                  <Button colorScheme="orange" type="submit">
+                    Update
                   </Button>
                 </ModalFooter>
               </Form>

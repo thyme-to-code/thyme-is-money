@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import request from 'superagent'
-import { setSelectedClient, getClients } from '../reducers/clientList'
 import { Formik, Field, Form } from 'formik'
 import {
   useDisclosure,
@@ -18,6 +17,8 @@ import {
   FormLabel,
   Textarea,
 } from '@chakra-ui/react'
+
+import { setSelectedClient, getClients } from '../reducers/clientList'
 
 export function NewClient() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -116,7 +117,7 @@ export function NewClient() {
                     Cancel
                   </Button>
                   <Button colorScheme="green" type="submit">
-                    Submit
+                    Create
                   </Button>
                 </ModalFooter>
               </Form>
