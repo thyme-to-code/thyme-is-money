@@ -15,9 +15,13 @@ import {
   FormLabel,
   Input,
   Textarea,
-  IconButton,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  StatGroup,
 } from '@chakra-ui/react'
-import { SmallCloseIcon } from '@chakra-ui/icons'
 import { addTask, deleteTask } from '../apis/tasks'
 
 export function Client() {
@@ -26,10 +30,27 @@ export function Client() {
   const taskList = useSelector((state) => state.taskList)
   const initialState = { description: '', hours: '' }
   const [task, setNewTask] = useState(initialState)
+  const [stats, setStats] = useState({ uninvoicedAmount: 0, hours: 0 })
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
+
+  let totalHours = 0
+  let totalAmount = 0
+
+  taskList?.data.forEach((task) => {
+    if (task.status === 'uninvoiced') {
+      return (totalHours += task.hours)
+    } else {
+      return
+    }
+  })
+
+  useEffect(() => {
+    totalAmount = totalHours * selectedClient.rate
+    setStats({ ...stats, hours: totalHours, uninvoicedAmount: totalAmount })
+  }, [taskList])
 
   useEffect(() => {
     dispatch(getActiveClientTasks(selectedClient.id))
@@ -50,7 +71,6 @@ export function Client() {
   }
 
   function handleDelete(e) {
-    console.log(e.target)
     const taskId = e.target.id
     taskId && deleteTask(taskId)
     return dispatch(getActiveClientTasks(selectedClient.id))
@@ -71,11 +91,9 @@ export function Client() {
           <>
             <li key={i}>
               {task.description}{' '}
-              <Button
-                id={task.id}
-                value={task.id}
-                onClick={handleDelete}
-              >x</Button>
+              <Button id={task.id} value={task.id} onClick={handleDelete}>
+                x
+              </Button>
             </li>
           </>
         ))}
@@ -83,6 +101,11 @@ export function Client() {
       {selectedClient.business_name && (
         <>
           <Button onClick={onOpen}>Create Task</Button>
+          <Stat>
+            <StatLabel>Uninvoiced Amount</StatLabel>
+            <StatNumber>${stats.uninvoicedAmount}</StatNumber>
+            <StatHelpText>Total Hours: {stats.hours}</StatHelpText>
+          </Stat>
         </>
       )}
 
