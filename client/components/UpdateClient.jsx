@@ -16,10 +16,10 @@ import { setSelectedClient, getClients } from '../reducers/clientList'
 import { ClientForm } from './ClientForm'
 
 export function UpdateClient() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch()
   const { selectedClient } = useSelector((state) => state.clientList)
-  console.log(selectedClient)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <>
       <Button mr={3} bgColor="orange.600" onClick={onOpen}>

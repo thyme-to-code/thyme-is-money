@@ -4,7 +4,7 @@ const rootUrl = 'http://localhost:3000/api/v1/clients'
 
 let initialState = {
   data: [],
-  loading: false,
+  loading: true,
   selectedClient: {},
 }
 

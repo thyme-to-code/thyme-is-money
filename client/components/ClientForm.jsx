@@ -5,6 +5,8 @@ import {
   ModalFooter,
   Button,
   Input,
+  InputGroup,
+  InputLeftAddon,
   FormControl,
   FormLabel,
   Textarea,
@@ -34,13 +36,16 @@ export function ClientForm(props) {
             variant="filled"
           />
           <FormLabel htmlFor="phone">Phone</FormLabel>
-          <Field
-            as={Input}
-            name="phone"
-            id="phone"
-            type="tel"
-            variant="filled"
-          />
+          <InputGroup>
+            <InputLeftAddon>+64</InputLeftAddon>
+            <Field
+              as={Input}
+              name="phone"
+              id="phone"
+              type="tel"
+              variant="filled"
+            />
+          </InputGroup>
           <FormLabel htmlFor="email">Email</FormLabel>
           <Field
             as={Input}
@@ -58,13 +63,16 @@ export function ClientForm(props) {
             variant="filled"
           />
           <FormLabel htmlFor="rate">Hourly Rate</FormLabel>
-          <Field
-            as={Input}
-            name="rate"
-            id="reate"
-            type="number"
-            variant="filled"
-          />
+          <InputGroup>
+            <InputLeftAddon>NZD$</InputLeftAddon>
+            <Field
+              as={Input}
+              name="rate"
+              id="reate"
+              type="number"
+              variant="filled"
+            />
+          </InputGroup>
         </FormControl>
       </ModalBody>
       <ModalFooter>
