@@ -3,7 +3,7 @@ import { addTask } from '../apis/tasks'
 
 let initialState = {
   data: [],
-  loading: false,
+  loading: true,
 }
 
 export const getActiveClientTasks = createAsyncThunk(
