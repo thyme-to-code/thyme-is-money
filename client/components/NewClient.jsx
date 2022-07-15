@@ -25,7 +25,9 @@ export function NewClient() {
 
   return (
     <>
-      <Button onClick={onOpen}>New Client</Button>
+      <Button bgColor="green.600" onClick={onOpen}>
+        New Client
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>
