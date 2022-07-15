@@ -43,13 +43,17 @@ function getTasksByClient(client, db = connection) {
 
 function addTaskByClient(task, db = connection) {
   const { description, hours, rate, status, client_id } = task
-  return db('tasks').insert({
-    description,
-    hours,
-    rate,
-    status,
-    client_id,
-  })
+  return db('tasks')
+    .insert({
+      description,
+      hours,
+      rate,
+      status,
+      client_id,
+    })
+    .then((id) => {
+      return { ...task, id }
+    })
 }
 
 function deleteTaskById(id, db = connection) {
