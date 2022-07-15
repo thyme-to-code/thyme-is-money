@@ -1,9 +1,10 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import request from 'superagent'
-import { Formik, FormikProps, Field, Form } from 'formik'
+import { setSelectedClient, getClients } from '../reducers/clientList'
+import { Formik, Field, Form } from 'formik'
 import {
   useDisclosure,
-  useNumberInput,
   Modal,
   ModalOverlay,
   ModalBody,
@@ -16,19 +17,11 @@ import {
   FormControl,
   FormLabel,
   Textarea,
-  HStack,
-  NumberInput,
-  NumberInputField,
-  FormErrorMessage,
-  FormHelperText,
-  InputGroup,
-  InputLeftElement,
 } from '@chakra-ui/react'
-
-import { setSelectedClient } from '../reducers/clientList'
 
 export function NewClient() {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -53,7 +46,8 @@ export function NewClient() {
                 .post('/api/v1/clients')
                 .send(values)
                 .then((res) => {
-                  setSelectedClient(res.body) // not working?
+                  dispatch(getClients())
+                  dispatch(setSelectedClient(res.body))
                   onClose()
                 })
                 .catch((err) => console.log(err))
