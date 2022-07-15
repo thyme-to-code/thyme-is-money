@@ -20,6 +20,8 @@ import {
   StatHelpText,
   SimpleGrid,
   Box,
+  Divider,
+  Heading
 } from '@chakra-ui/react'
 
 import { addTask, deleteTask } from '../apis/tasks'
@@ -84,7 +86,9 @@ export function Client() {
   return (
     <>
       <div className="client">
-        <h2>{selectedClient.business_name}</h2>
+        <Heading as="h2" fontSize="2xl">
+          {selectedClient.business_name}
+        </Heading>
         <p>{selectedClient.contact_name}</p>
         <p>{selectedClient.email}</p>
         <p>{selectedClient.phone}</p>
@@ -102,6 +106,8 @@ export function Client() {
           <StatHelpText>Total Hours: {stats.hours}</StatHelpText>
         </Stat>
       )}
+
+      <Divider />
 
       <div className="tasks">
         {selectedClient.business_name && (
@@ -141,10 +147,10 @@ export function Client() {
       </div>
       {selectedClient.business_name && (
         <>
-          <Button mr={3} onClick={onOpen}>
+          <Button mr={3} onClick={onOpen} colorScheme="teal">
             Create Task
           </Button>
-          <Button>Create Invoice</Button>
+          <Button colorScheme="teal">Create Invoice</Button>
         </>
       )}
       <Modal

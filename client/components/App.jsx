@@ -34,7 +34,7 @@ function App() {
           <GridItem pl="2" bg="#1A1A1A" area={'nav'} pt="25px" pr="10px">
             <Navbar />
           </GridItem>
-          <GridItem pl="2" bg="#E9F7F7" area={'main'}>
+          <GridItem pl="2" bg="#E9F7F7" area={'main'} pt="25px" pb="25px">
             <Client />
           </GridItem>
           <GridItem pl="2" bg="#0CA789" area={'footer'}>
