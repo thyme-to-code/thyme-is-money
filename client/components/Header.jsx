@@ -1,6 +1,10 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { NewClient } from './NewClient'
 
 export function Header() {
-  return <h1>🌱 Thyme is Money</h1>
+  return (
+    <h1>
+      🌱 Thyme is Money <NewClient />
+    </h1>
+  )
 }
