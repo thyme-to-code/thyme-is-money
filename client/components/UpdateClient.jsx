@@ -38,7 +38,6 @@ export function UpdateClient() {
           <Formik
             initialValues={selectedClient}
             onSubmit={(values) => {
-              console.log(values)
               request
                 .patch('/api/v1/clients')
                 .send(values)

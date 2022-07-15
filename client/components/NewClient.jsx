@@ -44,7 +44,6 @@ export function NewClient() {
               rate: 50,
             }}
             onSubmit={(values) => {
-              console.log(values)
               request
                 .post('/api/v1/clients')
                 .send(values)
