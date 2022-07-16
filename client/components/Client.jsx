@@ -27,7 +27,7 @@ import {
 import { addTask, deleteTask } from '../apis/tasks'
 import { addClientTask, getActiveClientTasks } from '../reducers/taskList'
 import { ClientDetails } from './client/ClientDetails'
-import { Invoice } from './invoicing/Invoice'
+import { NewInvoice } from './invoicing/NewInvoice'
 
 export function Client() {
   const dispatch = useDispatch()
@@ -140,7 +140,7 @@ export function Client() {
           <Button mr={3} onClick={onOpen} colorScheme="teal">
             Create Task
           </Button>
-          <Button colorScheme="teal">Create Invoice</Button>
+          <NewInvoice />
         </>
       )}
       <Modal
