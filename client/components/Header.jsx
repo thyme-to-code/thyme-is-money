@@ -2,8 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Box, Flex, Spacer } from '@chakra-ui/react'
 
-import { NewClient } from './NewClient'
-import { UpdateClient } from './UpdateClient'
+import { NewClient } from './clients/NewClient'
+import { UpdateClient } from './clients/UpdateClient'
 
 export function Header() {
   const { selectedClient } = useSelector((state) => state.clientList)

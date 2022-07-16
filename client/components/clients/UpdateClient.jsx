@@ -12,7 +12,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-import { setSelectedClient, getClients } from '../reducers/clientList'
+import { setSelectedClient, getClients } from '../../reducers/clientList'
 import { ClientForm } from './ClientForm'
 
 export function UpdateClient() {
@@ -22,7 +22,7 @@ export function UpdateClient() {
 
   return (
     <>
-      <Button mr={3} bgColor="orange.600" onClick={onOpen}>
+      <Button mr={3} colorScheme="teal" variant="outline" onClick={onOpen}>
         Update Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">

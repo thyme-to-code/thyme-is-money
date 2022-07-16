@@ -12,7 +12,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-import { setSelectedClient, getClients } from '../reducers/clientList'
+import { setSelectedClient, getClients } from '../../reducers/clientList'
 import { ClientForm } from './ClientForm'
 
 export function NewClient() {
@@ -21,7 +21,7 @@ export function NewClient() {
 
   return (
     <>
-      <Button bgColor="green.600" onClick={onOpen}>
+      <Button colorScheme="white" onClick={onOpen}>
         Create Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
@@ -50,7 +50,7 @@ export function NewClient() {
                 .catch((err) => console.log(err))
             }}
           >
-            {(props) => <ClientForm isUpdate={false} onClose={onClose} />}
+            {() => <ClientForm isUpdate={false} onClose={onClose} />}
           </Formik>
         </ModalContent>
       </Modal>
