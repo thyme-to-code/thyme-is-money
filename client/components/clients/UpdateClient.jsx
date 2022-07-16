@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import request from 'superagent'
 import { Formik } from 'formik'
 import {
@@ -12,35 +12,29 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-import { setSelectedClient, getClients } from '../reducers/clientList'
+import { setSelectedClient, getClients } from '../../reducers/clientList'
 import { ClientForm } from './ClientForm'
 
-export function NewClient() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+export function UpdateClient() {
   const dispatch = useDispatch()
+  const { selectedClient } = useSelector((state) => state.clientList)
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
-      <Button colorScheme="white" onClick={onOpen}>
-        Create Client
+      <Button mr={3} colorScheme="teal" variant="outline" onClick={onOpen}>
+        Update Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create client</ModalHeader>
+          <ModalHeader>Update client</ModalHeader>
           <ModalCloseButton />
           <Formik
-            initialValues={{
-              business_name: '',
-              contact_name: '',
-              phone: '',
-              email: '',
-              address: 'New Zealand',
-              rate: 50,
-            }}
+            initialValues={selectedClient}
             onSubmit={(values) => {
               request
-                .post('/api/v1/clients')
+                .patch('/api/v1/clients')
                 .send(values)
                 .then((res) => {
                   dispatch(getClients())
@@ -50,7 +44,7 @@ export function NewClient() {
                 .catch((err) => console.log(err))
             }}
           >
-            {(props) => <ClientForm isUpdate={false} onClose={onClose} />}
+            {() => <ClientForm isUpdate={true} onClose={onClose} />}
           </Formik>
         </ModalContent>
       </Modal>
