@@ -17,7 +17,6 @@ router.get('/', (req, res) => {
 
 // TODO remove? single client access only via redux?
 router.get('/:id', (req, res) => {
-  // TODO add error handling for invalid :id in db.getClients
   getClients(req.params.id)
     .then((client) => {
       res.json(client)
