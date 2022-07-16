@@ -3,7 +3,13 @@ const conn = require('knex')(config)
 
 function getClients(id = null, db = conn) {
   if (id) {
-    return db('clients').where('id', id).first()
+    return db('clients')
+      .where('id', id)
+      .first()
+      .then((r) => {
+        if (!r) return `Error: Invalid client id: ${id}`
+        return r
+      })
   } else {
     return db('clients').select()
   }

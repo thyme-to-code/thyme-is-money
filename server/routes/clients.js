@@ -3,6 +3,7 @@ const router = express.Router()
 
 const { getClients, addClient, updateClient } = require('../db/clients')
 
+// base URL: /api/v1/clients
 router.get('/', (req, res) => {
   getClients()
     .then((clients) => {
@@ -14,8 +15,9 @@ router.get('/', (req, res) => {
     })
 })
 
+// TODO remove? single client access only via redux?
 router.get('/:id', (req, res) => {
-  // TODO add error catching in getClients for invalid :id
+  // TODO add error handling for invalid :id in db.getClients
   getClients(req.params.id)
     .then((client) => {
       res.json(client)
@@ -45,7 +47,7 @@ router.patch('/', (req, res) => {
     })
     .catch((err) => {
       console.error(err)
-      throw new Error('Failed to update client')
+      throw new Error('Failed to update client id: ' + req.body.id)
     })
 })
 
