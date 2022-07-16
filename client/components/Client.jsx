@@ -27,6 +27,7 @@ import {
 import { addTask, deleteTask } from '../apis/tasks'
 import { addClientTask, getActiveClientTasks } from '../reducers/taskList'
 import { ClientDetails } from './client/ClientDetails'
+import { Invoice } from './invoicing/Invoice'
 
 export function Client() {
   const dispatch = useDispatch()
