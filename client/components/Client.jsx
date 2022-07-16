@@ -24,6 +24,7 @@ import {
 
 import { addTask, deleteTask } from '../apis/tasks'
 import { addClientTask, getActiveClientTasks } from '../reducers/taskList'
+import { ClientDetails } from './client/ClientDetails'
 
 export function Client() {
   const dispatch = useDispatch()
@@ -83,17 +84,7 @@ export function Client() {
 
   return (
     <>
-      <div className="client">
-        <h2>{selectedClient.business_name}</h2>
-        <p>{selectedClient.contact_name}</p>
-        <p>{selectedClient.email}</p>
-        <p>{selectedClient.phone}</p>
-        <p>{selectedClient.address}</p>
-        <p>
-          {selectedClient.rate && <>NZD$</>}
-          {selectedClient.rate}
-        </p>
-      </div>
+      <ClientDetails />
 
       {selectedClient.business_name && (
         <Stat>
