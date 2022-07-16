@@ -16,7 +16,7 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
-import { addClientTask } from '../reducers/taskList'
+import { addClientTask } from '../../reducers/taskList'
 
 export function NewTask() {
   const dispatch = useDispatch()
@@ -80,16 +80,11 @@ export function NewTask() {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="gray" onClick={onClose}>
+            <Button mr={3} colorScheme="gray" onClick={onClose}>
               Cancel
             </Button>
-            <Button
-              type="submit"
-              onClick={handleSubmit}
-              colorScheme="green"
-              mr={3}
-            >
-              Save
+            <Button type="submit" onClick={handleSubmit} colorScheme="green">
+              Create
             </Button>
           </ModalFooter>
         </ModalContent>

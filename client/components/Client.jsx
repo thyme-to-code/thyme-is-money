@@ -1,19 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
   Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
   Stat,
   StatLabel,
   StatNumber,
@@ -21,13 +9,13 @@ import {
   SimpleGrid,
   Box,
   Divider,
-  Heading,
 } from '@chakra-ui/react'
 
-import { addTask, deleteTask } from '../apis/tasks'
-import { addClientTask, getActiveClientTasks } from '../reducers/taskList'
-import { ClientDetails } from './client/ClientDetails'
-import { NewInvoice } from './invoicing/NewInvoice'
+import { deleteTask } from '../apis/tasks'
+import { getActiveClientTasks } from '../reducers/taskList'
+import { ClientDetails } from './clients/ClientDetails'
+import { NewInvoice } from './invoices/NewInvoice'
+import { NewTask } from './tasks/NewTask'
 
 export function Client() {
   const dispatch = useDispatch()
@@ -35,13 +23,6 @@ export function Client() {
   // Selectors
   const { selectedClient, loading } = useSelector((state) => state.clientList)
   const taskList = useSelector((state) => state.taskList)
-
-  // New Task variables, hooks and states
-  const initialState = { description: '', hours: '' }
-  const [task, setNewTask] = useState(initialState)
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const initialRef = React.useRef(null)
-  const finalRef = React.useRef(null)
 
   // Invoicing stats at the top of page
   const [stats, setStats] = useState({ uninvoicedAmount: 0, hours: 0 })
@@ -64,21 +45,6 @@ export function Client() {
   useEffect(() => {
     dispatch(getActiveClientTasks(selectedClient.id))
   }, [selectedClient])
-
-  // Handling the change and submit to New Task form
-  function handleChange(e) {
-    setNewTask({
-      ...task,
-      [e.target.name]: e.target.value,
-      status: 'uninvoiced',
-      client_id: selectedClient.id,
-    })
-  }
-
-  function handleSubmit() {
-    dispatch(addClientTask(task))
-    return onClose()
-  }
 
   function handleDelete(e) {
     const taskId = e.target.id
@@ -142,59 +108,10 @@ export function Client() {
       </div>
       {selectedClient.business_name && (
         <>
-          <Button mr={3} onClick={onOpen} colorScheme="teal">
-            Create Task
-          </Button>
+          <NewTask />
           <NewInvoice />
         </>
       )}
-
-      {/* New Task Modal now added to NewTask.jsx */}
-      <Modal
-        initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
-        isOpen={isOpen}
-        onClose={onClose}
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Create Task</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl isRequired>
-              <FormLabel>Description</FormLabel>
-              <Textarea
-                name="description"
-                onChange={handleChange}
-                ref={initialRef}
-                placeholder="Description"
-              />
-            </FormControl>
-
-            <FormControl mt={4}>
-              <FormLabel>Hours</FormLabel>
-              <Input
-                type="number"
-                name="hours"
-                onChange={handleChange}
-                placeholder="Hours"
-              />
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              type="submit"
-              onClick={handleSubmit}
-              colorScheme="green"
-              mr={3}
-            >
-              Save
-            </Button>
-            <Button onClick={onClose}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
     </>
   )
 }
