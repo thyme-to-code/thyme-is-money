@@ -13,7 +13,7 @@ import { NewInvoice } from './invoices/NewInvoice'
 import { NewTask } from './tasks/NewTask'
 import { Tasks } from './tasks/Tasks'
 
-export function Client() {
+export function Content() {
   // Selectors
   const { selectedClient, loading } = useSelector((state) => state.clientList)
   const taskList = useSelector((state) => state.taskList)
