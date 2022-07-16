@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  Button,
   Stat,
   StatLabel,
   StatNumber,
   StatHelpText,
-  SimpleGrid,
-  Box,
   Divider,
 } from '@chakra-ui/react'
 
-import { deleteTask } from '../apis/tasks'
-import { getActiveClientTasks } from '../reducers/taskList'
 import { ClientDetails } from './clients/ClientDetails'
 import { NewInvoice } from './invoices/NewInvoice'
 import { NewTask } from './tasks/NewTask'
+import { Tasks } from './tasks/Tasks'
 
 export function Client() {
-  const dispatch = useDispatch()
-
   // Selectors
   const { selectedClient, loading } = useSelector((state) => state.clientList)
   const taskList = useSelector((state) => state.taskList)
@@ -42,76 +36,29 @@ export function Client() {
     setStats({ ...stats, hours: totalHours, uninvoicedAmount: totalAmount })
   }, [taskList])
 
-  useEffect(() => {
-    dispatch(getActiveClientTasks(selectedClient.id))
-  }, [selectedClient])
-
-  function handleDelete(e) {
-    const taskId = e.target.id
-    taskId && deleteTask(taskId)
-    return dispatch(getActiveClientTasks(selectedClient.id))
-  }
-
   if (loading) {
     return <>Loading...</>
   }
 
   return (
-    <>
-      <ClientDetails />
+    selectedClient.id && (
+      <>
+        <ClientDetails />
 
-      {selectedClient.business_name && (
+        {/* TODO Consider refactoring into a ClientStats component */}
         <Stat>
           <StatLabel>Uninvoiced Amount</StatLabel>
           <StatNumber>${stats.uninvoicedAmount}</StatNumber>
           <StatHelpText>Total Hours: {stats.hours}</StatHelpText>
         </Stat>
-      )}
 
-      <Divider />
+        <Divider />
 
-      <div className="tasks">
-        {selectedClient.business_name && (
-          <SimpleGrid columns={4} spacing={10}>
-            <Box w="50%">Task</Box>
-            <Box>Hours</Box>
-            <Box>Amount</Box>
-            <Box>Remove</Box>
-          </SimpleGrid>
-        )}
+        <Tasks />
 
-        {taskList?.data.map((task) => (
-          <SimpleGrid key={task.id} columns={4} spacing={10}>
-            <Box>
-              <>{task.description} </>
-            </Box>
-            <Box>
-              <>{task.hours}</>
-            </Box>
-            <Box>
-              <>${task.hours * selectedClient.rate}</>
-            </Box>
-            <Box>
-              <Button
-                m={1}
-                colorScheme="teal"
-                size="sm"
-                id={task.id}
-                value={task.id}
-                onClick={handleDelete}
-              >
-                x
-              </Button>
-            </Box>
-          </SimpleGrid>
-        ))}
-      </div>
-      {selectedClient.business_name && (
-        <>
-          <NewTask />
-          <NewInvoice />
-        </>
-      )}
-    </>
+        <NewTask />
+        <NewInvoice />
+      </>
+    )
   )
 }
