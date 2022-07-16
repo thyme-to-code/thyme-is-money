@@ -24,7 +24,7 @@ export function Navbar() {
 
   return (
     <>
-      <Heading as="h2" color="green">
+      <Heading as="h2" fontSize="2xl" color="#E9F7F7">
         Clients
       </Heading>
       <UnorderedList>

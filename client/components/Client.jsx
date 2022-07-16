@@ -20,6 +20,8 @@ import {
   StatHelpText,
   SimpleGrid,
   Box,
+  Divider,
+  Heading,
 } from '@chakra-ui/react'
 
 import { addTask, deleteTask } from '../apis/tasks'
@@ -94,6 +96,8 @@ export function Client() {
         </Stat>
       )}
 
+      <Divider />
+
       <div className="tasks">
         {selectedClient.business_name && (
           <SimpleGrid columns={4} spacing={10}>
@@ -132,10 +136,10 @@ export function Client() {
       </div>
       {selectedClient.business_name && (
         <>
-          <Button mr={3} onClick={onOpen}>
+          <Button mr={3} onClick={onOpen} colorScheme="teal">
             Create Task
           </Button>
-          <Button>Create Invoice</Button>
+          <Button colorScheme="teal">Create Invoice</Button>
         </>
       )}
       <Modal

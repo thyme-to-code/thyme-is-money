@@ -9,7 +9,6 @@ import { getClients } from '../reducers/clientList'
 
 function App() {
   const dispatch = useDispatch()
-  // const clientList = useSelector((state) => state.clientList.data)
 
   useEffect(() => {
     dispatch(getClients())
@@ -22,23 +21,23 @@ function App() {
           templateAreas={`"header header"
                   "nav main"
                   "nav footer"`}
-          gridTemplateRows={'90px 1fr 30px'}
+          gridTemplateRows={'100px 1fr 30px'}
           gridTemplateColumns={'170px 1fr'}
           h="100vh"
           gap="0"
           color="blackAlpha.700"
           fontWeight="bold"
         >
-          <GridItem pl="2" bg="green.300" area={'header'} pt="25px" pl="50px">
+          <GridItem pl="2" bg="#0CA789" area={'header'} fontSize="3xl" pt="25px" pl="50px">
             <Header />
           </GridItem>
-          <GridItem pl="2" bg="blackAlpha.700" area={'nav'}pt="25px">
+          <GridItem pl="2" bg="#1A1A1A" area={'nav'} pt="25px" pr="10px">
             <Navbar />
           </GridItem>
-          <GridItem pl="2" bg="green.100" area={'main'}>
+          <GridItem pl="2" bg="#E9F7F7" area={'main'} pt="25px" pb="25px">
             <Client />
           </GridItem>
-          <GridItem pl="2" bg="green.300" area={'footer'}>
+          <GridItem pl="2" bg="#0CA789" area={'footer'}>
             <Footer />
           </GridItem>
         </Grid>
