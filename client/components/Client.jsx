@@ -31,16 +31,20 @@ import { NewInvoice } from './invoicing/NewInvoice'
 
 export function Client() {
   const dispatch = useDispatch()
+
+  // Selectors
   const { selectedClient, loading } = useSelector((state) => state.clientList)
   const taskList = useSelector((state) => state.taskList)
+
+  // New Task variables, hooks and states
   const initialState = { description: '', hours: '' }
   const [task, setNewTask] = useState(initialState)
-  const [stats, setStats] = useState({ uninvoicedAmount: 0, hours: 0 })
-
   const { isOpen, onOpen, onClose } = useDisclosure()
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
 
+  // Invoicing stats at the top of page
+  const [stats, setStats] = useState({ uninvoicedAmount: 0, hours: 0 })
   let totalHours = 0
   let totalAmount = 0
 
@@ -61,6 +65,7 @@ export function Client() {
     dispatch(getActiveClientTasks(selectedClient.id))
   }, [selectedClient])
 
+  // Handling the change and submit to New Task form
   function handleChange(e) {
     setNewTask({
       ...task,
@@ -109,7 +114,7 @@ export function Client() {
           </SimpleGrid>
         )}
 
-        {taskList?.data.map((task, i) => (
+        {taskList?.data.map((task) => (
           <SimpleGrid key={task.id} columns={4} spacing={10}>
             <Box>
               <>{task.description} </>
@@ -143,6 +148,8 @@ export function Client() {
           <NewInvoice />
         </>
       )}
+
+      {/* New Task Modal now added to NewTask.jsx */}
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
