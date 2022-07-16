@@ -26,6 +26,7 @@ export function ClientForm(props) {
             id="business_name"
             type="text"
             variant="filled"
+            autoFocus
           />
           <FormLabel htmlFor="contact_name">Primary Contact</FormLabel>
           <Field

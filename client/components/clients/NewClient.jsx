@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import request from 'superagent'
 import { Formik } from 'formik'
 import {
@@ -12,29 +12,35 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-import { setSelectedClient, getClients } from '../reducers/clientList'
+import { setSelectedClient, getClients } from '../../reducers/clientList'
 import { ClientForm } from './ClientForm'
 
-export function UpdateClient() {
-  const dispatch = useDispatch()
-  const { selectedClient } = useSelector((state) => state.clientList)
+export function NewClient() {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const dispatch = useDispatch()
 
   return (
     <>
-      <Button mr={3} colorScheme="teal" variant='outline' onClick={onOpen}>
-        Update Client
+      <Button colorScheme="white" onClick={onOpen}>
+        Create Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Update client</ModalHeader>
+          <ModalHeader>Create client</ModalHeader>
           <ModalCloseButton />
           <Formik
-            initialValues={selectedClient}
+            initialValues={{
+              business_name: '',
+              contact_name: '',
+              phone: '',
+              email: '',
+              address: 'New Zealand',
+              rate: 50,
+            }}
             onSubmit={(values) => {
               request
-                .patch('/api/v1/clients')
+                .post('/api/v1/clients')
                 .send(values)
                 .then((res) => {
                   dispatch(getClients())
@@ -44,7 +50,7 @@ export function UpdateClient() {
                 .catch((err) => console.log(err))
             }}
           >
-            {() => <ClientForm isUpdate={true} onClose={onClose} />}
+            {() => <ClientForm isUpdate={false} onClose={onClose} />}
           </Formik>
         </ModalContent>
       </Modal>

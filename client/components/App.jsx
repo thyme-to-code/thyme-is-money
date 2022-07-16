@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { ChakraProvider, Grid, GridItem , extendTheme } from '@chakra-ui/react'
+import { ChakraProvider, Grid, GridItem, extendTheme } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
-import { Client } from './Client'
+import { Content } from './Content'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { Navbar } from './Navbar'
@@ -28,14 +28,20 @@ function App() {
           color="blackAlpha.700"
           fontWeight="bold"
         >
-          <GridItem pl="2" bg="#0CA789" area={'header'} fontSize="3xl" pt="25px" pl="50px">
+          <GridItem
+            bg="#0CA789"
+            area={'header'}
+            fontSize="3xl"
+            pt="25px"
+            pl="50px"
+          >
             <Header />
           </GridItem>
           <GridItem pl="2" bg="#1A1A1A" area={'nav'} pt="25px" pr="10px">
             <Navbar />
           </GridItem>
           <GridItem pl="2" bg="#E9F7F7" area={'main'} pt="25px" pb="25px">
-            <Client />
+            <Content />
           </GridItem>
           <GridItem pl="2" bg="#0CA789" area={'footer'}>
             <Footer />
