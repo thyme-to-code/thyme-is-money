@@ -7,8 +7,7 @@ function getClients(id = null, db = conn) {
       .where('id', id)
       .first()
       .then((r) => {
-        if (!r) return `Error: Invalid client id: ${id}`
-        return r
+        return r ? r : `Client id ${id} not found.`
       })
   } else {
     return db('clients').select()
@@ -22,7 +21,10 @@ function addClient(client, db = conn) {
 }
 
 function updateClient(client, db = conn) {
-  return db('clients').where('id', client.id).update(client)
+  return db('clients')
+    .where('id', client.id)
+    .update(client)
+    .then(() => db('clients').where('id', client.id).first())
 }
 
 module.exports = {
