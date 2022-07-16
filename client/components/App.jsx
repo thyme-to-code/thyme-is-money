@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { ChakraProvider, Grid, GridItem , extendTheme } from '@chakra-ui/react'
+import { ChakraProvider, Grid, GridItem, extendTheme } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 import { Client } from './Client'
 import { Footer } from './Footer'
@@ -28,7 +28,13 @@ function App() {
           color="blackAlpha.700"
           fontWeight="bold"
         >
-          <GridItem pl="2" bg="#0CA789" area={'header'} fontSize="3xl" pt="25px" pl="50px">
+          <GridItem
+            bg="#0CA789"
+            area={'header'}
+            fontSize="3xl"
+            pt="25px"
+            pl="50px"
+          >
             <Header />
           </GridItem>
           <GridItem pl="2" bg="#1A1A1A" area={'nav'} pt="25px" pr="10px">

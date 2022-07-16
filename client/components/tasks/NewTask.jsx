@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Formik, Form, Field } from 'formik'
 import {
   Modal,
   ModalOverlay,
@@ -21,72 +22,65 @@ import { addClientTask } from '../../reducers/taskList'
 export function NewTask() {
   const dispatch = useDispatch()
   const { selectedClient } = useSelector((state) => state.clientList)
-
-  const initialState = { description: '', hours: '' }
-  const [task, setNewTask] = useState(initialState)
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const initialRef = useRef(null)
-  const finalRef = useRef(null)
-
-  function handleChange(e) {
-    setNewTask({
-      ...task,
-      [e.target.name]: e.target.value,
-      status: 'uninvoiced',
-      client_id: selectedClient.id,
-    })
-  }
-
-  function handleSubmit() {
-    dispatch(addClientTask(task))
-    return onClose()
-  }
 
   return (
     <>
       <Button mr={3} onClick={onOpen} colorScheme="teal">
         Create Task
       </Button>
-      <Modal
-        initialFocusRef={initialRef}
-        finalFocusRef={finalRef}
-        isOpen={isOpen}
-        onClose={onClose}
-      >
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create Task</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl isRequired>
-              <FormLabel>Description</FormLabel>
-              <Textarea
-                name="description"
-                onChange={handleChange}
-                ref={initialRef}
-                placeholder="Description"
-              />
-            </FormControl>
+          <Formik
+            initialValues={{
+              description: '',
+              hours: '',
+              status: 'uninvoiced',
+              client_id: selectedClient.id,
+              created_at: new Date(),
+            }}
+            onSubmit={(newTask) => {
+              dispatch(addClientTask(newTask))
+              onClose()
+            }}
+          >
+            <Form>
+              <ModalBody pb={6}>
+                <FormControl isRequired>
+                  <FormLabel>Description</FormLabel>
+                  <Field
+                    as={Textarea}
+                    name="description"
+                    id="description"
+                    variant="filled"
+                    autoFocus
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Hours</FormLabel>
+                  <Field
+                    as={Input}
+                    name="hours"
+                    id="hours"
+                    type="number"
+                    variant="filled"
+                  />
+                </FormControl>
+              </ModalBody>
 
-            <FormControl mt={4}>
-              <FormLabel>Hours</FormLabel>
-              <Input
-                type="number"
-                name="hours"
-                onChange={handleChange}
-                placeholder="Hours"
-              />
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button mr={3} colorScheme="gray" onClick={onClose}>
-              Cancel
-            </Button>
-            <Button type="submit" onClick={handleSubmit} colorScheme="green">
-              Create
-            </Button>
-          </ModalFooter>
+              <ModalFooter>
+                <Button mr={3} colorScheme="gray" onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button type="submit" colorScheme="green">
+                  Create
+                </Button>
+              </ModalFooter>
+            </Form>
+          </Formik>
         </ModalContent>
       </Modal>
     </>

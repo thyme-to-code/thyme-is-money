@@ -50,7 +50,7 @@ export function NewClient() {
                 .catch((err) => console.log(err))
             }}
           >
-            {(props) => <ClientForm isUpdate={false} onClose={onClose} />}
+            {() => <ClientForm isUpdate={false} onClose={onClose} />}
           </Formik>
         </ModalContent>
       </Modal>
