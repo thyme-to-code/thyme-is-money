@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { addTask } from '../apis/tasks'
 
-let initialState = {
+const initialState = {
   data: [],
   loading: true,
 }
