@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const rootUrl = '/api/v1/clients'
 
-let initialState = {
+const initialState = {
   data: [],
   loading: true,
   selectedClient: {},
