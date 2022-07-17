@@ -32,7 +32,7 @@ export function NewTask() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create Task</ModalHeader>
+          <ModalHeader color="#0CA789">Create Task</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={{
@@ -75,7 +75,7 @@ export function NewTask() {
                 <Button mr={3} colorScheme="gray" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button type="submit" colorScheme="green">
+                <Button type="submit" colorScheme="teal">
                   Create
                 </Button>
               </ModalFooter>
