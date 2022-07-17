@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { ChakraProvider, Grid, GridItem, extendTheme } from '@chakra-ui/react'
+import { ChakraProvider, Grid, GridItem } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 import { Content } from './Content'
 import { Footer } from './Footer'
@@ -21,8 +21,8 @@ function App() {
           templateAreas={`"header header"
                   "nav main"
                   "nav footer"`}
-          gridTemplateRows={'100px 1fr 30px'}
-          gridTemplateColumns={'170px 1fr'}
+          gridTemplateRows={'111px 1fr 30px'}
+          gridTemplateColumns={'190px 1fr'}
           h="100vh"
           gap="0"
           color="blackAlpha.700"
@@ -34,16 +34,17 @@ function App() {
             fontSize="3xl"
             pt="25px"
             pl="50px"
+            pb="25px"
           >
             <Header />
           </GridItem>
-          <GridItem pl="2" bg="#1A1A1A" area={'nav'} pt="25px" pr="10px">
+          <GridItem pl="2" bg="#fff" area={'nav'} pt="25px" pr="10px" boxShadow="base">
             <Navbar />
           </GridItem>
-          <GridItem pl="2" bg="#E9F7F7" area={'main'} pt="25px" pb="25px">
+          <GridItem pl="25px" bg="#dcf4ef" area={'main'} pt="25px" pb="25px">
             <Content />
           </GridItem>
-          <GridItem pl="2" bg="#0CA789" area={'footer'}>
+          <GridItem pl="2" bg="#0CA789" area={'footer'} color="#fff" textAlign="center">
             <Footer />
           </GridItem>
         </Grid>
