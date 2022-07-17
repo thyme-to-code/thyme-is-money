@@ -4,6 +4,7 @@ import { Box, Flex, Spacer } from '@chakra-ui/react'
 
 import { NewClient } from './clients/NewClient'
 import { UpdateClient } from './clients/UpdateClient'
+import LogIn from './LogIn'
 
 export function Header() {
   const { selectedClient } = useSelector((state) => state.clientList)
@@ -16,6 +17,7 @@ export function Header() {
       <Box mr={3}>
         {selectedClient.id && <UpdateClient />}
         <NewClient />
+        <LogIn />
       </Box>
     </Flex>
   )
