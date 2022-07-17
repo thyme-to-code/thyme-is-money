@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Heading } from '@chakra-ui/react'
 
 export function ClientDetails() {
   const { selectedClient, loading } = useSelector((state) => state.clientList)
@@ -11,7 +12,9 @@ export function ClientDetails() {
   return (
     selectedClient.id && (
       <div className="client">
-        <h2>{selectedClient.business_name}</h2>
+        <Heading as="h2" fontSize="2xl">
+          {selectedClient.business_name}
+        </Heading>
         <p>{selectedClient.contact_name}</p>
         <p>{selectedClient.email}</p>
         <p>{selectedClient.phone}</p>

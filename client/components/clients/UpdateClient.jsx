@@ -22,13 +22,13 @@ export function UpdateClient() {
 
   return (
     <>
-      <Button mr={3} colorScheme="teal" variant="outline" onClick={onOpen}>
+      <Button onClick={onOpen} mr={3} colorScheme="whiteAlpha">
         Update Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Update client</ModalHeader>
+          <ModalHeader color="#0CA789">Update client</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={selectedClient}

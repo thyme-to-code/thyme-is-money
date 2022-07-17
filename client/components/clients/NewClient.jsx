@@ -21,13 +21,13 @@ export function NewClient() {
 
   return (
     <>
-      <Button colorScheme="white" onClick={onOpen}>
+      <Button onClick={onOpen} mr={3} colorScheme="whiteAlpha">
         Create Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create client</ModalHeader>
+          <ModalHeader color="#0CA789">Create client</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={{

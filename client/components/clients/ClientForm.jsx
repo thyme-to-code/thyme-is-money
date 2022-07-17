@@ -80,7 +80,7 @@ export function ClientForm(props) {
         <Button colorScheme="gray" mr={3} onClick={props.onClose}>
           Cancel
         </Button>
-        <Button colorScheme={props.isUpdate ? 'orange' : 'green'} type="submit">
+        <Button colorScheme="teal" variant={props.isUpdate ? "outline" : "solid"} type="submit">
           {props.isUpdate ? <>Update</> : <>Create</>}
         </Button>
       </ModalFooter>

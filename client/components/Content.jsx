@@ -45,6 +45,7 @@ export function Content() {
       <>
         <ClientDetails />
 
+        <Divider />
         {/* TODO Consider refactoring into a ClientStats component */}
         <Stat>
           <StatLabel>Uninvoiced Amount</StatLabel>
