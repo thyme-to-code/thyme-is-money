@@ -13,7 +13,7 @@ function getInvoiceByClientID(client_id, db = conn) {
   return db('invoices').where({ client_id })
 }
 
-//* TODO impliment getInvoicesByYear
+// TODO impliment getInvoicesByYear
 
 function addInvoice(invoice, db = conn) {
   return db('invoices').insert(invoice)
