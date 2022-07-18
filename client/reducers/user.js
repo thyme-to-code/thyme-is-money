@@ -1,20 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 // state.user containts this object
-const initialState = {
-  auth0Id: '',
-  email: '',
-  token: '',
+const getInitialState = () => {
+  return {
+    auth0Id: '',
+    email: '',
+    token: localStorage.getItem('token') || '',
+  }
 }
 
 export const loggedInUserSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: getInitialState(),
   reducers: {
     setLoggedInUser: (state, action) => {
-      state = action.payload
+      // state = { ...action.payload } doesn't seem to work
+      state.auth0Id = action.payload.auth0Id
+      state.email = action.payload.email
+      state.token = action.payload.token
     },
-    clearLoggedInUser: (state = initialState) => {
+    clearLoggedInUser: (state) => {
       state
     },
   },
@@ -22,5 +27,3 @@ export const loggedInUserSlice = createSlice({
 
 export const { setLoggedInUser } = loggedInUserSlice.actions
 export default loggedInUserSlice.reducer
-
-
