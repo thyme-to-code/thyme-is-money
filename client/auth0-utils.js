@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-const setLoggedInUser = null
+import { setLoggedInUser } from './reducers/user'
 
 export const cacheUser = async (useAuth0) => {
   const dispatch = useDispatch()
