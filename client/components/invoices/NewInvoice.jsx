@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button } from '@chakra-ui/react'
 import { createInvoice } from '../../apis/invoices'
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+// import { use } from '../../../server/routes/tasks'
 
 const invoiceTemplate = {
   logo: 'http://invoiced.com/img/logo-invoice.png', // hard code
@@ -35,6 +36,7 @@ const invoiceTemplate = {
 
 export function NewInvoice() {
   const [pageNumber, setPageNumber] = useState(1)
+  const [pdf, setPDF] = useState('')
 
   let res
   let pdfURL
@@ -47,6 +49,7 @@ export function NewInvoice() {
     invoice = new Blob([res], { type: 'application/pdf' })
     console.log('invoice', invoice)
     pdfURL = URL.createObjectURL(res)
+    setPDF(res)
     console.log('pdfURL', pdfURL)
   }
 
@@ -56,7 +59,7 @@ export function NewInvoice() {
         Create Invoice
       </Button>
       {/* <Document file="https://assets.ctfassets.net/l3l0sjr15nav/29D2yYGKlHNm0fB2YM1uW4/8e638080a0603252b1a50f35ae8762fd/Get_Started_With_Smallpdf.pdf"> */}
-      <Document file={pdfURL}>
+      <Document file={pdf}>
         <Page pageNumber={pageNumber} />
       </Document>
     </>
