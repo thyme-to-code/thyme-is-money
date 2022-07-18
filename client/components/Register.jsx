@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Formik } from 'formik'
+import { Formik, Form, Field } from 'formik'
 import {
   Modal,
   ModalOverlay,
@@ -39,12 +39,12 @@ function Register() {
   return (
     <>
       <Button mr={3} onClick={onOpen} colorScheme="teal">
-        Create Task
+        Register
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color="#0CA789">Create Task</ModalHeader>
+          <ModalHeader color="#0CA789">Register</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={{
@@ -52,7 +52,7 @@ function Register() {
               location: '',
               bio: '',
             }}
-            onSubmit={(newTask) => {
+            onSubmit={(newUser) => {
               // dispatch(addUser(newUser))
               onClose()
             }}
@@ -94,7 +94,7 @@ function Register() {
                   Cancel
                 </Button>
                 <Button type="submit" colorScheme="teal">
-                  Create
+                  Register
                 </Button>
               </ModalFooter>
             </Form>
