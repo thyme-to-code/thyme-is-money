@@ -30,20 +30,21 @@ export function NewInvoice() {
         Create Invoice
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="full">
+      <Modal isOpen={isOpen} onClose={onClose} size="2xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color="#0CA789">Preview Invoice</ModalHeader>
           <ModalCloseButton />
 
-          <ModalBody pb={6}></ModalBody>
-          <ShowPDF />
+          <ModalBody pb={6}>
+            <ShowPDF />
+          </ModalBody>
           <ModalFooter>
             <Button mr={3} colorScheme="gray" onClick={onClose}>
               Cancel
             </Button>
             <Button type="submit" colorScheme="teal">
-              Create
+              Approve
             </Button>
           </ModalFooter>
         </ModalContent>

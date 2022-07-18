@@ -1,34 +1,54 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 import { createInvoice } from '../../apis/invoices'
+import { Spinner } from '@chakra-ui/react'
+import { Tasks } from '../tasks/Tasks'
+import taskList from '../../reducers/taskList'
 
-const invoiceTemplate = {
-  logo: 'http://invoiced.com/img/logo-invoice.png', // hard code
-  from: 'Invoiced\n701 Brazos St\nAustin, TX 78748', // hard code
-  to: 'Johnny Appleseed', // From client data
-  currency: 'NZD', // hard code
-  number: 'INV-0001', // From Invoice table
-  payment_terms: 'Auto-Billed - Do Not Pay', // hard coded
-  items: [
-    // Iterated from list of client task
-    {
-      name: 'Subscription to Starter',
-      quantity: 1,
-      unit_cost: 50, // Currently pulled from client data
-    },
-  ],
-  fields: {
-    tax: '%', // hard code
-  },
-  tax: 15, // hard code
-  notes: 'Thanks for being an awesome customer!', // hard code
-  terms: 'No need to submit payment. You will be auto-billed for this invoice.', // hard code
+function invoiceNumber() {
+  const myDate = new Date()
+  const dayOfMonth = myDate.getDate()
+  const month = myDate.getMonth()
+  const year = myDate.getFullYear()
+
+  function pad(n) {
+    return n < 10 ? '0' + n : n
+  }
+
+  return year + pad(month + 1) + pad(dayOfMonth)
 }
 
 export function ShowPDF() {
+  const { selectedClient } = useSelector((state) => state.clientList)
+  const clientTasks = useSelector((state) => state.taskList.data)
+
   // const [pageNumber, setPageNumber] = useState(1)
   const [numPages, setNumPages] = useState(null)
-  const [pdf, setPDF] = useState('')
+  const [invoicePdf, setInvoicePdf] = useState('')
+
+  const invoiceTasks = clientTasks.map((task) => ({
+    name: task.description,
+    quantity: task.hours,
+    unit_cost: selectedClient.rate,
+  }))
+
+  const invoiceTemplate = {
+    logo: 'http://invoiced.com/img/logo-invoice.png',
+    from: '\nHappy Fly Company\n42 McFly Lance\nWellington\nNew Zealand',
+    to: selectedClient.business_name,
+    currency: 'NZD',
+    number: `${invoiceNumber()}-${selectedClient.id}`,
+    payment_terms: 'Please pay immediately',
+    items: invoiceTasks,
+    fields: {
+      tax: '%',
+    },
+    tax: 15,
+    notes: 'Thank you for your continued support. James McFly',
+    terms: 'Please pay immediately.',
+  }
+  console.log(invoiceTemplate)
 
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
     setNumPages(nextNumPages)
@@ -37,18 +57,21 @@ export function ShowPDF() {
   useEffect(() => {
     createInvoice(invoiceTemplate)
       .then((res) => {
-        setPDF(URL.createObjectURL(res))
+        setInvoicePdf(URL.createObjectURL(res))
       })
       .catch((err) => err)
   }, [])
 
-  return (
+  return invoicePdf ? (
+    <Document file={invoicePdf} onLoadSuccess={onDocumentLoadSuccess}>
+      {/* {Array.from(new Array(numPages), (el, index) => ( */}
+      {/* <Page key={`page_${index + 1}`} pageNumber={index + 1} /> */}
+      <Page pageNumber={2} />
+      {/* ))} */}
+    </Document>
+  ) : (
     <>
-      <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
-        {Array.from(new Array(numPages), (el, index) => (
-          <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-        ))}
-      </Document>
+      <Spinner color="red.500" /> Loading PDF ...
     </>
   )
 }
