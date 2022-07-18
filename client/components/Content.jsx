@@ -9,7 +9,7 @@ import {
   Flex,
   Spacer,
   CircularProgress,
-  Center
+  Center,
 } from '@chakra-ui/react'
 
 import { ClientDetails } from './clients/ClientDetails'
@@ -43,7 +43,7 @@ export function Content() {
   if (loading) {
     return (
       <Center>
-        <CircularProgress isIndeterminate color='teal.300' />
+        <CircularProgress isIndeterminate color="teal.300" />
       </Center>
     )
   }
@@ -61,7 +61,6 @@ export function Content() {
             <StatHelpText>Total Hours: {stats.hours}</StatHelpText>
           </Stat>
         </Flex>
-        
 
         <Divider />
 

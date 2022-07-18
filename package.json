@@ -81,6 +81,8 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@reduxjs/toolkit": "^1.8.3",
+    "danfojs": "^1.1.1",
+    "danfojs-node": "^1.1.1",
     "express": "^4.17.2",
     "express-jwt": "^7.7.5",
     "express-jwt-authz": "^2.4.1",

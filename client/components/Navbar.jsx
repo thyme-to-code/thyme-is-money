@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { UnorderedList, Heading, ListItem, Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel, Box } from '@chakra-ui/react'
 import { setSelectedClient } from '../reducers/clientList'
 
+
 export function Navbar() {
   const dispatch = useDispatch()
   const clients = useSelector((state) => state.clientList)
