@@ -10,9 +10,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
-// import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 import { ShowPDF } from './ShowPDF'
-// import { use } from '../../../server/routes/tasks'
 
 // Click create client invoice
 // Generates the invoice from API

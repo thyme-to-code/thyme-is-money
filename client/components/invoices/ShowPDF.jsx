@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 import { createInvoice } from '../../apis/invoices'
 import { Spinner } from '@chakra-ui/react'
 import { Tasks } from '../tasks/Tasks'
 import taskList from '../../reducers/taskList'
+
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+// import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
+import './ShowPdf.css'
+
+const options = {
+  cMapUrl: 'cmaps/',
+  cMapPacked: true,
+  standardFontDataUrl: 'standard_fonts/',
+}
 
 function invoiceNumber() {
   const myDate = new Date()
@@ -23,7 +32,6 @@ export function ShowPDF() {
   const { selectedClient } = useSelector((state) => state.clientList)
   const clientTasks = useSelector((state) => state.taskList.data)
 
-  // const [pageNumber, setPageNumber] = useState(1)
   const [numPages, setNumPages] = useState(null)
   const [invoicePdf, setInvoicePdf] = useState('')
 
@@ -48,7 +56,6 @@ export function ShowPDF() {
     notes: 'Thank you for your continued support. James McFly',
     terms: 'Please pay immediately.',
   }
-  console.log(invoiceTemplate)
 
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
     setNumPages(nextNumPages)
@@ -63,15 +70,24 @@ export function ShowPDF() {
   }, [])
 
   return invoicePdf ? (
-    <Document file={invoicePdf} onLoadSuccess={onDocumentLoadSuccess}>
-      {/* {Array.from(new Array(numPages), (el, index) => ( */}
-      {/* <Page key={`page_${index + 1}`} pageNumber={index + 1} /> */}
-      <Page pageNumber={2} />
-      {/* ))} */}
-    </Document>
+    <div className="Example">
+      <div className="Example__container">
+        <div className="Example__container__document">
+          <Document
+            file={invoicePdf}
+            onLoadSuccess={onDocumentLoadSuccess}
+            options={options}
+          >
+            {Array.from(new Array(numPages), (el, index) => (
+              <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+            ))}
+          </Document>
+        </div>
+      </div>
+    </div>
   ) : (
     <>
-      <Spinner color="red.500" /> Loading PDF ...
+      <Spinner color="green.400" /> Loading PDF ...
     </>
   )
 }
