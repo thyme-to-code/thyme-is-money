@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       domain="thyme-is-money.au.auth0.com"
       clientId="vrd0Ykva2cFUzMkyLc10F2Ns1vu1XoDU"
       audience="https://thyme-is-money/api"
+      redirectUri={window.location.origin}
     >
       <ChakraProvider>
         <Provider store={store}>

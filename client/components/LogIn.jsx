@@ -8,12 +8,10 @@ import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 function LogIn() {
   const { loginWithRedirect } = useAuth0()
 
-  function handleRegister(event) {
-    event.preventDefault()
-    loginWithRedirect({
-      redirectUri: `${window.location.origin}/register`,
-    })
-  }
+  // wip
+  // function handleRegister(event) {
+  //   event.preventDefault()
+  // }
 
   function handleLogIn(event) {
     event.preventDefault()
@@ -30,9 +28,9 @@ function LogIn() {
       </IfAuthenticated>
 
       <IfNotAuthenticated>
-        <Button colorScheme="whiteAlpha" mr="15px" onClick={handleRegister}>
+        {/* <Button colorScheme="whiteAlpha" mr="15px" onClick={handleRegister}>
           Register
-        </Button>
+        </Button> */}
         <Button colorScheme="whiteAlpha" onClick={handleLogIn}>
           Log In
         </Button>
