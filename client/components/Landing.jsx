@@ -1,11 +1,18 @@
 import React from 'react'
-// import styles from './Landing.module.css'
+import LogIn from './LogIn'
+import { Flex, Heading } from '@chakra-ui/react'
 
-function Landing() {
+export function Landing() {
+
   return (
     <div className="landing">
       <div className="context">
-        <h1>Thyme is Money</h1>
+        <Heading as="h1" color="#fff">
+          Thyme is Money
+        </Heading>
+        <Flex align="center" justify="center">
+          <LogIn />
+        </Flex>
       </div>
       <div className="background" >
         <div className="shapes">
@@ -25,4 +32,3 @@ function Landing() {
   )
 }
 
-export default Landing

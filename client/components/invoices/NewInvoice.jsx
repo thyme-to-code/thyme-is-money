@@ -1,30 +1,18 @@
-import React, { useState } from 'react'
-import { Button } from '@chakra-ui/react'
-import { createInvoice } from '../../apis/invoices'
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
-
-const invoiceTemplate = {
-  logo: 'http://invoiced.com/img/logo-invoice.png', // hard code
-  from: 'Invoiced\n701 Brazos St\nAustin, TX 78748', // hard code
-  to: 'Johnny Appleseed', // From client data
-  currency: 'NZD', // hard code
-  number: 'INV-0001', // From Invoice table
-  payment_terms: 'Auto-Billed - Do Not Pay', // hard coded
-  items: [
-    // Iterated from list of client task
-    {
-      name: 'Subscription to Starter',
-      quantity: 1,
-      unit_cost: 50, // Currently pulled from client data
-    },
-  ],
-  fields: {
-    tax: '%', // hard code
-  },
-  tax: 15, // hard code
-  notes: 'Thanks for being an awesome customer!', // hard code
-  terms: 'No need to submit payment. You will be auto-billed for this invoice.', // hard code
-}
+import React from 'react'
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from '@chakra-ui/react'
+// import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+import { ShowPDF } from './ShowPDF'
+// import { use } from '../../../server/routes/tasks'
 
 // Click create client invoice
 // Generates the invoice from API
@@ -34,31 +22,32 @@ const invoiceTemplate = {
 // Prompt for save location
 
 export function NewInvoice() {
-  const [pageNumber, setPageNumber] = useState(1)
-
-  let res
-  let pdfURL
-  let invoice
-
-  async function handleClick(e) {
-    e.preventDefault()
-    res = await createInvoice(invoiceTemplate)
-    console.log('response', res)
-    invoice = new Blob([res], { type: 'application/pdf' })
-    console.log('invoice', invoice)
-    pdfURL = URL.createObjectURL(res)
-    console.log('pdfURL', pdfURL)
-  }
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
-      <Button onClick={handleClick} colorScheme="teal">
+      <Button onClick={onOpen} colorScheme="teal">
         Create Invoice
       </Button>
-      {/* <Document file="https://assets.ctfassets.net/l3l0sjr15nav/29D2yYGKlHNm0fB2YM1uW4/8e638080a0603252b1a50f35ae8762fd/Get_Started_With_Smallpdf.pdf"> */}
-      <Document file={pdfURL}>
-        <Page pageNumber={pageNumber} />
-      </Document>
+
+      <Modal isOpen={isOpen} onClose={onClose} size="full">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader color="#0CA789">Preview Invoice</ModalHeader>
+          <ModalCloseButton />
+
+          <ModalBody pb={6}></ModalBody>
+          <ShowPDF />
+          <ModalFooter>
+            <Button mr={3} colorScheme="gray" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button type="submit" colorScheme="teal">
+              Create
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   )
 }
