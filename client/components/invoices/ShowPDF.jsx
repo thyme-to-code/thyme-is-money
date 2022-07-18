@@ -6,7 +6,6 @@ import { Tasks } from '../tasks/Tasks'
 import taskList from '../../reducers/taskList'
 
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
-// import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
 import './ShowPdf.css'
 
 const options = {
@@ -70,9 +69,9 @@ export function ShowPDF() {
   }, [])
 
   return invoicePdf ? (
-    <div className="Example">
-      <div className="Example__container">
-        <div className="Example__container__document">
+    <div className="pdf">
+      <div className="pdf__container">
+        <div className="pdf__container__document">
           <Document
             file={invoicePdf}
             onLoadSuccess={onDocumentLoadSuccess}

@@ -4,24 +4,24 @@ body {
   font-family: Segoe UI, Tahoma, sans-serif;
 }
 
-.Example input,
-.Example button {
+.pdf input,
+.pdf button {
   font: inherit;
 }
 
-.Example header {
+.pdf header {
   background-color: #323639;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
   padding: 20px;
   color: white;
 }
 
-.Example header h1 {
+.pdf header h1 {
   font-size: inherit;
   margin: 0;
 }
 
-.Example__container {
+.pdf__container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,33 +29,33 @@ body {
   padding: 10px;
 }
 
-.Example__container__load {
+.pdf__container__load {
   margin-top: 1em;
   color: white;
 }
 
-.Example__container__document {
+.pdf__container__document {
   margin: 1em 0;
 }
 
-.Example__container__document .react-pdf__Document {
+.pdf__container__document .react-pdf__Document {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.Example__container__document .react-pdf__Page {
+.pdf__container__document .react-pdf__Page {
   max-width: calc(100% - 2em);
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
   margin: 1em;
 }
 
-.Example__container__document .react-pdf__Page canvas {
+.pdf__container__document .react-pdf__Page canvas {
   max-width: 100%;
   height: auto !important;
 }
 
-.Example__container__document .react-pdf__message {
+.pdf__container__document .react-pdf__message {
   padding: 20px;
   color: white;
 }

@@ -42,7 +42,7 @@ export function NewInvoice() {
               Cancel
             </Button>
             <Button type="submit" colorScheme="teal">
-              Approve
+              Approve & Download
             </Button>
           </ModalFooter>
         </ModalContent>
