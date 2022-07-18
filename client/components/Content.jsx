@@ -6,6 +6,10 @@ import {
   StatNumber,
   StatHelpText,
   Divider,
+  Flex,
+  Spacer,
+  CircularProgress,
+  Center
 } from '@chakra-ui/react'
 
 import { ClientDetails } from './clients/ClientDetails'
@@ -37,21 +41,27 @@ export function Content() {
   }, [taskList])
 
   if (loading) {
-    return <>Loading...</>
+    return (
+      <Center>
+        <CircularProgress isIndeterminate color='teal.300' />
+      </Center>
+    )
   }
 
   return (
     selectedClient.id && (
       <>
-        <ClientDetails />
-
-        <Divider />
-        {/* TODO Consider refactoring into a ClientStats component */}
-        <Stat>
-          <StatLabel>Uninvoiced Amount</StatLabel>
-          <StatNumber>${stats.uninvoicedAmount}</StatNumber>
-          <StatHelpText>Total Hours: {stats.hours}</StatHelpText>
-        </Stat>
+        <Flex>
+          <ClientDetails />
+          <Spacer />
+          {/* TODO Consider refactoring into a ClientStats component */}
+          <Stat>
+            <StatLabel>Uninvoiced Amount</StatLabel>
+            <StatNumber>${stats.uninvoicedAmount}</StatNumber>
+            <StatHelpText>Total Hours: {stats.hours}</StatHelpText>
+          </Stat>
+        </Flex>
+        
 
         <Divider />
 
