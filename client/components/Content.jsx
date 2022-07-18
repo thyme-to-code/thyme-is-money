@@ -16,7 +16,6 @@ import { setUninvoicedTotals } from '../reducers/taskList'
 
 export function Content() {
   const dispatch = useDispatch()
-  // Selectors
   const { selectedClient, loading } = useSelector((state) => state.clientList)
   const { data: tasks, uninvoiced } = useSelector((state) => state.taskList)
 
@@ -34,7 +33,7 @@ export function Content() {
         <ClientDetails />
 
         <Divider />
-        {/* TODO Consider refactoring into a ClientStats component */}
+
         <Stat>
           <StatLabel>Uninvoiced Amount</StatLabel>
           <StatNumber>${uninvoiced.amount}</StatNumber>
