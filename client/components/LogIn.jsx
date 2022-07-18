@@ -1,16 +1,12 @@
 import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Button } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
 
 function LogIn() {
-  const { logout, loginWithRedirect } = useAuth0()
-
-  function handleLogOut(event) {
-    event.preventDefault()
-    logout()
-  }
+  const { loginWithRedirect } = useAuth0()
 
   function handleRegister(event) {
     event.preventDefault()
@@ -24,11 +20,12 @@ function LogIn() {
     loginWithRedirect()
   }
 
+
   return (
     <>
       <IfAuthenticated>
-        <Button colorScheme="whiteAlpha" onClick={handleLogOut}>
-          Log out
+        <Button colorScheme="whiteAlpha">
+          <Link to="/home">Continue</Link>
         </Button>
       </IfAuthenticated>
 

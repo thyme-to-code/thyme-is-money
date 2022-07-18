@@ -1,41 +1,18 @@
 import React from 'react'
-import { useAuth0 } from '@auth0/auth0-react'
-import { Button } from '@chakra-ui/react'
-
-import { IfAuthenticated, IfNotAuthenticated } from './Authenticated'
+import LogIn from './LogIn'
+import { Flex, Heading } from '@chakra-ui/react'
 
 export function Landing() {
-  const { loginWithRedirect } = useAuth0()
-
-  function handleRegister(event) {
-    event.preventDefault()
-    loginWithRedirect({
-      redirectUri: `${window.location.origin}/register`,
-    })
-  }
-
-  function handleLogIn(event) {
-    event.preventDefault()
-    loginWithRedirect()
-  }
 
   return (
     <div className="landing">
       <div className="context">
-        <h1>Thyme is Money</h1>
-        <IfAuthenticated>
-        <Button colorScheme="whiteAlpha">
-          Continue
-        </Button>
-      </IfAuthenticated>
-        <IfNotAuthenticated>
-          <Button colorScheme="whiteAlpha" mr="15px" onClick={handleRegister}>
-            Register
-          </Button>
-          <Button colorScheme="whiteAlpha" onClick={handleLogIn}>
-            Log In
-          </Button>
-        </IfNotAuthenticated>
+        <Heading as="h1" color="#fff">
+          Thyme is Money
+        </Heading>
+        <Flex align="center" justify="center">
+          <LogIn />
+        </Flex>
       </div>
       <div className="background" >
         <div className="shapes">

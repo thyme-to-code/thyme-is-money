@@ -4,8 +4,6 @@ import { Routes, Route } from 'react-router-dom'
 import { Landing } from './Landing'
 import { Main } from './Main'
 
-
-
 function App() {
   return (
     <>

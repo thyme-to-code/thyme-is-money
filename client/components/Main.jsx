@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { ChakraProvider, Grid, GridItem } from '@chakra-ui/react'
+import { Grid, GridItem } from '@chakra-ui/react'
 import { getClients } from '../reducers/clientList'
 import { Content } from './Content'
 import { Footer } from './Footer'
