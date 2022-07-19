@@ -2,11 +2,9 @@ const express = require('express')
 const request = require('superagent')
 const router = express.Router()
 
-const invoiceApi = `https://invoice-generator.com`
-
 const {
   getInvoices,
-  addInvoice,
+  createInvoice,
   updateInvoice,
   getInvoiceByClientID,
   getInvoicesAndClientInfo,
@@ -60,7 +58,8 @@ router.get('/client/:client_id', (req, res) => {
     })
 })
 
-// /api/v1/invoices/pdf
+const invoiceApi = `https://invoice-generator.com`
+// /api/v1/invoices/CreatePDF
 router.post('/createPDF', (req, res) => {
   return request
     .post(invoiceApi)
@@ -68,8 +67,8 @@ router.post('/createPDF', (req, res) => {
     .pipe(res.contentType('application/pdf'))
 })
 
-router.post('/add', (req, res) => {
-  addInvoice(req.body)
+router.post('/create', (req, res) => {
+  createInvoice(req.body)
     .then((id) => {
       res.json(id)
     })
@@ -79,7 +78,7 @@ router.post('/add', (req, res) => {
     })
 })
 
-router.post('/update', (req, res) => {
+router.patch('/update', (req, res) => {
   updateInvoice(req.body)
     .then((client) => {
       res.json(client)

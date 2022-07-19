@@ -11,3 +11,10 @@ export function createInvoice(invoice) {
       return res.body
     })
 }
+
+export function saveInvoice(invoice) {
+  return request
+    .post(rootUrl + '/create')
+    .send(invoice)
+    .then((res) => res.body)
+}

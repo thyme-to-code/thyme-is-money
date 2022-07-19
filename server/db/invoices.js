@@ -23,6 +23,38 @@ function updateInvoice(invoice, db = conn) {
   return db('invoices').where('id', invoice.id).update(invoice)
 }
 
+async function createInvoice(invoice, db = conn) {
+  const { client_id, total, tasks, invoice_json } = invoice
+  const today = new Date()
+  try {
+    await db.transaction(async (trx) => {
+      const [invoice_id] = await db('invoices')
+        .insert({
+          client_id,
+          date_sent: today,
+          total,
+          invoice_json,
+          created_at: today,
+        })
+        .transacting(trx)
+
+      // Instead of passing all the task objects you could pass an array of task Ids
+      const taskIds = tasks.map((task) => task.id)
+
+      await db('tasks')
+        .whereIn('id', taskIds)
+        .update({
+          invoice_id,
+          status: 'invoiced',
+          updated_at: today,
+        })
+        .transacting(trx)
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 function getInvoicesAndClientInfo(db = conn) {
   return db('invoices')
     .join('clients', 'invoices.client_id', 'clients.id')
@@ -40,6 +72,7 @@ function getInvoicesAndClientInfo(db = conn) {
 }
 
 module.exports = {
+  createInvoice,
   getInvoices,
   addInvoice,
   updateInvoice,

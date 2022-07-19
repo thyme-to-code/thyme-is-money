@@ -31,31 +31,35 @@ export function Tasks() {
         </SimpleGrid>
       )}
 
-      {taskList?.data.map((task) => (
-        <SimpleGrid key={task.id} columns={4} spacing={10}>
-          <Box>
-            <>{task.description} </>
-          </Box>
-          <Box>
-            <>{task.hours}</>
-          </Box>
-          <Box>
-            <>${task.hours * selectedClient.rate}</>
-          </Box>
-          <Box>
-            <Button
-              m={1}
-              colorScheme="teal"
-              size="sm"
-              id={task.id}
-              value={task.id}
-              onClick={handleDelete}
-            >
-              x
-            </Button>
-          </Box>
-        </SimpleGrid>
-      ))}
+      {taskList?.data.length > 0 ? (
+        taskList?.data.map((task) => (
+          <SimpleGrid key={task.id} columns={4} spacing={10}>
+            <Box>
+              <>{task.description} </>
+            </Box>
+            <Box>
+              <>{task.hours}</>
+            </Box>
+            <Box>
+              <>${task.hours * selectedClient.rate}</>
+            </Box>
+            <Box>
+              <Button
+                m={1}
+                colorScheme="teal"
+                size="sm"
+                id={task.id}
+                value={task.id}
+                onClick={handleDelete}
+              >
+                x
+              </Button>
+            </Box>
+          </SimpleGrid>
+        ))
+      ) : (
+        <>No uninvoiced tasks.</>
+      )}
     </div>
   )
 }

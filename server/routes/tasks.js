@@ -30,6 +30,7 @@ router.get('/:client', (req, res) => {
 
 // POST /api/v1/tasks/add
 router.post('/add', (req, res) => {
+  console.log(req.body)
   const task = req.body
   db.addTaskByClient(task)
     .then((task) => {
