@@ -20,9 +20,9 @@ export function saveInvoice(invoice) {
 }
 
 export function getInvoicesByClient(id) {
-  return request.post(rootUrl + '/client/' + Number(id)).then((res) => res.body)
+  return request.get(rootUrl + '/client/' + Number(id)).then((res) => res.body)
 }
 
 export function getInvoices() {
-  return request.post(rootUrl + '/all/').then((res) => res.body)
+  return request.get(rootUrl + '/all/').then((res) => res.body)
 }
