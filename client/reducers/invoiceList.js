@@ -26,7 +26,7 @@ const initialState = {
 }
 
 export const getClientInvoiceList = createAsyncThunk(
-  'invoiceList/getInvoiceList',
+  'invoiceList/getClientInvoiceList',
   async (clientId) => {
     const res = await getInvoicesByClient(clientId)
     return res
@@ -34,7 +34,7 @@ export const getClientInvoiceList = createAsyncThunk(
 )
 
 export const getFullInvoiceList = createAsyncThunk(
-  'invoiceList/getInvoiceList',
+  'invoiceList/getFullInvoiceList',
   async () => {
     const res = await getInvoices()
     return res
