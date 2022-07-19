@@ -40,7 +40,6 @@ export function NewTask() {
               hours: '',
               status: 'uninvoiced',
               client_id: selectedClient.id,
-              created_at: new Date(),
             }}
             onSubmit={(newTask) => {
               dispatch(addClientTask(newTask))

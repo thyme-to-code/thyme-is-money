@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const initialState = {
   list: [],
   invoiceJson: {
+    header: 'TAX INVOICE',
     logo: 'http://invoiced.com/img/logo-invoice.png',
     from: '\nHappy Fly Company\n42 McFly Lane\nWellington\nNew Zealand',
     to: '',

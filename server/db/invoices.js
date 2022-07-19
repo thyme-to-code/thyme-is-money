@@ -31,10 +31,11 @@ async function createInvoice(invoice, db = conn) {
       const [invoice_id] = await db('invoices')
         .insert({
           client_id,
-          date_sent: today,
+          date_sent: today.toISOString(),
           total,
           invoice_json,
-          created_at: today,
+          created_at: today.toISOString(),
+          updated_at: today.toISOString(),
         })
         .transacting(trx)
 
@@ -46,7 +47,7 @@ async function createInvoice(invoice, db = conn) {
         .update({
           invoice_id,
           status: 'invoiced',
-          updated_at: today,
+          updated_at: today.toISOString(),
         })
         .transacting(trx)
     })

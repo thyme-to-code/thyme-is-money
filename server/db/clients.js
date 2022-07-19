@@ -15,15 +15,22 @@ function getClients(id = null, db = conn) {
 }
 
 function addClient(client, db = conn) {
+  const today = new Date()
   return db('clients')
-    .insert(client)
+    .insert({
+      ...client,
+      isActive: true,
+      created_at: today.toISOString(),
+      updated_at: today.toISOString(),
+    })
     .then(([id]) => db('clients').where({ id }).first())
 }
 
 function updateClient(client, db = conn) {
+  const today = new Date()
   return db('clients')
     .where('id', client.id)
-    .update(client)
+    .update({ ...client, updated_at: today.toISOString() })
     .then(() => db('clients').where('id', client.id).first())
 }
 
