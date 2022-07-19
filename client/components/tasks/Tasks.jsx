@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Button, SimpleGrid, Box } from '@chakra-ui/react'
+import { Button, SimpleGrid, Box, Stack } from '@chakra-ui/react'
 
 import { deleteTask } from '../../apis/tasks'
 import { getActiveClientTasks } from '../../reducers/taskList'
+import { EditTask } from './EditTask'
 
 export function Tasks() {
   const dispatch = useDispatch()
@@ -27,7 +28,7 @@ export function Tasks() {
           <Box w="50%">Task</Box>
           <Box>Hours</Box>
           <Box>Amount</Box>
-          <Box>Remove</Box>
+          <Box>Action</Box>
         </SimpleGrid>
       )}
 
@@ -44,16 +45,19 @@ export function Tasks() {
               <>${task.hours * selectedClient.rate}</>
             </Box>
             <Box>
-              <Button
-                m={1}
-                colorScheme="teal"
-                size="sm"
-                id={task.id}
-                value={task.id}
-                onClick={handleDelete}
-              >
-                x
-              </Button>
+              <Stack direction="row" align="center" spacing={1}>
+                <Button
+                  m={1}
+                  colorScheme="teal"
+                  size="sm"
+                  id={task.id}
+                  value={task.id}
+                  onClick={handleDelete}
+                >
+                  x
+                </Button>
+                <EditTask value={{task, client_id: selectedClient.id}} />
+              </Stack>
             </Box>
           </SimpleGrid>
         ))

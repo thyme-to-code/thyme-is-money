@@ -7,6 +7,7 @@ module.exports = {
   addTaskByClient,
   deleteTaskById,
   getTasksByClient,
+  updateTaskById,
 }
 
 function getAllTasks(db = connection) {
@@ -58,4 +59,9 @@ function addTaskByClient(task, db = connection) {
 
 function deleteTaskById(id, db = connection) {
   return db('tasks').where({ id }).delete()
+}
+
+function updateTaskById(task, id, db = connection) {
+  const { description, hours } = task
+  return db(`tasks`).where({ id }).update({ hours, description })
 }
