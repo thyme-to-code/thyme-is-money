@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 import { NewClient } from './clients/NewClient'
 import { UpdateClient } from './clients/UpdateClient'
-import { InvoiceCsv } from './invoices/InvoiceCSV'
+import { InvoiceCsv } from './invoices/InvoiceCsv'
 
 export function Header() {
   const { logout } = useAuth0()
@@ -27,14 +27,9 @@ export function Header() {
       </Box>
       <Spacer />
       <Box mr={3}>
-        {selectedClient.id && <UpdateClient />}
-        <NewClient />
         <Button colorScheme="whiteAlpha" onClick={handleLogOut}>
           <Link to="/">Log Out</Link>
         </Button>
-      </Box>
-      <Box>
-        <InvoiceCsv />
       </Box>
     </Flex>
   )

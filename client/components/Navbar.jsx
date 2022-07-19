@@ -9,9 +9,11 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
+  Spacer,
 } from '@chakra-ui/react'
 import { setSelectedClient } from '../reducers/clientList'
-
+import { InvoiceCsv } from './invoices/InvoiceCsv'
+import { NewClient } from './clients/NewClient'
 
 export function Navbar() {
   const dispatch = useDispatch()
@@ -34,6 +36,7 @@ export function Navbar() {
 
   return (
     <>
+      <NewClient />
       <Accordion allowToggle>
         <AccordionItem>
           <h2>
@@ -60,6 +63,8 @@ export function Navbar() {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
+      <Spacer />
+      <InvoiceCsv />
     </>
   )
 }
