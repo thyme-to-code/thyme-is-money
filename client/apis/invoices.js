@@ -14,7 +14,7 @@ export function createInvoice(invoice) {
 
 export function saveInvoice(invoice) {
   return request
-    .post(rootUrl + '/add')
+    .post(rootUrl + '/create')
     .send(invoice)
     .then((res) => res.body)
 }

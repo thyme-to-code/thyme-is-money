@@ -27,6 +27,9 @@ export const clientListSlice = createSlice({
     setSelectedClient: (state, action) => {
       state.selectedClient = action.payload
     },
+    clearSelectClient: (state) => {
+      state.selectedClient = {}
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getClients.pending, (state) => {
