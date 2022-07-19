@@ -26,7 +26,7 @@ export function NewTask() {
 
   return (
     <>
-      <Button mr={3} onClick={onOpen} colorScheme="teal">
+      <Button mr={3} onClick={onOpen} bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
         Create Task
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -40,7 +40,6 @@ export function NewTask() {
               hours: '',
               status: 'uninvoiced',
               client_id: selectedClient.id,
-              created_at: new Date(),
             }}
             onSubmit={(newTask) => {
               dispatch(addClientTask(newTask))
@@ -75,7 +74,7 @@ export function NewTask() {
                 <Button mr={3} colorScheme="gray" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button type="submit" colorScheme="teal">
+                <Button type="submit" bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
                   Create
                 </Button>
               </ModalFooter>

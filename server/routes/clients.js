@@ -28,8 +28,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const data = { ...req.body, isActive: true, created_at: new Date() }
-  addClient(data)
+  addClient(req.body)
     .then((id) => {
       res.json(id)
     })

@@ -3,8 +3,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const initialState = {
   list: [],
   invoiceJson: {
-    logo: 'http://invoiced.com/img/logo-invoice.png',
-    from: '\nHappy Fly Company\n42 McFly Lane\nWellington\nNew Zealand',
+    header: 'TAX INVOICE',
+    tax_title: 'GST',
+    logo: 'https://whau.haume.nz/thyme.png',
+    from: '\nThyme is Money Inc\n42 Thyme Lane\nWellington\nNew Zealand',
     to: '',
     currency: 'NZD',
     number: '',
@@ -14,7 +16,7 @@ const initialState = {
       tax: '%',
     },
     tax: 15,
-    notes: 'Thank you for your continued support. James McFly',
+    notes: 'Thank you for your continued support. - The Thyme Team',
     terms: '',
   },
   invoicePdfUrl: '',

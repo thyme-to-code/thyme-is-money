@@ -44,9 +44,7 @@ export function EditTask(props) {
               id,
             }}
             onSubmit={(newTask) => {
-              // console.log(newTask)
               dispatch(updateClientTask(newTask))
-              // edit task
               onClose()
             }}
           >

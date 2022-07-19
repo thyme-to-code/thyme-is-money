@@ -11,6 +11,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
+
 import { ShowPDF } from './ShowPDF'
 import { saveInvoice } from '../../apis/invoices'
 import { getActiveClientTasks } from '../../reducers/taskList'
@@ -23,15 +24,15 @@ export function NewInvoice() {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { selectedClient } = useSelector((state) => state.clientList)
-  const taskList = useSelector((state) => state.taskList)
-  const invoiceJson = useSelector((state) => state.invoiceList.invoiceJson)
-  const { invoicePdfUrl } = useSelector((state) => state.invoiceList)
-
+  const { data: tasks, uninvoiced } = useSelector((state) => state.taskList)
+  const { invoicePdfUrl, invoiceJson } = useSelector(
+    (state) => state.invoiceList
+  )
   const [isApproved, setIsApproved] = useState(false)
 
   const saveFile = async (pdfUrl) => {
     const a = document.createElement('a')
-    a.download = 'invoice.pdf'
+    a.download = `${selectedClient.business_name}-invoice.pdf`
     a.href = pdfUrl
     a.click()
   }
@@ -40,8 +41,8 @@ export function NewInvoice() {
     e.preventDefault()
     const invoice = {
       client_id: selectedClient.id,
-      tasks: taskList.data,
-      total: (taskList.uninvoiced.amount * 1.15).toFixed(2),
+      tasks,
+      total: (uninvoiced.amount * 1.15).toFixed(2),
       invoice_json: invoiceJson,
     }
     if (isApproved) {
@@ -52,22 +53,29 @@ export function NewInvoice() {
     }
   }
 
-  function handleClose(e) {
-    e.preventDefault()
+  function afterClose() {
     dispatch(clearInvoicePdfUrl())
     dispatch(clearInvoiceJson())
-    dispatch(getActiveClientTasks())
+    if (isApproved) {
+      dispatch(getActiveClientTasks(selectedClient.id))
+      setIsApproved(false)
+    }
     onClose()
   }
 
   return (
     <>
-      {taskList.data.length > 0 && (
-        <Button onClick={onOpen} colorScheme="teal">
+      {tasks.length > 0 && (
+        <Button onClick={onOpen} bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
           Create Invoice
         </Button>
       )}
-      <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size="2xl"
+        onCloseComplete={afterClose}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color="#0CA789">Preview Invoice</ModalHeader>
@@ -77,15 +85,15 @@ export function NewInvoice() {
             <ShowPDF />
           </ModalBody>
           <ModalFooter>
-            <Button mr={3} colorScheme="gray" onClick={handleClose}>
+            <Button mr={3} colorScheme="gray" onClick={onClose}>
               Close
             </Button>
             {isApproved ? (
-              <Button onClick={handleClick} type="submit" colorScheme="teal">
+              <Button onClick={handleClick} type="submit" bg="brand.400" color="brand.50" _hover={{ bg: "brand.500" }}>
                 Download
               </Button>
             ) : (
-              <Button onClick={handleClick} type="submit" colorScheme="teal">
+              <Button onClick={handleClick} type="submit" bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
                 Approve
               </Button>
             )}
