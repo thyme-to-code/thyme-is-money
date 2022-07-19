@@ -1,5 +1,6 @@
 import {
   Button,
+  Heading,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -27,7 +28,6 @@ export function ClientInvoiceList() {
 
   useEffect(() => {
     dispatch(getClientInvoiceList(selectedClient.id))
-    console.log(client)
   }, [selectedClient])
 
   return (
@@ -41,18 +41,26 @@ export function ClientInvoiceList() {
       >
         Invoices
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size="5xl">
         <ModalOverlay />
-        <ModalHeader color="#0CA789">Client Invoice History</ModalHeader>
-        <ModalCloseButton />
         <ModalContent>
+          <ModalHeader color="#0CA789">Client Invoice History</ModalHeader>
+          <ModalCloseButton />
           <ModalBody>
             <TableContainer>
               <Table>
                 <Thead>
                   <Tr>
-                    <Td>Invoice</Td>
-                    <Td>Total</Td>
+                    <Td>
+                      <Heading as="h3" size="md">
+                        Invoice
+                      </Heading>
+                    </Td>
+                    <Td>
+                      <Heading as="h3" size="md">
+                        Total
+                      </Heading>
+                    </Td>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -71,6 +79,7 @@ export function ClientInvoiceList() {
               type="submit"
               bg="brand.100"
               color="brand.50"
+              onClick={onClose}
               _hover={{ bg: 'brand.200' }}
             >
               Done
