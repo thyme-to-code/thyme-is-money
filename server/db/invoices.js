@@ -55,10 +55,27 @@ async function createInvoice(invoice, db = conn) {
   }
 }
 
+function getInvoicesAndClientInfo(db = conn) {
+  return db('invoices')
+    .join('clients', 'invoices.client_id', 'clients.id')
+    .select(
+      'invoices.id as invoice_number',
+      'invoices.total',
+      'invoices.date_sent',
+      'invoices.date_paid',
+      'clients.id as client_id',
+      'clients.business_name',
+      'clients.contact_name',
+      'clients.email',
+      'clients.rate'
+    )
+}
+
 module.exports = {
   createInvoice,
   getInvoices,
   addInvoice,
   updateInvoice,
   getInvoiceByClientID,
+  getInvoicesAndClientInfo,
 }

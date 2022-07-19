@@ -7,6 +7,7 @@ const {
   createInvoice,
   updateInvoice,
   getInvoiceByClientID,
+  getInvoicesAndClientInfo,
 } = require('../db/invoices')
 
 router.get('/', (req, res) => {
@@ -17,6 +18,18 @@ router.get('/', (req, res) => {
     .catch((err) => {
       console.error(err)
       throw new Error('Failed to fetch invoices')
+    })
+})
+
+// '/api/v1/invoices'
+router.get('/all', (req, res) => {
+  getInvoicesAndClientInfo()
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      res.status(500).send(`server error`)
+      console.error(err)
     })
 })
 

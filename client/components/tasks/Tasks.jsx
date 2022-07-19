@@ -31,7 +31,7 @@ export function Tasks() {
         </SimpleGrid>
       )}
 
-      {taskList?.data > 0 ? (
+      {taskList?.data.length > 0 ? (
         taskList?.data.map((task) => (
           <SimpleGrid key={task.id} columns={4} spacing={10}>
             <Box>
