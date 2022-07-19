@@ -3,7 +3,7 @@ import clientList, {
   clearSelectedClient,
 } from '../clientList'
 
-describe('clientList reducer', () => {
+describe('clientList reducers', () => {
   it('sets the selected client into state', () => {
     const oldState = {}
     const action = setSelectedClient({
