@@ -1,7 +1,17 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { UnorderedList, Heading, ListItem, Accordion, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel, Box } from '@chakra-ui/react'
+import {
+  UnorderedList,
+  Heading,
+  ListItem,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
+} from '@chakra-ui/react'
 import { setSelectedClient } from '../reducers/clientList'
+
 
 export function Navbar() {
   const dispatch = useDispatch()
@@ -37,7 +47,12 @@ export function Navbar() {
           <AccordionPanel pb={4}>
             <UnorderedList fontWeight="bold" color="#0CA789" cursor="pointer">
               {orderedCompanyNames.map((company, i) => (
-                <ListItem onClick={() => handleClick(company)} key={i} listStyleType="none" boxShadow='sm'>
+                <ListItem
+                  onClick={() => handleClick(company)}
+                  key={i}
+                  listStyleType="none"
+                  boxShadow="sm"
+                >
                   {company}
                 </ListItem>
               ))}

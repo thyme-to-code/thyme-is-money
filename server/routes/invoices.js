@@ -1,11 +1,15 @@
 const express = require('express')
+const request = require('superagent')
 const router = express.Router()
+
+const invoiceApi = `https://invoice-generator.com`
 
 const {
   getInvoices,
   addInvoice,
   updateInvoice,
   getInvoiceByClientID,
+  getInvoicesAndClientInfo,
 } = require('../db/invoices')
 
 router.get('/', (req, res) => {
@@ -19,6 +23,18 @@ router.get('/', (req, res) => {
     })
 })
 
+// '/api/v1/invoices'
+router.get('/all', (req, res) => {
+  getInvoicesAndClientInfo()
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      res.status(500).send(`server error`)
+      console.error(err)
+    })
+})
+
 //* TODO impliment getInvoicesByYear
 
 router.get('/:id', (req, res) => {
@@ -28,7 +44,6 @@ router.get('/:id', (req, res) => {
     })
     .catch((err) => {
       console.error(err)
-      throw new Error('Failed to fetch invoice id: ' + req.params.id)
     })
 })
 
@@ -43,6 +58,14 @@ router.get('/client/:client_id', (req, res) => {
         'Failed to fetch invoices for client id: ' + req.params.client_id
       )
     })
+})
+
+// /api/v1/invoices/pdf
+router.post('/createPDF', (req, res) => {
+  return request
+    .post(invoiceApi)
+    .send(req.body)
+    .pipe(res.contentType('application/pdf'))
 })
 
 router.post('/add', (req, res) => {

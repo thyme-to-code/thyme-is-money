@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  background-color: #525659;
+  font-family: Segoe UI, Tahoma, sans-serif;
+}
+
+.pdf input,
+.pdf button {
+  font: inherit;
+}
+
+.pdf header {
+  background-color: #323639;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  color: white;
+}
+
+.pdf header h1 {
+  font-size: inherit;
+  margin: 0;
+}
+
+.pdf__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.pdf__container__load {
+  margin-top: 1em;
+  color: white;
+}
+
+.pdf__container__document {
+  margin: 1em 0;
+}
+
+.pdf__container__document .react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pdf__container__document .react-pdf__Page {
+  max-width: calc(100% - 2em);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  margin: 1em;
+}
+
+.pdf__container__document .react-pdf__Page canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+.pdf__container__document .react-pdf__message {
+  padding: 20px;
+  color: white;
+}
