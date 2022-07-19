@@ -9,8 +9,13 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
+  Select,
+  FormLabel,
 } from '@chakra-ui/react'
-import { setSelectedClient } from '../../reducers/clientList'
+import {
+  setSelectedClient,
+  clearSelectedClient,
+} from '../../reducers/clientList'
 
 export function ClientSelector() {
   const dispatch = useDispatch()
@@ -26,6 +31,16 @@ export function ClientSelector() {
     )
     return dispatch(setSelectedClient(myClient))
   }
+  function handleChange(e) {
+    if (e.target.value) {
+      const myClient = clients.data.find(
+        (client) => client.business_name == e.target.value
+      )
+      return dispatch(setSelectedClient(myClient))
+    } else {
+      return dispatch(clearSelectedClient())
+    }
+  }
 
   if (clients.loading) {
     return <>Loading ...</>
@@ -33,32 +48,18 @@ export function ClientSelector() {
 
   return (
     <>
-      <Accordion allowToggle>
-        <AccordionItem>
-          <h2>
-            <AccordionButton>
-              <Heading as="h2" fontSize="2xl" color="#0CA789">
-                Clients
-              </Heading>
-              <AccordionIcon />
-            </AccordionButton>
-          </h2>
-          <AccordionPanel pb={4}>
-            <UnorderedList fontWeight="bold" color="#0CA789" cursor="pointer">
-              {orderedCompanyNames.map((company, i) => (
-                <ListItem
-                  onClick={() => handleClick(company)}
-                  key={i}
-                  listStyleType="none"
-                  boxShadow="sm"
-                >
-                  {company}
-                </ListItem>
-              ))}
-            </UnorderedList>
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
+      <FormLabel>
+        <Heading as="h2" fontSize="2xl" color="#0CA789">
+          Select Client
+        </Heading>
+      </FormLabel>
+      <Select onChange={handleChange} placeholder="Summary Page">
+        {orderedCompanyNames.map((company, i) => (
+          <option key={i} value={company}>
+            {company}
+          </option>
+        ))}
+      </Select>
     </>
   )
 }
