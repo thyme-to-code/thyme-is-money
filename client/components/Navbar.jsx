@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { setSelectedClient } from '../reducers/clientList'
 
+
 export function Navbar() {
   const dispatch = useDispatch()
   const clients = useSelector((state) => state.clientList)
