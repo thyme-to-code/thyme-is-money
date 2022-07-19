@@ -24,6 +24,7 @@ export function NewClient() {
       <Button
         onClick={onOpen}
         bg="brand.100"
+        mb={3}
         color="brand.50"
         _hover={{ bg: 'brand.200' }}
       >

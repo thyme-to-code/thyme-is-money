@@ -46,6 +46,7 @@ export function InvoiceCsv() {
       <Button
         onClick={() => handleClick()}
         bg="brand.100"
+        mb={3}
         color="brand.50"
         _hover={{ bg: 'brand.200' }}
       >
