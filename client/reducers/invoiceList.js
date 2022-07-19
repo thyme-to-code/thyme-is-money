@@ -4,6 +4,7 @@ const initialState = {
   list: [],
   invoiceJson: {
     header: 'TAX INVOICE',
+    tax_title: 'GST',
     logo: 'http://invoiced.com/img/logo-invoice.png',
     from: '\nHappy Fly Company\n42 McFly Lane\nWellington\nNew Zealand',
     to: '',
