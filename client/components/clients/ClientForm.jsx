@@ -13,8 +13,6 @@ import {
 } from '@chakra-ui/react'
 
 export function ClientForm(props) {
-  // const { onClose } = useDisclosure()
-
   return (
     <Form>
       <ModalBody>
@@ -81,7 +79,8 @@ export function ClientForm(props) {
           Cancel
         </Button>
         <Button
-          colorScheme="teal"
+          ccolor="brand.50" 
+          _hover={{ bg: "brand.200" }}
           variant={props.isUpdate ? 'outline' : 'solid'}
           type="submit"
         >

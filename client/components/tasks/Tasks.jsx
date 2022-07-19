@@ -23,7 +23,7 @@ export function Tasks() {
   return (
     <div className="tasks">
       {selectedClient.business_name && (
-        <SimpleGrid columns={4} spacing={10}>
+        <SimpleGrid columns={4} spacing={10} fontWeight="bold">
           <Box w="50%">Task</Box>
           <Box>Hours</Box>
           <Box>Amount</Box>
@@ -46,7 +46,8 @@ export function Tasks() {
             <Box>
               <Button
                 m={1}
-                colorScheme="teal"
+                bg="brand.100" color="brand.50" 
+                _hover={{ bg: "brand.200" }}
                 size="sm"
                 id={task.id}
                 value={task.id}

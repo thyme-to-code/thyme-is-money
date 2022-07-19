@@ -66,7 +66,7 @@ export function NewInvoice() {
   return (
     <>
       {tasks.length > 0 && (
-        <Button onClick={onOpen} colorScheme="teal">
+        <Button onClick={onOpen} bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
           Create Invoice
         </Button>
       )}
@@ -89,11 +89,15 @@ export function NewInvoice() {
               Close
             </Button>
             {isApproved ? (
+<<<<<<< HEAD
+              <Button onClick={handleClick} type="submit" bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
+=======
               <Button onClick={handleClick} type="submit" colorScheme="blue">
+>>>>>>> a4e5abbdede78687ac077f4412a55e1cf702c28f
                 Download
               </Button>
             ) : (
-              <Button onClick={handleClick} type="submit" colorScheme="teal">
+              <Button onClick={handleClick} type="submit" bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
                 Approve
               </Button>
             )}
