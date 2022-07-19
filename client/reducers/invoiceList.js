@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { getInvoices, getInvoicesByClient } from '../apis/invoices'
 
 const initialState = {
-  clientList: [],
+  client: [],
+  all: [],
+  invoicePdfUrl: '',
+  loading: true,
   invoiceJson: {
     header: 'TAX INVOICE',
     tax_title: 'GST',
@@ -19,14 +23,20 @@ const initialState = {
     notes: 'Thank you for your continued support. - The Thyme Team',
     terms: '',
   },
-  invoicePdfUrl: '',
-  loading: true,
 }
 
 export const getClientInvoiceList = createAsyncThunk(
   'invoiceList/getInvoiceList',
   async (clientId) => {
-    const res = await getClientInvoiceList(clientId)
+    const res = await getInvoicesByClient(clientId)
+    return res
+  }
+)
+
+export const getFullInvoiceList = createAsyncThunk(
+  'invoiceList/getInvoiceList',
+  async () => {
+    const res = await getInvoices()
     return res
   }
 )
@@ -58,7 +68,17 @@ export const invoiceListSlice = createSlice({
     })
     builder.addCase(getClientInvoiceList.fulfilled, (state, { payload }) => {
       state.loading = false
-      state.list = payload
+      state.client = payload
+    })
+    builder.addCase(getFullInvoiceList.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(getFullInvoiceList.rejected, (state) => {
+      state.loading = false
+    })
+    builder.addCase(getFullInvoiceList.fulfilled, (state, { payload }) => {
+      state.loading = false
+      state.all = payload
     })
   },
 })
