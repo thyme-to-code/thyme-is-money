@@ -13,6 +13,7 @@ import { NewInvoice } from './invoices/NewInvoice'
 import { NewTask } from './tasks/NewTask'
 import { Tasks } from './tasks/Tasks'
 import { UpdateClient } from './clients/UpdateClient'
+import { Overview } from './Overview'
 
 export function Content() {
   const { selectedClient, loading } = useSelector((state) => state.clientList)
@@ -25,20 +26,20 @@ export function Content() {
     )
   }
 
-  return (
-    selectedClient.id && (
-      <>
-        <ClientDetails />
-        <Divider mt={2} mb={2} />
-        <Flex>
-          <NewTask />
-          <NewInvoice />
-          <Spacer />
-          <UpdateClient />
-        </Flex>
-        <Divider mt={2} mb={2} />
-        <Tasks />
-      </>
-    )
+  return selectedClient.id ? (
+    <>
+      <ClientDetails />
+      <Divider mt={2} mb={2} />
+      <Flex>
+        <NewTask />
+        <NewInvoice />
+        <Spacer />
+        <UpdateClient />
+      </Flex>
+      <Divider mt={2} mb={2} />
+      <Tasks />
+    </>
+  ) : (
+    <Overview />
   )
 }

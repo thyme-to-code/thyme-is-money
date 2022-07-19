@@ -15,6 +15,17 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/uninvoiced', (req, res) => {
+  return db
+    .getUninvoicedTasks()
+    .then((tasks) => {
+      res.json(tasks)
+    })
+    .catch((err) => {
+      res.status(500).send(err.message)
+    })
+})
+
 // GET /api/v1/tasks/:client?status=
 router.get('/:client', (req, res) => {
   const client = { id: Number(req.params.client), status: req.query.status }

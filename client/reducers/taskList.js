@@ -6,6 +6,7 @@ const initialState = {
   uninvoiced: {
     amount: 0,
     hours: 0,
+    tasks: [],
   },
   loading: true,
 }
@@ -17,6 +18,20 @@ export const getActiveClientTasks = createAsyncThunk(
       const res = await fetch(
         `/api/v1/tasks/${clientId}?status=uninvoiced`
       ).then((data) => data.json())
+      return res
+    } catch (err) {
+      return
+    }
+  }
+)
+
+export const getUninvoicedTasks = createAsyncThunk(
+  'taskList/getUninvoicedTasks',
+  async () => {
+    try {
+      const res = await fetch(`/api/v1/tasks/uninvoiced`).then((data) =>
+        data.json()
+      )
       return res
     } catch (err) {
       return
@@ -46,6 +61,16 @@ export const taskListSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(getUninvoicedTasks.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(getUninvoicedTasks.rejected, (state) => {
+      state.loading = false
+    })
+    builder.addCase(getUninvoicedTasks.fulfilled, (state, { payload }) => {
+      state.loading = false
+      state.uninvoiced.tasks = payload
+    })
     builder.addCase(getActiveClientTasks.pending, (state) => {
       state.loading = true
     })
