@@ -69,7 +69,7 @@ export function ClientForm(props) {
             <Field
               as={Input}
               name="rate"
-              id="reate"
+              id="create"
               type="number"
               variant="filled"
             />
@@ -80,7 +80,11 @@ export function ClientForm(props) {
         <Button colorScheme="gray" mr={3} onClick={props.onClose}>
           Cancel
         </Button>
-        <Button colorScheme="teal" variant={props.isUpdate ? "outline" : "solid"} type="submit">
+        <Button
+          colorScheme="teal"
+          variant={props.isUpdate ? 'outline' : 'solid'}
+          type="submit"
+        >
           {props.isUpdate ? <>Update</> : <>Create</>}
         </Button>
       </ModalFooter>
