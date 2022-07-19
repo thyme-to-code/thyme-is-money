@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Heading } from '@chakra-ui/react'
-import { UpdateClient } from './UpdateClient'
 
 export function ClientDetails() {
   const { selectedClient, loading } = useSelector((state) => state.clientList)
@@ -24,7 +23,6 @@ export function ClientDetails() {
           <>Hourly Rate: NZD$ </>
           {selectedClient.rate}
         </p>
-        <UpdateClient />
       </div>
     )
   )

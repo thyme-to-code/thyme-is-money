@@ -17,6 +17,7 @@ import { NewInvoice } from './invoices/NewInvoice'
 import { NewTask } from './tasks/NewTask'
 import { Tasks } from './tasks/Tasks'
 import { setUninvoicedTotals } from '../reducers/taskList'
+import { UpdateClient } from './clients/UpdateClient'
 
 export function Content() {
   const dispatch = useDispatch()
@@ -49,12 +50,16 @@ export function Content() {
           </Stat>
         </Flex>
 
-        <Divider />
+        <Divider mt={2} mb={2} />
+        <Flex>
+          <NewTask />
+          <NewInvoice />
+          <Spacer />
+          <UpdateClient />
+        </Flex>
+        <Divider mt={2} mb={2} />
 
         <Tasks />
-
-        <NewTask />
-        <NewInvoice />
       </>
     )
   )

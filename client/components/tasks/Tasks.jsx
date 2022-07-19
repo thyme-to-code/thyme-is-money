@@ -34,7 +34,7 @@ export function Tasks() {
       {taskList?.data.length > 0 ? (
         taskList?.data.map((task) => (
           <SimpleGrid key={task.id} columns={4} spacing={10}>
-            <Box>
+            <Box w="50%">
               <>{task.description} </>
             </Box>
             <Box>
@@ -46,8 +46,9 @@ export function Tasks() {
             <Box>
               <Button
                 m={1}
-                bg="brand.100" color="brand.50" 
-                _hover={{ bg: "brand.200" }}
+                bg="brand.100"
+                color="brand.50"
+                _hover={{ bg: 'brand.200' }}
                 size="sm"
                 id={task.id}
                 value={task.id}
