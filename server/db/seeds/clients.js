@@ -7,7 +7,7 @@ exports.seed = async function (knex) {
   await knex('clients').insert([
     {
       id: 1,
-      business_name: 'Powlowski, Mraz and Effertz',
+      business_name: 'Powlowski Mraz and Effertz',
       contact_name: 'Westbrooke Alders',
       email: 'walders0@wired.com',
       phone: '272-793-5878',
@@ -27,7 +27,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 3,
-      business_name: 'MacGyver, Walter and Feest',
+      business_name: 'MacGyver Walter and Feest',
       contact_name: 'Jeramey Jaouen',
       email: 'jjaouen2@fc2.com',
       phone: '228-224-1384',
@@ -57,7 +57,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 6,
-      business_name: 'Paucek, Feest and Gusikowski',
+      business_name: 'Paucek Feest and Gusikowski',
       contact_name: 'Denys Brito',
       email: 'dbrito5@nbcnews.com',
       phone: '426-981-0216',
@@ -67,7 +67,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 7,
-      business_name: 'Reynolds, Mueller and Bode',
+      business_name: 'Reynolds Mueller and Bode',
       contact_name: 'Malchy Hurlestone',
       email: 'mhurlestone6@hao123.com',
       phone: '471-220-9739',
