@@ -79,9 +79,9 @@ export function ClientForm(props) {
           Cancel
         </Button>
         <Button
-          ccolor="brand.50" 
-          _hover={{ bg: "brand.200" }}
-          variant={props.isUpdate ? 'outline' : 'solid'}
+          color="brand.50" 
+          _hover={props.isUpdate ? {bg: "brand.500"} : { bg: "brand.200" }}
+          bg={props.isUpdate ? 'brand.400' : 'brand.100'}
           type="submit"
         >
           {props.isUpdate ? <>Update</> : <>Create</>}
