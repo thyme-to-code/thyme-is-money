@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
-  list: [],
+  clientList: [],
   invoiceJson: {
     header: 'TAX INVOICE',
     tax_title: 'GST',
@@ -23,9 +23,12 @@ const initialState = {
   loading: true,
 }
 
-export const getInvoiceList = createAsyncThunk(
-  'invoiceList/getInvoiceList'
-  // Hit GET /api/v1/invoices
+export const getClientInvoiceList = createAsyncThunk(
+  'invoiceList/getInvoiceList',
+  async (clientId) => {
+    const res = await getClientInvoiceList(clientId)
+    return res
+  }
 )
 
 export const invoiceListSlice = createSlice({
@@ -47,13 +50,13 @@ export const invoiceListSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getInvoiceList.pending, (state) => {
+    builder.addCase(getClientInvoiceList.pending, (state) => {
       state.loading = true
     })
-    builder.addCase(getInvoiceList.rejected, (state) => {
+    builder.addCase(getClientInvoiceList.rejected, (state) => {
       state.loading = false
     })
-    builder.addCase(getInvoiceList.fulfilled, (state, { payload }) => {
+    builder.addCase(getClientInvoiceList.fulfilled, (state, { payload }) => {
       state.loading = false
       state.list = payload
     })
