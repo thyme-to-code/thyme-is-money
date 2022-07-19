@@ -42,7 +42,7 @@ export function ClientDetails() {
           </Heading>
           <List ml={5} mr={15}>
             <ListItem>
-              <ListIcon size={'lg'} as={MdAccountBox} />
+              <ListIcon as={MdAccountBox} />
               {selectedClient.contact_name}
             </ListItem>
             <ListItem>
