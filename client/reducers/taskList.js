@@ -35,7 +35,7 @@ export const addClientTask = createAsyncThunk(
 export const updateClientTask = createAsyncThunk(
   'taskList/updateClientTask',
   async (task) => {
-    const response = await updateClientTask(task)
+    const response = await updateTask(task)
     return response
   }
 )
@@ -82,8 +82,10 @@ export const taskListSlice = createSlice({
     })
     builder.addCase(updateClientTask.fulfilled, (state, action) => {
       state.loading = false
-      // UNSURE
-      // state.data.push(action.payload)
+      const indexToUpdate = state.data.findIndex((task) => {
+        return task.id == action.payload.id
+      })
+      state.data[indexToUpdate] = action.payload
     })
   },
 })

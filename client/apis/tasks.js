@@ -38,10 +38,10 @@ export function deleteTask(id) {
 export function updateTask(task) {
   console.log('task', task)
   return request
-    .patch(`${rootUrl}/update/${task.client_id}`)
+    .patch(`${rootUrl}/update/${task.id}`)
     .send(task)
     .then((res) => {
-      return res.status
+      return res.body
     })
     .catch((err) => {
       console.log(err)

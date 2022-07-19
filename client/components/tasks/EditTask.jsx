@@ -21,7 +21,7 @@ import {
 export function EditTask(props) {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { description, hours } = props.value.task
+  const { description, hours, id } = props.value.task
   const { selectedClient } = useSelector((state) => state.clientList)
 
   return (
@@ -41,10 +41,10 @@ export function EditTask(props) {
               hours: hours,
               status: 'uninvoiced',
               client_id: selectedClient.id,
-              created_at: new Date(),
+              id,
             }}
             onSubmit={(newTask) => {
-              console.log(newTask)
+              // console.log(newTask)
               dispatch(updateClientTask(newTask))
               // edit task
               onClose()
