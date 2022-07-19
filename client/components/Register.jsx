@@ -17,7 +17,7 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
-function Register() {
+export function Register() {
   const user = useSelector((state) => state.user)
   const [formUserData, setFormUserData] = useState({
     auth0Id: '',

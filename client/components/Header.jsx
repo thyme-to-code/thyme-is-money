@@ -14,6 +14,7 @@ export function Header() {
 
   function handleLogOut(event) {
     event.preventDefault()
+    localStorage.clear()
     logout()
   }
 
