@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { addTask } from '../apis/tasks'
+import { addTask, updateTask } from '../apis/tasks'
 
 const initialState = {
   data: [],
@@ -28,6 +28,14 @@ export const addClientTask = createAsyncThunk(
   'taskList/addClientTask',
   async (task) => {
     const response = await addTask(task)
+    return response
+  }
+)
+
+export const updateClientTask = createAsyncThunk(
+  'taskList/updateClientTask',
+  async (task) => {
+    const response = await updateTask(task)
     return response
   }
 )
@@ -65,6 +73,19 @@ export const taskListSlice = createSlice({
     builder.addCase(addClientTask.fulfilled, (state, action) => {
       state.loading = false
       state.data.push(action.payload)
+    })
+    builder.addCase(updateClientTask.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(updateClientTask.rejected, (state) => {
+      state.loading = false
+    })
+    builder.addCase(updateClientTask.fulfilled, (state, action) => {
+      state.loading = false
+      const indexToUpdate = state.data.findIndex((task) => {
+        return task.id == action.payload.id
+      })
+      state.data[indexToUpdate] = action.payload
     })
   },
 })
