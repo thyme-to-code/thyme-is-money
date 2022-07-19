@@ -1,8 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { addTask } from '../apis/tasks'
 
-let initialState = {
+const initialState = {
   data: [],
+  uninvoiced: {
+    amount: 0,
+    hours: 0,
+  },
   loading: true,
 }
 
@@ -31,7 +35,16 @@ export const addClientTask = createAsyncThunk(
 export const taskListSlice = createSlice({
   name: 'taskList',
   initialState,
-  reducers: {},
+  reducers: {
+    setUninvoicedTotals: (state, action) => {
+      const { tasks, rate } = action.payload
+      state.uninvoiced.hours = 0
+      tasks.forEach(
+        (task) => !task.invoice_id && (state.uninvoiced.hours += task.hours)
+      )
+      state.uninvoiced.amount = state.uninvoiced.hours * rate
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getActiveClientTasks.pending, (state) => {
       state.loading = true
@@ -56,4 +69,5 @@ export const taskListSlice = createSlice({
   },
 })
 
+export const { setUninvoicedTotals } = taskListSlice.actions
 export default taskListSlice.reducer

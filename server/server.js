@@ -14,7 +14,7 @@ server.use('/api/v1/tasks', taskRoutes)
 server.use('/api/v1/clients', clientRoutes)
 server.use('/api/v1/invoices', invoiceRoutes)
 
-server.use('/api/v1/*', (req, res) => res.sendStatus(404))
+// server.use('/api/v1/*', (req, res) => res.sendStatus(404))
 
 server.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'))
