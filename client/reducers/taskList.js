@@ -33,7 +33,8 @@ export const addClientTask = createAsyncThunk(
 )
 
 export const updateClientTask = createAsyncThunk(
-  'taskList/updateClientTask', async(task) => {
+  'taskList/updateClientTask',
+  async (task) => {
     const response = await updateClientTask(task)
     return response
   }
