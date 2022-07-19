@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { createInvoice } from '../../apis/invoices'
 import { Spinner } from '@chakra-ui/react'
-import { Tasks } from '../tasks/Tasks'
-import taskList from '../../reducers/taskList'
+import { setInvoiceJson, setInvoicePdfUrl } from '../../reducers/invoiceList'
 
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
-import './ShowPdf.css'
+import '../../styles/ShowPdf.css'
 
 const options = {
   cMapUrl: 'cmaps/',
@@ -28,11 +27,15 @@ function invoiceNumber() {
 }
 
 export function ShowPDF() {
+  const dispatch = useDispatch()
   const { selectedClient } = useSelector((state) => state.clientList)
   const clientTasks = useSelector((state) => state.taskList.data)
+  const { invoiceJson, invoicePdfUrl } = useSelector(
+    (state) => state.invoiceList
+  )
 
   const [numPages, setNumPages] = useState(null)
-  const [invoicePdf, setInvoicePdf] = useState('')
+  //const [invoicePdfUrl, setInvoicePdfUrl] = useState('')
 
   const invoiceTasks = clientTasks.map((task) => ({
     name: task.description,
@@ -40,40 +43,31 @@ export function ShowPDF() {
     unit_cost: selectedClient.rate,
   }))
 
-  const invoiceTemplate = {
-    logo: 'http://invoiced.com/img/logo-invoice.png',
-    from: '\nHappy Fly Company\n42 McFly Lance\nWellington\nNew Zealand',
-    to: selectedClient.business_name,
-    currency: 'NZD',
-    number: `${invoiceNumber()}-${selectedClient.id}`,
-    payment_terms: 'Please pay immediately',
-    items: invoiceTasks,
-    fields: {
-      tax: '%',
-    },
-    tax: 15,
-    notes: 'Thank you for your continued support. James McFly',
-    terms: 'Please pay immediately.',
-  }
-
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
     setNumPages(nextNumPages)
   }
 
   useEffect(() => {
-    createInvoice(invoiceTemplate)
+    const invoice = {
+      ...invoiceJson,
+      items: invoiceTasks,
+      to: `${selectedClient.business_name}\nAttn: ${selectedClient.contact_name}\n${selectedClient.address}`,
+      number: `${invoiceNumber()}-${selectedClient.id}`,
+    }
+    dispatch(setInvoiceJson(invoice))
+    createInvoice(invoice)
       .then((res) => {
-        setInvoicePdf(URL.createObjectURL(res))
+        dispatch(setInvoicePdfUrl(URL.createObjectURL(res)))
       })
       .catch((err) => err)
   }, [])
 
-  return invoicePdf ? (
+  return invoicePdfUrl ? (
     <div className="pdf">
       <div className="pdf__container">
         <div className="pdf__container__document">
           <Document
-            file={invoicePdf}
+            file={invoicePdfUrl}
             onLoadSuccess={onDocumentLoadSuccess}
             options={options}
           >
