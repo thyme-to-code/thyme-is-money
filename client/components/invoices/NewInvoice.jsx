@@ -57,6 +57,7 @@ export function NewInvoice() {
     dispatch(clearInvoicePdfUrl())
     dispatch(clearInvoiceJson())
     dispatch(getActiveClientTasks())
+    setIsApproved(false)
     onClose()
   }
 
@@ -67,7 +68,12 @@ export function NewInvoice() {
           Create Invoice
         </Button>
       )}
-      <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size="2xl"
+        onCloseComplete={() => handleClose}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color="#0CA789">Preview Invoice</ModalHeader>
