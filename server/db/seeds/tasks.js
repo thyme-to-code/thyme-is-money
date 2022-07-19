@@ -7,7 +7,7 @@ exports.seed = async function (knex) {
   await knex('tasks').insert([
     {
       id: 1,
-      description: 'Papio cynocephalus',
+      description: 'Planning session with Stewart',
       hours: 7,
       rate: null,
       status: 'uninvoiced',
@@ -16,7 +16,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 2,
-      description: 'Eudromia elegans',
+      description: 'Inital phone call',
       hours: 1,
       rate: null,
       status: 'uninvoiced',
@@ -25,7 +25,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 3,
-      description: 'Amblyrhynchus cristatus',
+      description: 'Drafting landscape proposal for the council',
       hours: 4,
       rate: null,
       status: 'uninvoiced',
@@ -34,7 +34,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 4,
-      description: 'Bettongia penicillata',
+      description: 'Acquisition overview',
       hours: 2,
       rate: null,
       status: 'uninvoiced',
@@ -43,7 +43,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 5,
-      description: 'Priodontes maximus',
+      description: 'Recipe run through with head chef',
       hours: 4,
       rate: null,
       status: 'uninvoiced',
@@ -52,7 +52,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 6,
-      description: 'Manouria emys',
+      description: 'Meeting with lawyers including prep',
       hours: 5,
       rate: null,
       status: 'uninvoiced',
