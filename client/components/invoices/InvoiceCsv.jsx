@@ -37,14 +37,13 @@ export function InvoiceCsv() {
       let dataFrame = new dfd.DataFrame(df_data, {
         columns: df_columns,
       })
-      console.log(dataFrame.head().print())
       dfd.toCSV(dataFrame, { fileName: 'invoices.csv', download: true })
     })
   }
 
   return (
     <>
-      <Button colorScheme="whiteAlpha" onClick={() => handleClick()}>
+      <Button mr={3} colorScheme="whiteAlpha" onClick={() => handleClick()}>
         Download csv
       </Button>
     </>
