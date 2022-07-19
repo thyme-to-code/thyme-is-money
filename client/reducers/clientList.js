@@ -27,7 +27,7 @@ export const clientListSlice = createSlice({
     setSelectedClient: (state, action) => {
       state.selectedClient = action.payload
     },
-    clearSelectClient: (state) => {
+    clearSelectedClient: (state) => {
       state.selectedClient = {}
     },
   },
@@ -45,5 +45,6 @@ export const clientListSlice = createSlice({
   },
 })
 
-export const { setSelectedClient } = clientListSlice.actions
+export const { setSelectedClient, clearSelectedClient } =
+  clientListSlice.actions
 export default clientListSlice.reducer
