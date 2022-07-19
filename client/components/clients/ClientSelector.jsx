@@ -1,17 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  UnorderedList,
-  Heading,
-  ListItem,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionIcon,
-  AccordionPanel,
-  Select,
-  FormLabel,
-} from '@chakra-ui/react'
+import { Heading, Select, FormLabel } from '@chakra-ui/react'
 import {
   setSelectedClient,
   clearSelectedClient,
@@ -25,12 +14,6 @@ export function ClientSelector() {
     .map((client) => client.business_name)
     .sort()
 
-  function handleClick(company) {
-    const myClient = clients.data.find(
-      (client) => client.business_name == company
-    )
-    return dispatch(setSelectedClient(myClient))
-  }
   function handleChange(e) {
     if (e.target.value) {
       const myClient = clients.data.find(

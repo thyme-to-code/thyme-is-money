@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Box, Flex, Spacer } from '@chakra-ui/react'
+import { Flex, Spacer } from '@chakra-ui/react'
 import { InvoiceCsv } from './invoices/InvoiceCsv'
 import { NewClient } from './clients/NewClient'
 import { ClientSelector } from './clients/ClientSelector'
