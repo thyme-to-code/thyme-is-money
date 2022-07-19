@@ -89,7 +89,7 @@ export function NewInvoice() {
               Close
             </Button>
             {isApproved ? (
-              <Button onClick={handleClick} type="submit" bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
+              <Button onClick={handleClick} type="submit" bg="brand.400" color="brand.50" _hover={{ bg: "brand.500" }}>
                 Download
               </Button>
             ) : (
