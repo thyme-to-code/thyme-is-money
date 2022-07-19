@@ -21,7 +21,13 @@ export function NewClient() {
 
   return (
     <>
-      <Button onClick={onOpen} mr={3} colorScheme="whiteAlpha">
+      <Button
+        onClick={onOpen}
+        bg="brand.100"
+        mb={3}
+        color="brand.50"
+        _hover={{ bg: 'brand.200' }}
+      >
         Create Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">

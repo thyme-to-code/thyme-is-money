@@ -5,6 +5,11 @@ $main-heading: 'Poppins', sans-serif;
 
 h1 { font-family: $main-heading; }
 
+footer {
+  position: sticky;
+  bottom: 0;
+}
+
 // LANDING
 .landing {
   font-family: sans-serif;

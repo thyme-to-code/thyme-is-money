@@ -22,8 +22,14 @@ export function UpdateClient() {
 
   return (
     <>
-      <Button onClick={onOpen} mr={3} colorScheme="whiteAlpha">
-        Update Client
+      <Button
+        onClick={onOpen}
+        mr={5}
+        bg="brand.100"
+        color="brand.50"
+        _hover={{ bg: 'brand.200' }}
+      >
+        Edit Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />

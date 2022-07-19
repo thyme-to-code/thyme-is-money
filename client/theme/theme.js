@@ -10,6 +10,9 @@ const theme = extendTheme({
       400: '#3a3a3a',
       500: '#2b2b2b',
     },
+    table: {
+      100: '#bbd5cf',
+    },
   },
   fonts: {
     heading: `Poppins, ${base.fonts?.heading}`,

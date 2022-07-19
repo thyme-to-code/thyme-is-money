@@ -43,8 +43,14 @@ export function InvoiceCsv() {
 
   return (
     <>
-      <Button mr={3} colorScheme="whiteAlpha" onClick={() => handleClick()}>
-        Download csv
+      <Button
+        onClick={() => handleClick()}
+        bg="brand.100"
+        mb={3}
+        color="brand.50"
+        _hover={{ bg: 'brand.200' }}
+      >
+        Download CSV
       </Button>
     </>
   )
