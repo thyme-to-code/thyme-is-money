@@ -72,6 +72,7 @@ export function Tasks() {
                     {(task.hours * selectedClient.rate).toLocaleString('en-US')}
                   </Td>
                   <Td px="2" py="1" isNumeric={true}>
+                    <EditTask value={{ task, client_id: selectedClient.id }} />
                     <IconButton
                       fontSize="1.4em"
                       size="sm"
@@ -83,7 +84,6 @@ export function Tasks() {
                       onClick={() => handleDelete(task.id)}
                       icon={<MdDeleteForever />}
                     />
-                    <EditTask value={{ task, client_id: selectedClient.id }} />
                   </Td>
                 </Tr>
               ))}

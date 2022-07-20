@@ -31,7 +31,7 @@ export function EditTask(props) {
       <IconButton
         fontSize="1.4em"
         onClick={onOpen}
-        ml="2"
+        mr="2"
         size="sm"
         bg="brand.100"
         color="brand.50"
