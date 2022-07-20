@@ -10,6 +10,7 @@ import {
   Tr,
   Td,
 } from '@chakra-ui/react'
+import { MdDeleteForever } from 'react-icons/md'
 
 import { deleteTask } from '../../apis/tasks'
 import { getActiveClientTasks } from '../../reducers/taskList'
@@ -41,7 +42,7 @@ export function Tasks() {
               <Tr>
                 <Td py="1">
                   <Heading as="h3" size="md">
-                    Task
+                    Uninvoiced Tasks
                   </Heading>
                 </Td>
                 <Td py="1" isNumeric={true}>
@@ -68,20 +69,21 @@ export function Tasks() {
                     {task.hours}
                   </Td>
                   <Td py="1" isNumeric={true}>
-                    ${task.hours * selectedClient.rate}
+                    $
+                    {(task.hours * selectedClient.rate).toLocaleString('en-US')}
                   </Td>
                   <Td px={2} py="1" isNumeric={true}>
                     <Button
                       m={1}
-                      bg="brand.100"
+                      bg="brand.400"
                       color="brand.50"
-                      _hover={{ bg: 'brand.200' }}
+                      _hover={{ bg: 'brand.500' }}
                       size="sm"
                       id={task.id}
                       value={task.id}
                       onClick={handleDelete}
                     >
-                      x
+                      <MdDeleteForever />
                     </Button>
                     <EditTask value={{ task, client_id: selectedClient.id }} />
                   </Td>

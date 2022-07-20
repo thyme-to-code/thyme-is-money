@@ -3,6 +3,7 @@ const connection = require('knex')(config)
 
 module.exports = {
   getAllTasks,
+  getUninvoicedTasks,
   addTaskByClient,
   deleteTaskById,
   getTasksByClient,
@@ -11,6 +12,10 @@ module.exports = {
 
 function getAllTasks(db = connection) {
   return db('tasks').select()
+}
+
+function getUninvoicedTasks(db = connection) {
+  return db('tasks').where('invoice_id', null)
 }
 
 function getTasksByClient(client, db = connection) {

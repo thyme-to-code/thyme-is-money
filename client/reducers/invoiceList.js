@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { getInvoices, getInvoicesByClient } from '../apis/invoices'
 
 const initialState = {
-  list: [],
+  client: [],
+  all: [],
+  invoicePdfUrl: '',
+  loading: true,
   invoiceJson: {
     header: 'TAX INVOICE',
     tax_title: 'GST',
@@ -10,7 +14,7 @@ const initialState = {
     to: '',
     currency: 'NZD',
     number: '',
-    payment_terms: 'Please pay within 7 days',
+    payment_terms: '7 days',
     items: [],
     fields: {
       tax: '%',
@@ -19,13 +23,22 @@ const initialState = {
     notes: 'Thank you for your continued support. - The Thyme Team',
     terms: '',
   },
-  invoicePdfUrl: '',
-  loading: true,
 }
 
-export const getInvoiceList = createAsyncThunk(
-  'invoiceList/getInvoiceList'
-  // Hit GET /api/v1/invoices
+export const getClientInvoiceList = createAsyncThunk(
+  'invoiceList/getClientInvoiceList',
+  async (clientId) => {
+    const res = await getInvoicesByClient(clientId)
+    return res
+  }
+)
+
+export const getFullInvoiceList = createAsyncThunk(
+  'invoiceList/getFullInvoiceList',
+  async () => {
+    const res = await getInvoices()
+    return res
+  }
 )
 
 export const invoiceListSlice = createSlice({
@@ -47,15 +60,25 @@ export const invoiceListSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getInvoiceList.pending, (state) => {
+    builder.addCase(getClientInvoiceList.pending, (state) => {
       state.loading = true
     })
-    builder.addCase(getInvoiceList.rejected, (state) => {
+    builder.addCase(getClientInvoiceList.rejected, (state) => {
       state.loading = false
     })
-    builder.addCase(getInvoiceList.fulfilled, (state, { payload }) => {
+    builder.addCase(getClientInvoiceList.fulfilled, (state, { payload }) => {
       state.loading = false
-      state.list = payload
+      state.client = payload
+    })
+    builder.addCase(getFullInvoiceList.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(getFullInvoiceList.rejected, (state) => {
+      state.loading = false
+    })
+    builder.addCase(getFullInvoiceList.fulfilled, (state, { payload }) => {
+      state.loading = false
+      state.all = payload
     })
   },
 })

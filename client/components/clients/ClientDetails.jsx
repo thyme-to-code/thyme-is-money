@@ -15,7 +15,6 @@ import {
   MdEmail,
   MdHourglassBottom,
   MdMap,
-  MdOutlineChevronRight,
   MdPhone,
 } from 'react-icons/md'
 import { setUninvoicedTotals } from '../../reducers/taskList'
@@ -47,11 +46,13 @@ export function ClientDetails() {
             </ListItem>
             <ListItem>
               <ListIcon as={MdPhone} />
-              {selectedClient.phone}
+              <a href={`tel:${selectedClient.phone}`}>{selectedClient.phone}</a>
             </ListItem>
             <ListItem>
               <ListIcon as={MdEmail} />
-              {selectedClient.email}
+              <a href={`mailto:${selectedClient.email}`}>
+                {selectedClient.email}
+              </a>
             </ListItem>
             <ListItem>
               <ListIcon as={MdMap} />
@@ -61,24 +62,20 @@ export function ClientDetails() {
         </Box>
         <Box>
           <Heading as="h3" size="sm">
-            Oustanding amounts
+            Uninvoiced
           </Heading>
           <List ml={5} mr={15}>
             <ListItem>
               <ListIcon as={MdAttachMoney} />
-              {uninvoiced.amount}
+              {uninvoiced.amount.toLocaleString('en-US')}
             </ListItem>
             <ListItem>
               <ListIcon as={MdHourglassBottom} />
               {uninvoiced.hours} hours
             </ListItem>
             <ListItem>
-              <ListIcon as={MdOutlineChevronRight} />
-              Rate (NZD)
-            </ListItem>
-            <ListItem>
               <ListIcon as={MdAttachMoney} />
-              {selectedClient.rate} / hr
+              {selectedClient.rate} / hour
             </ListItem>
           </List>
         </Box>

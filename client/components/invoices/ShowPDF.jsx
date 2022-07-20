@@ -35,7 +35,6 @@ export function ShowPDF() {
   )
 
   const [numPages, setNumPages] = useState(null)
-  //const [invoicePdfUrl, setInvoicePdfUrl] = useState('')
 
   const invoiceTasks = clientTasks.map((task) => ({
     name: task.description,
