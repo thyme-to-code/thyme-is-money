@@ -45,41 +45,41 @@ export function ClientInvoiceList() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color="#0CA789">
-            {selectedClient.business_name} Invoice History
+            Invoice History: {selectedClient.business_name}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <TableContainer>
-              <Table>
+              <Table p="1" variant="striped" colorScheme="table">
                 <Thead>
                   <Tr>
-                    <Td>
-                      <Heading as="h3" size="md">
+                    <Td py="1">
+                      <Heading as="h3" size="sm">
                         Invoice
                       </Heading>
                     </Td>
-                    <Td>
-                      <Heading as="h3" size="md">
+                    <Td py="1" isNumeric={true}>
+                      <Heading as="h3" size="sm">
                         Date Sent
                       </Heading>
                     </Td>
-                    <Td>
-                      <Heading as="h3" size="md">
-                        Total
+                    <Td py="1" isNumeric={true}>
+                      <Heading as="h3" size="sm">
+                        Date Paid
                       </Heading>
                     </Td>
-                    <Td>
-                      <Heading as="h3" size="md">
-                        Paid
+                    <Td py="1" isNumeric={true}>
+                      <Heading as="h3" size="sm">
+                        $ Paid
                       </Heading>
                     </Td>
-                    <Td>
-                      <Heading as="h3" size="md">
-                        Paid On
+                    <Td py="1" isNumeric={true}>
+                      <Heading as="h3" size="sm">
+                        $ Invoiced
                       </Heading>
                     </Td>
-                    <Td>
-                      <Heading as="h3" size="md">
+                    <Td py="1" isNumeric={true}>
+                      <Heading as="h3" size="sm">
                         Details
                       </Heading>
                     </Td>
@@ -88,25 +88,28 @@ export function ClientInvoiceList() {
                 <Tbody>
                   {client?.map((invoice) => (
                     <Tr key={invoice.id}>
-                      <Td py="1">{invoice.id}</Td>
-                      <Td py="1">
+                      <Td py="1">INV-{invoice.id}</Td>
+                      <Td py="1" isNumeric={true}>
                         {new Date(invoice.date_sent).toLocaleDateString(
                           'en-NZ'
                         )}
                       </Td>
-                      <Td py="1">${invoice.total.toLocaleString('en-NZ')}</Td>
-                      <Td py="1">
-                        $
-                        {invoice.amount_paid &&
-                          invoice.amount_paid.toLocaleString('en-NZ')}
-                      </Td>
-                      <Td py="1">
+                      <Td py="1" isNumeric={true}>
                         {invoice.date_paid &&
                           new Date(invoice.date_paid).toLocaleDateString(
                             'en-NZ'
                           )}
                       </Td>
-                      <Td py="1">JSON</Td>
+                      <Td py="1" isNumeric={true}>
+                        {invoice.amount_paid &&
+                          '$' + invoice.amount_paid.toLocaleString('en-NZ')}
+                      </Td>
+                      <Td py="1" isNumeric={true}>
+                        ${invoice.total.toLocaleString('en-NZ')}
+                      </Td>
+                      <Td py="1" isNumeric={true}>
+                        JSON
+                      </Td>
                     </Tr>
                   ))}
                 </Tbody>
