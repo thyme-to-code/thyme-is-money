@@ -76,8 +76,8 @@ export function Overview() {
                 <Td></Td>
               </Tr>
             ) : (
-              uninvoiced.tasks.map((task) => (
-                <Tr key={task.id}>
+              uninvoiced?.tasks.map((task, i) => (
+                <Tr key={i}>
                   <Td py="1">{task.description}</Td>
                   <Td py="1">
                     {
@@ -140,7 +140,7 @@ export function Overview() {
             </Tr>
           </Thead>
           <Tbody>
-            {invoices.length === 0 ? (
+            {invoices?.length === 0 ? (
               <Tr>
                 <Td>No invoices! Are you a freelancer or what?</Td>
                 <Td></Td>
@@ -148,7 +148,7 @@ export function Overview() {
                 <Td></Td>
               </Tr>
             ) : (
-              invoices.map((invoice) => (
+              invoices?.map((invoice) => (
                 <Tr key={invoice.invoice_number}>
                   <Td py="1">{invoice.business_name}</Td>
                   <Td py="1" isNumeric={true}>
