@@ -73,8 +73,8 @@ export function Overview() {
                 <Td></Td>
               </Tr>
             ) : (
-              uninvoiced.tasks.map((task) => (
-                <Tr key={task.id}>
+              uninvoiced?.tasks.map((task, i) => (
+                <Tr key={i}>
                   <Td py="1">{task.description}</Td>
                   <Td py="1">
                     {
@@ -142,8 +142,8 @@ export function Overview() {
                 <Td></Td>
               </Tr>
             ) : (
-              invoices.map((invoice) => (
-                <Tr key={invoice.id}>
+              invoices?.map((invoice) => (
+                <Tr key={invoice.invoice_number}>
                   <Td py="1">{invoice.business_name}</Td>
                   <Td py="1" isNumeric={true}>
                     {new Date(invoice.date_sent).toLocaleDateString('en-NZ')}

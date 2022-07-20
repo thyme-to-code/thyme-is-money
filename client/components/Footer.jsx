@@ -3,7 +3,8 @@ import React from 'react'
 export function Footer() {
   return (
     <footer>
-      &copy;2022 Nicole, Yuri, David & Adam. DevAcademy Final Project
+      Dev Academy 2022, Mako Goblins cohort. Built by Nicole, Yuri, David &amp;
+      Adam.
     </footer>
   )
 }
