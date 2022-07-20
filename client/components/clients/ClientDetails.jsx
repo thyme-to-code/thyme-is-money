@@ -46,11 +46,13 @@ export function ClientDetails() {
             </ListItem>
             <ListItem>
               <ListIcon as={MdPhone} />
-              {selectedClient.phone}
+              <a href={`tel:${selectedClient.phone}`}>{selectedClient.phone}</a>
             </ListItem>
             <ListItem>
               <ListIcon as={MdEmail} />
-              {selectedClient.email}
+              <a href={`mailto:${selectedClient.email}`}>
+                {selectedClient.email}
+              </a>
             </ListItem>
             <ListItem>
               <ListIcon as={MdMap} />
