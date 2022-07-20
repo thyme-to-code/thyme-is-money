@@ -18,6 +18,7 @@ import { getActiveClientTasks } from '../../reducers/taskList'
 import {
   clearInvoiceJson,
   clearInvoicePdfUrl,
+  getClientInvoiceList,
 } from '../../reducers/invoiceList'
 
 export function NewInvoice() {
@@ -58,6 +59,7 @@ export function NewInvoice() {
     dispatch(clearInvoiceJson())
     if (isApproved) {
       dispatch(getActiveClientTasks(selectedClient.id))
+      dispatch(getClientInvoiceList(selectedClient.id))
       setIsApproved(false)
     }
     onClose()
