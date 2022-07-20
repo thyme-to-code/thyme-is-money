@@ -11,6 +11,7 @@ import {
   Tbody,
   Tr,
   Td,
+  Text
 } from '@chakra-ui/react'
 
 import { getUninvoicedTasks } from '../reducers/taskList'
@@ -37,13 +38,13 @@ export function Overview() {
 
   return (
     <>
-      <Heading as="h2" size="md">
+      <Heading as="h2" size="md" color="brand.100">
         Uninvoiced Tasks
       </Heading>
       <Divider my={1} />
       <TableContainer mr={5}>
         <Table p="1" variant="striped" colorScheme="table">
-          <Thead>
+          <Thead color="brand.100">
             <Tr>
               <Td py="1">
                 <Heading as="h3" size="sm">
@@ -104,13 +105,13 @@ export function Overview() {
 
       <Divider my="5" />
 
-      <Heading as="h2" size="md">
+      <Heading as="h2" size="md" color="brand.100">
         Recent Invoices
       </Heading>
       <Divider my={1} />
       <TableContainer mr={10}>
         <Table p="1" variant="striped" colorScheme="table">
-          <Thead>
+          <Thead color="brand.100">
             <Tr>
               <Td py="1">
                 <Heading as="h3" size="sm">
@@ -169,12 +170,12 @@ export function Overview() {
                       (invoice.amount_paid == invoice.total ? (
                         '$ ' + invoice.amount_paid.toLocaleString('en-US')
                       ) : (
-                        <font color="red">
+                        <Text color="#680e0e">
                           $&nbsp;
                           {invoice.amount_paid
                             .toFixed(2)
                             .toLocaleString('en-US')}
-                        </font>
+                        </Text>
                       ))}
                   </Td>
                 </Tr>
