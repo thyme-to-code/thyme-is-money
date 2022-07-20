@@ -66,14 +66,19 @@ export function NewInvoice() {
   return (
     <>
       {tasks.length > 0 && (
-        <Button onClick={onOpen} bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
+        <Button
+          onClick={onOpen}
+          bg="brand.100"
+          color="brand.50"
+          _hover={{ bg: 'brand.200' }}
+        >
           Create Invoice
         </Button>
       )}
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        size="2xl"
+        size="3xl"
         onCloseComplete={afterClose}
       >
         <ModalOverlay />
@@ -89,11 +94,23 @@ export function NewInvoice() {
               Close
             </Button>
             {isApproved ? (
-              <Button onClick={handleClick} type="submit" bg="brand.400" color="brand.50" _hover={{ bg: "brand.500" }}>
+              <Button
+                onClick={handleClick}
+                type="submit"
+                bg="brand.400"
+                color="brand.50"
+                _hover={{ bg: 'brand.500' }}
+              >
                 Download
               </Button>
             ) : (
-              <Button onClick={handleClick} type="submit" bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
+              <Button
+                onClick={handleClick}
+                type="submit"
+                bg="brand.100"
+                color="brand.50"
+                _hover={{ bg: 'brand.200' }}
+              >
                 Approve
               </Button>
             )}

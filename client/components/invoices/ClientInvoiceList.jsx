@@ -44,7 +44,9 @@ export function ClientInvoiceList() {
       <Modal isOpen={isOpen} onClose={onClose} size="5xl">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color="#0CA789">Client Invoice History</ModalHeader>
+          <ModalHeader color="#0CA789">
+            {selectedClient.business_name} Invoice History
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <TableContainer>
@@ -58,7 +60,27 @@ export function ClientInvoiceList() {
                     </Td>
                     <Td>
                       <Heading as="h3" size="md">
+                        Date Sent
+                      </Heading>
+                    </Td>
+                    <Td>
+                      <Heading as="h3" size="md">
                         Total
+                      </Heading>
+                    </Td>
+                    <Td>
+                      <Heading as="h3" size="md">
+                        Paid
+                      </Heading>
+                    </Td>
+                    <Td>
+                      <Heading as="h3" size="md">
+                        Paid On
+                      </Heading>
+                    </Td>
+                    <Td>
+                      <Heading as="h3" size="md">
+                        Details
                       </Heading>
                     </Td>
                   </Tr>
@@ -66,8 +88,25 @@ export function ClientInvoiceList() {
                 <Tbody>
                   {client?.map((invoice) => (
                     <Tr key={invoice.id}>
-                      <Td>{invoice.id}</Td>
-                      <Td>{invoice.total}</Td>
+                      <Td py="1">{invoice.id}</Td>
+                      <Td py="1">
+                        {new Date(invoice.date_sent).toLocaleDateString(
+                          'en-NZ'
+                        )}
+                      </Td>
+                      <Td py="1">${invoice.total.toLocaleString('en-NZ')}</Td>
+                      <Td py="1">
+                        $
+                        {invoice.amount_paid &&
+                          invoice.amount_paid.toLocaleString('en-NZ')}
+                      </Td>
+                      <Td py="1">
+                        {invoice.date_paid &&
+                          new Date(invoice.date_paid).toLocaleDateString(
+                            'en-NZ'
+                          )}
+                      </Td>
+                      <Td py="1">JSON</Td>
                     </Tr>
                   ))}
                 </Tbody>
@@ -76,7 +115,6 @@ export function ClientInvoiceList() {
           </ModalBody>
           <ModalFooter>
             <Button
-              type="submit"
               bg="brand.100"
               color="brand.50"
               onClick={onClose}
