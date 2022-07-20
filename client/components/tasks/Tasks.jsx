@@ -71,13 +71,13 @@ export function Tasks() {
                     $
                     {(task.hours * selectedClient.rate).toLocaleString('en-US')}
                   </Td>
-                  <Td px={2} py="1" isNumeric={true}>
+                  <Td px="2" py="1" isNumeric={true}>
                     <IconButton
-                      m={1}
+                      fontSize="1.4em"
+                      size="sm"
                       bg="brand.400"
                       color="brand.50"
                       _hover={{ bg: 'brand.500' }}
-                      size="sm"
                       id={task.id}
                       value={task.id}
                       onClick={() => handleDelete(task.id)}

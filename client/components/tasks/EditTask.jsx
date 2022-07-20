@@ -18,7 +18,7 @@ import {
   Textarea,
   IconButton,
 } from '@chakra-ui/react'
-import { MdEditNote } from 'react-icons/md'
+import { MdEdit } from 'react-icons/md'
 
 export function EditTask(props) {
   const dispatch = useDispatch()
@@ -29,15 +29,15 @@ export function EditTask(props) {
   return (
     <>
       <IconButton
+        fontSize="1.4em"
         onClick={onOpen}
+        ml="2"
         size="sm"
-        m={1}
         bg="brand.100"
         color="brand.50"
         _hover={{ bg: 'brand.200' }}
-        icon={<MdEditNote />}
-      >
-      </IconButton>
+        icon={<MdEdit />}
+      ></IconButton>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
