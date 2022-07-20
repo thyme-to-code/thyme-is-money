@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {
+  Center,
+  CircularProgress,
   Divider,
   Flex,
   Spacer,
-  CircularProgress,
-  Center,
 } from '@chakra-ui/react'
 
 import { ClientDetails } from './clients/ClientDetails'
@@ -13,6 +13,7 @@ import { NewInvoice } from './invoices/NewInvoice'
 import { NewTask } from './tasks/NewTask'
 import { Tasks } from './tasks/Tasks'
 import { UpdateClient } from './clients/UpdateClient'
+import { Overview } from './Overview'
 import { ClientInvoiceList } from './invoices/ClientInvoiceList'
 
 export function Content() {
@@ -26,21 +27,21 @@ export function Content() {
     )
   }
 
-  return (
-    selectedClient.id && (
-      <>
-        <ClientDetails />
-        <Divider mt={2} mb={2} />
-        <Flex>
-          <NewTask />
-          <NewInvoice />
-          <Spacer />
-          <ClientInvoiceList />
-          <UpdateClient />
-        </Flex>
-        <Divider mt={2} mb={2} />
-        <Tasks />
-      </>
-    )
+  return selectedClient.id ? (
+    <>
+      <ClientDetails />
+      <Divider mt={2} mb={2} />
+      <Flex>
+        <NewTask />
+        <NewInvoice />
+        <Spacer />
+        <ClientInvoiceList />
+        <UpdateClient />
+      </Flex>
+      <Divider mt={2} mb={2} />
+      <Tasks />
+    </>
+  ) : (
+    <Overview />
   )
 }

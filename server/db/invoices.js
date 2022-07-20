@@ -64,6 +64,7 @@ function getInvoicesAndClientInfo(db = conn) {
       'invoices.total',
       'invoices.date_sent',
       'invoices.date_paid',
+      'invoices.amount_paid',
       'clients.id as client_id',
       'clients.business_name',
       'clients.contact_name',

@@ -14,7 +14,7 @@ const initialState = {
     to: '',
     currency: 'NZD',
     number: '',
-    payment_terms: 'Please pay within 7 days',
+    payment_terms: '7 days',
     items: [],
     fields: {
       tax: '%',

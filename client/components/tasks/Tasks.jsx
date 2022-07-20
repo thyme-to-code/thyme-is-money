@@ -41,7 +41,7 @@ export function Tasks() {
               <Tr>
                 <Td py="1">
                   <Heading as="h3" size="md">
-                    Task
+                    Uninvoiced Tasks
                   </Heading>
                 </Td>
                 <Td py="1" isNumeric={true}>
@@ -68,7 +68,8 @@ export function Tasks() {
                     {task.hours}
                   </Td>
                   <Td py="1" isNumeric={true}>
-                    ${task.hours * selectedClient.rate}
+                    $
+                    {(task.hours * selectedClient.rate).toLocaleString('en-US')}
                   </Td>
                   <Td px={2} py="1" isNumeric={true}>
                     <Button
