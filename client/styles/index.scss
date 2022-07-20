@@ -3,7 +3,9 @@
 
 $main-heading: 'Poppins', sans-serif;
 
-h1 { font-family: $main-heading; }
+h1 {
+  font-family: $main-heading;
+}
 
 footer {
   position: sticky;
@@ -20,25 +22,25 @@ footer {
 .landing .context {
   width: 100%;
   position: absolute;
-  top:50vh;  
+  top: 50vh;
   z-index: 1;
 }
 
-.landing .context h1{
+.landing .context h1 {
   font-family: $main-heading;
   text-align: center;
   color: #fff;
   font-size: 50px;
 }
 
-.landing .background{
-/*     background: RGBA(113, 223, 190, 1);   */
-  background: #0CA789;
+.landing .background {
+  /*     background: RGBA(113, 223, 190, 1);   */
+  background: #0ca789;
   width: 100%;
-  height:100vh;
+  height: 100vh;
 }
 
-.landing .shapes{
+.landing .shapes {
   position: absolute;
   top: 0;
   left: 0;
@@ -47,7 +49,7 @@ footer {
   overflow: hidden;
 }
 
-.landing .shape{
+.landing .shape {
   position: absolute;
   display: block;
   list-style: none;
@@ -58,15 +60,14 @@ footer {
   bottom: -150px;
 }
 
-.landing .shape:nth-child(1){
+.landing .shape:nth-child(1) {
   left: 25%;
   width: 80px;
   height: 80px;
   animation-delay: 0s;
 }
 
-
-.landing .shape:nth-child(2){
+.landing .shape:nth-child(2) {
   left: 10%;
   width: 20px;
   height: 20px;
@@ -74,14 +75,14 @@ footer {
   animation-duration: 12s;
 }
 
-.landing .shape:nth-child(3){
+.landing .shape:nth-child(3) {
   left: 70%;
   width: 20px;
   height: 20px;
   animation-delay: 4s;
 }
 
-.landing .shape:nth-child(4){
+.landing .shape:nth-child(4) {
   left: 40%;
   width: 60px;
   height: 60px;
@@ -89,28 +90,28 @@ footer {
   animation-duration: 18s;
 }
 
-.landing .shape:nth-child(5){
+.landing .shape:nth-child(5) {
   left: 65%;
   width: 20px;
   height: 20px;
   animation-delay: 0s;
 }
 
-.landing .shape:nth-child(6){
+.landing .shape:nth-child(6) {
   left: 75%;
   width: 110px;
   height: 110px;
   animation-delay: 3s;
 }
 
-.landing .shape:nth-child(7){
+.landing .shape:nth-child(7) {
   left: 35%;
   width: 150px;
   height: 150px;
   animation-delay: 7s;
 }
 
-.landing .shape:nth-child(8){
+.landing .shape:nth-child(8) {
   left: 50%;
   width: 25px;
   height: 25px;
@@ -118,7 +119,7 @@ footer {
   animation-duration: 45s;
 }
 
-.landing .shape:nth-child(9){
+.landing .shape:nth-child(9) {
   left: 20%;
   width: 15px;
   height: 15px;
@@ -126,7 +127,7 @@ footer {
   animation-duration: 35s;
 }
 
-.landing .shape:nth-child(10){
+.landing .shape:nth-child(10) {
   left: 85%;
   width: 150px;
   height: 150px;
@@ -135,15 +136,15 @@ footer {
 }
 
 @keyframes animate {
-  0%{
-      transform: translateY(0) rotate(0deg);
-      opacity: 1;
-      border-radius: 0;
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    border-radius: 0;
   }
 
-  100%{
-      transform: translateY(-1000px) rotate(720deg);
-      opacity: 0;
-      border-radius: 50%;
+  100% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+    border-radius: 50%;
   }
 }

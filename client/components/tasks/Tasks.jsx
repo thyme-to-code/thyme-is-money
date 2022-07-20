@@ -83,7 +83,7 @@ export function Tasks() {
                       value={task.id}
                       onClick={handleDelete}
                     >
-                      <MdDeleteForever />
+                      <MdDeleteForever onClick={() => handleDelete()} />
                     </Button>
                     <EditTask value={{ task, client_id: selectedClient.id }} />
                   </Td>
