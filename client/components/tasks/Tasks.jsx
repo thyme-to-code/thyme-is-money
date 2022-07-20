@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  Button,
+  IconButton,
   Heading,
   TableContainer,
   Table,
@@ -21,10 +21,9 @@ export function Tasks() {
   const { selectedClient } = useSelector((state) => state.clientList)
   const taskList = useSelector((state) => state.taskList)
 
-  function handleDelete(e) {
-    const taskId = e.target.id
-    taskId && deleteTask(taskId)
-    return dispatch(getActiveClientTasks(selectedClient.id))
+  function handleDelete(id) {
+    deleteTask(id)
+    dispatch(getActiveClientTasks(selectedClient.id))
   }
 
   useEffect(() => {
@@ -73,7 +72,7 @@ export function Tasks() {
                     {(task.hours * selectedClient.rate).toLocaleString('en-US')}
                   </Td>
                   <Td px={2} py="1" isNumeric={true}>
-                    <Button
+                    <IconButton
                       m={1}
                       bg="brand.400"
                       color="brand.50"
@@ -81,10 +80,9 @@ export function Tasks() {
                       size="sm"
                       id={task.id}
                       value={task.id}
-                      onClick={handleDelete}
-                    >
-                      <MdDeleteForever onClick={() => handleDelete()} />
-                    </Button>
+                      onClick={() => handleDelete(task.id)}
+                      icon={<MdDeleteForever />}
+                    />
                     <EditTask value={{ task, client_id: selectedClient.id }} />
                   </Td>
                 </Tr>

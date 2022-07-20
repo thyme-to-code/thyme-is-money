@@ -40,7 +40,7 @@ describe('getClients()', () => {
   test('returns one item with', () => {
     expect.assertions(1)
     return db.getClients(3, testDb).then((client) => {
-      expect(client.contact_name).toBe('Jeramey Jaouen')
+      expect(client.contact_name).toBe('Sarah Grayson')
     })
   })
 })

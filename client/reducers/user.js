@@ -19,11 +19,11 @@ export const loggedInUserSlice = createSlice({
       state.email = action.payload.email
       state.token = action.payload.token
     },
-    clearLoggedInUser: (state) => {
-      state
+    clearLoggedInUser: () => {
+      return getInitialState()
     },
   },
 })
 
-export const { setLoggedInUser } = loggedInUserSlice.actions
+export const { setLoggedInUser, clearLoggedInUser } = loggedInUserSlice.actions
 export default loggedInUserSlice.reducer
