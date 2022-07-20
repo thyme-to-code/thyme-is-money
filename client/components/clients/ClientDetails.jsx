@@ -56,6 +56,7 @@ export function ClientDetails() {
             </ListItem>
             <ListItem>
               <ListIcon as={MdMap} />
+              {console.log(selectedClient.address)}
               {selectedClient.address}
             </ListItem>
           </List>
