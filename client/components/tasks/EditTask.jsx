@@ -16,6 +16,7 @@ import {
   FormLabel,
   Input,
   Textarea,
+  IconButton,
 } from '@chakra-ui/react'
 import { MdEditNote } from 'react-icons/md'
 
@@ -27,16 +28,16 @@ export function EditTask(props) {
 
   return (
     <>
-      <Button
+      <IconButton
         onClick={onOpen}
         size="sm"
         m={1}
         bg="brand.100"
         color="brand.50"
         _hover={{ bg: 'brand.200' }}
+        icon={<MdEditNote />}
       >
-        <MdEditNote />
-      </Button>
+      </IconButton>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
