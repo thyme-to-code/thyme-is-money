@@ -18,3 +18,11 @@ export function saveInvoice(invoice) {
     .send(invoice)
     .then((res) => res.body)
 }
+
+export function getInvoicesByClient(id) {
+  return request.get(rootUrl + '/client/' + Number(id)).then((res) => res.body)
+}
+
+export function getInvoices() {
+  return request.get(rootUrl + '/all/').then((res) => res.body)
+}

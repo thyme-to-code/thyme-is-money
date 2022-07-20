@@ -14,6 +14,7 @@ import { NewTask } from './tasks/NewTask'
 import { Tasks } from './tasks/Tasks'
 import { UpdateClient } from './clients/UpdateClient'
 import { Overview } from './Overview'
+import { ClientInvoiceList } from './invoices/ClientInvoiceList'
 
 export function Content() {
   const { selectedClient, loading } = useSelector((state) => state.clientList)
@@ -34,6 +35,7 @@ export function Content() {
         <NewTask />
         <NewInvoice />
         <Spacer />
+        <ClientInvoiceList />
         <UpdateClient />
       </Flex>
       <Divider mt={2} mb={2} />
