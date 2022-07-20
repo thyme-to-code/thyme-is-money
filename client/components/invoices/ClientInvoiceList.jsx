@@ -123,7 +123,7 @@ export function ClientInvoiceList() {
               onClick={onClose}
               _hover={{ bg: 'brand.200' }}
             >
-              Done
+              Close
             </Button>
           </ModalFooter>
         </ModalContent>
