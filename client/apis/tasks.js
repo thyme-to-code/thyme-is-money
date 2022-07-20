@@ -36,7 +36,6 @@ export function deleteTask(id) {
 
 // /api/v1/tasks/update/:id
 export function updateTask(task) {
-  console.log('task', task)
   return request
     .patch(`${rootUrl}/update/${task.id}`)
     .send(task)

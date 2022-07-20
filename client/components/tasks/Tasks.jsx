@@ -10,6 +10,7 @@ import {
   Tr,
   Td,
 } from '@chakra-ui/react'
+import { MdDeleteForever } from 'react-icons/md'
 
 import { deleteTask } from '../../apis/tasks'
 import { getActiveClientTasks } from '../../reducers/taskList'
@@ -74,15 +75,15 @@ export function Tasks() {
                   <Td px={2} py="1" isNumeric={true}>
                     <Button
                       m={1}
-                      bg="brand.100"
+                      bg="brand.400"
                       color="brand.50"
-                      _hover={{ bg: 'brand.200' }}
+                      _hover={{ bg: 'brand.500' }}
                       size="sm"
                       id={task.id}
                       value={task.id}
                       onClick={handleDelete}
                     >
-                      x
+                      <MdDeleteForever />
                     </Button>
                     <EditTask value={{ task, client_id: selectedClient.id }} />
                   </Td>
