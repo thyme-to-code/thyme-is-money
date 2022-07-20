@@ -13,6 +13,7 @@ import {
 
 import { deleteTask } from '../../apis/tasks'
 import { getActiveClientTasks } from '../../reducers/taskList'
+import { EditTask } from './EditTask'
 
 export function Tasks() {
   const dispatch = useDispatch()
@@ -82,6 +83,7 @@ export function Tasks() {
                     >
                       x
                     </Button>
+                    <EditTask value={{ task, client_id: selectedClient.id }} />
                   </Td>
                 </Tr>
               ))}

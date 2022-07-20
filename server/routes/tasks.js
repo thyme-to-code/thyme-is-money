@@ -52,4 +52,18 @@ router.delete('/delete/:id', (req, res) => {
     })
 })
 
+// UPDATE /api/v1/tasks/update/:id
+
+router.patch('/update/:id', (req, res) => {
+  const id = Number(req.params.id)
+  const updatedTask = req.body
+  db.updateTaskById(updatedTask, id)
+    .then((task) => {
+      res.json(task)
+    })
+    .catch((err) => {
+      res.status(500).send(err.message)
+    })
+})
+
 module.exports = router
