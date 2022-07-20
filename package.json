@@ -21,7 +21,10 @@
     "webpack": "webpack --config ./client/webpack.config.js",
     "knex": "knex --knexfile ./server/db/knexfile.js",
     "lint": "eslint --ext .js,.jsx .",
-    "heroku-postbuild": "npm run knex seed:run"
+    "knex:migrate": "npm run knex -- migrate:latest",
+    "knex:seed":"npm run knex -- seed:run",
+    "heroku-postbuild": "run-s knex:migrate knex:seed"
+
   },
   "keywords": [
     "fullstack"
