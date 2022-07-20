@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.seed = async function (knex) {
-  await knex('expenses').del()
+  await knex('expenses').truncate()
   await knex('expenses').insert([
     {
       id: 1,
