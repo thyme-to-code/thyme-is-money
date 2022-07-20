@@ -1,6 +1,14 @@
 import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { Box, Flex, Spacer, Heading, Button } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  HStack,
+  Image,
+  Spacer,
+} from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 export function Header() {
@@ -15,9 +23,17 @@ export function Header() {
   return (
     <Flex>
       <Box>
-        <Heading as="h1" color="#fff">
-          🌱 Thyme is Money
-        </Heading>
+        <HStack>
+          <Image
+            boxSize="64px"
+            alt="Two leaves as logo"
+            src="/favicon-crop.png"
+          />
+          <Spacer px="35" />
+          <Heading as="h1" color="#fff">
+            Thyme is Money
+          </Heading>
+        </HStack>
       </Box>
       <Spacer />
       <Box mr={3}>
