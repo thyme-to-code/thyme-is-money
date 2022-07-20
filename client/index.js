@@ -1,20 +1,33 @@
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
+import { store } from './reducers/store'
+import { Auth0Provider } from '@auth0/auth0-react'
+import { ChakraProvider } from '@chakra-ui/react'
+import { BrowserRouter as Router } from 'react-router-dom'
 
-import reducers from './reducers'
+import theme from './theme/theme'
+import './styles/index.scss'
+
 import App from './components/App'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)))
-
+const container = document.getElementById('app')
+const root = createRoot(container)
 document.addEventListener('DOMContentLoaded', () => {
-  render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById('app')
+  root.render(
+    <Auth0Provider
+      domain="thyme-is-money.au.auth0.com"
+      clientId="vrd0Ykva2cFUzMkyLc10F2Ns1vu1XoDU"
+      audience="https://thyme-is-money/api"
+      redirectUri={window.location.origin}
+    >
+      <ChakraProvider theme={theme}>
+        <Provider store={store}>
+          <Router>
+            <App />
+          </Router>
+        </Provider>
+      </ChakraProvider>
+    </Auth0Provider>
   )
 })
