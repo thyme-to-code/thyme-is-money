@@ -37,7 +37,7 @@ export function Tasks() {
           {/* borderColor="brand.500" borderWidth="1px" borderRadius="lg" */}
 
           {selectedClient.business_name && (
-            <Thead>
+            <Thead color="brand.100">
               <Tr>
                 <Td py="1">
                   <Heading as="h3" size="md">
