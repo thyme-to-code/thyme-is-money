@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { updateClientTask } from '../../reducers/taskList'
 import { Formik, Form, Field } from 'formik'
 import {
   Modal,
@@ -17,32 +18,33 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
-import { addClientTask } from '../../reducers/taskList'
-
-export function NewTask() {
+export function EditTask(props) {
   const dispatch = useDispatch()
-  const { selectedClient } = useSelector((state) => state.clientList)
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { description, hours, id } = props.value.task
+  const { selectedClient } = useSelector((state) => state.clientList)
 
   return (
     <>
-      <Button mr={3} onClick={onOpen} bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
-        Create Task
+      <Button onClick={onOpen} size="sm" m={1} colorScheme="teal">
+        e
       </Button>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color="#0CA789">Create Task</ModalHeader>
+          <ModalHeader color="#0CA789">Update Task</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={{
-              description: '',
-              hours: '',
+              description: description,
+              hours: hours,
               status: 'uninvoiced',
               client_id: selectedClient.id,
+              id,
             }}
             onSubmit={(newTask) => {
-              dispatch(addClientTask(newTask))
+              dispatch(updateClientTask(newTask))
               onClose()
             }}
           >
@@ -74,8 +76,8 @@ export function NewTask() {
                 <Button mr={3} colorScheme="gray" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button type="submit" bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
-                  Create
+                <Button type="submit" colorScheme="teal">
+                  Update
                 </Button>
               </ModalFooter>
             </Form>

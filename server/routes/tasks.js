@@ -30,7 +30,6 @@ router.get('/:client', (req, res) => {
 
 // POST /api/v1/tasks/add
 router.post('/add', (req, res) => {
-  console.log(req.body)
   const task = req.body
   db.addTaskByClient(task)
     .then((task) => {
@@ -47,6 +46,20 @@ router.delete('/delete/:id', (req, res) => {
   db.deleteTaskById(id)
     .then(() => {
       res.sendStatus(200)
+    })
+    .catch((err) => {
+      res.status(500).send(err.message)
+    })
+})
+
+// UPDATE /api/v1/tasks/update/:id
+
+router.patch('/update/:id', (req, res) => {
+  const id = Number(req.params.id)
+  const updatedTask = req.body
+  db.updateTaskById(updatedTask, id)
+    .then((task) => {
+      res.json(task)
     })
     .catch((err) => {
       res.status(500).send(err.message)

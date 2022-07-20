@@ -1,9 +1,19 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Button, SimpleGrid, Box } from '@chakra-ui/react'
+import {
+  Button,
+  Heading,
+  TableContainer,
+  Table,
+  Tbody,
+  Thead,
+  Tr,
+  Td,
+} from '@chakra-ui/react'
 
 import { deleteTask } from '../../apis/tasks'
 import { getActiveClientTasks } from '../../reducers/taskList'
+import { EditTask } from './EditTask'
 
 export function Tasks() {
   const dispatch = useDispatch()
@@ -22,44 +32,74 @@ export function Tasks() {
 
   return (
     <div className="tasks">
-      {selectedClient.business_name && (
-        <SimpleGrid columns={4} spacing={10}>
-          <Box w="50%">Task</Box>
-          <Box>Hours</Box>
-          <Box>Amount</Box>
-          <Box>Remove</Box>
-        </SimpleGrid>
-      )}
+      <TableContainer mr={5}>
+        <Table p="1" variant="striped" colorScheme="table">
+          {/* borderColor="brand.500" borderWidth="1px" borderRadius="lg" */}
 
-      {taskList?.data.length > 0 ? (
-        taskList?.data.map((task) => (
-          <SimpleGrid key={task.id} columns={4} spacing={10}>
-            <Box>
-              <>{task.description} </>
-            </Box>
-            <Box>
-              <>{task.hours}</>
-            </Box>
-            <Box>
-              <>${task.hours * selectedClient.rate}</>
-            </Box>
-            <Box>
-              <Button
-                m={1}
-                colorScheme="teal"
-                size="sm"
-                id={task.id}
-                value={task.id}
-                onClick={handleDelete}
-              >
-                x
-              </Button>
-            </Box>
-          </SimpleGrid>
-        ))
-      ) : (
-        <>No uninvoiced tasks.</>
-      )}
+          {selectedClient.business_name && (
+            <Thead>
+              <Tr>
+                <Td py="1">
+                  <Heading as="h3" size="md">
+                    Task
+                  </Heading>
+                </Td>
+                <Td py="1" isNumeric={true}>
+                  <Heading as="h3" size="md">
+                    Hours
+                  </Heading>
+                </Td>
+                <Td py="1" isNumeric={true}>
+                  <Heading as="h3" size="md">
+                    Amount
+                  </Heading>
+                </Td>
+                <Td px={2} py="1" isNumeric={true}></Td>
+              </Tr>
+            </Thead>
+          )}
+
+          {taskList?.data.length > 0 ? (
+            <Tbody>
+              {taskList?.data.map((task) => (
+                <Tr key={task.id}>
+                  <Td py="1">{task.description}</Td>
+                  <Td py="1" isNumeric={true}>
+                    {task.hours}
+                  </Td>
+                  <Td py="1" isNumeric={true}>
+                    ${task.hours * selectedClient.rate}
+                  </Td>
+                  <Td px={2} py="1" isNumeric={true}>
+                    <Button
+                      m={1}
+                      bg="brand.100"
+                      color="brand.50"
+                      _hover={{ bg: 'brand.200' }}
+                      size="sm"
+                      id={task.id}
+                      value={task.id}
+                      onClick={handleDelete}
+                    >
+                      x
+                    </Button>
+                    <EditTask value={{ task, client_id: selectedClient.id }} />
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          ) : (
+            <Tbody>
+              <Tr>
+                <Td py="3.5">No tasks. Do some Work!</Td>
+                <Td py="3.5"></Td>
+                <Td py="3.5"></Td>
+                <Td py="3.5"></Td>
+              </Tr>
+            </Tbody>
+          )}
+        </Table>
+      </TableContainer>
     </div>
   )
 }

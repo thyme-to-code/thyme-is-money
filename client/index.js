@@ -6,6 +6,9 @@ import { Auth0Provider } from '@auth0/auth0-react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter as Router } from 'react-router-dom'
 
+import theme from './theme/theme'
+import './styles/index.scss'
+
 import App from './components/App'
 
 const container = document.getElementById('app')
@@ -18,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       audience="https://thyme-is-money/api"
       redirectUri={window.location.origin}
     >
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Provider store={store}>
           <Router>
             <App />

@@ -33,3 +33,17 @@ export function deleteTask(id) {
       console.log(err)
     })
 }
+
+// /api/v1/tasks/update/:id
+export function updateTask(task) {
+  console.log('task', task)
+  return request
+    .patch(`${rootUrl}/update/${task.id}`)
+    .send(task)
+    .then((res) => {
+      return res.body
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
