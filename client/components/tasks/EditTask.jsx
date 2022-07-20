@@ -17,6 +17,7 @@ import {
   Input,
   Textarea,
 } from '@chakra-ui/react'
+import { MdEditNote } from 'react-icons/md'
 
 export function EditTask(props) {
   const dispatch = useDispatch()
@@ -26,8 +27,15 @@ export function EditTask(props) {
 
   return (
     <>
-      <Button onClick={onOpen} size="sm" m={1} colorScheme="teal">
-        e
+      <Button
+        onClick={onOpen}
+        size="sm"
+        m={1}
+        bg="brand.100"
+        color="brand.50"
+        _hover={{ bg: 'brand.200' }}
+      >
+        <MdEditNote />
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>

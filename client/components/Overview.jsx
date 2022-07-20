@@ -37,7 +37,10 @@ export function Overview() {
 
   return (
     <>
-      <Heading size="lg">Uninvoiced Tasks</Heading>
+      <Heading as="h2" size="md">
+        Uninvoiced Tasks
+      </Heading>
+      <Divider my={1} />
       <TableContainer mr={5}>
         <Table p="1" variant="striped" colorScheme="table">
           <Thead>
@@ -101,7 +104,10 @@ export function Overview() {
 
       <Divider my="5" />
 
-      <Heading size="lg">Recent Invoices</Heading>
+      <Heading as="h2" size="md">
+        Recent Invoices
+      </Heading>
+      <Divider my={1} />
       <TableContainer mr={10}>
         <Table p="1" variant="striped" colorScheme="table">
           <Thead>
