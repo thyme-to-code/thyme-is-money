@@ -143,7 +143,7 @@ export function Overview() {
               </Tr>
             ) : (
               invoices.map((invoice) => (
-                <Tr key={invoice.id}>
+                <Tr key={invoice.invoice_number}>
                   <Td py="1">{invoice.business_name}</Td>
                   <Td py="1" isNumeric={true}>
                     {new Date(invoice.date_sent).toLocaleDateString('en-NZ')}
