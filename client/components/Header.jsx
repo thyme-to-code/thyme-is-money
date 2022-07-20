@@ -29,7 +29,7 @@ export function Header() {
             alt="Two leaves as logo"
             src="/favicon-crop.png"
           />
-          <Spacer px="35" />
+          <Spacer px="1" />
           <Heading as="h1" color="#fff">
             Thyme is Money
           </Heading>
