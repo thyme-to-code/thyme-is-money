@@ -4,9 +4,11 @@
 
 A simple time keeping and invoicing application for freelancers. It is written in Javascript using React, Redux Toolkit, Chakra-UI and Formik for the front end, and Express, Knex and SQLite on the backend.
 
-In it's current for it is 
+In it's current form it should be considered a fairly complete school project rather than a production ready piece of software.  There are no known bugs but there are some obvious missing features and it it needs some tidying up.
 
 Originally written by @nicole-ferma, @yuricowan, @dajabe, and @adamshand for their final [DevAcademy Aotearoa](https://devacademy.co.nz/) project in 2022.  
+
+## Screenshots
 
 ## Current Features
 
@@ -22,7 +24,8 @@ Originally written by @nicole-ferma, @yuricowan, @dajabe, and @adamshand for the
 
 ## Future Updates
 
-- Beter reporting on earnings and tax obligations (per year)
+- Beter reporting on earnings and tax obligations
+- Break down information by year
 - Convert to Typescript
 - Create Docker container for easy use
 
