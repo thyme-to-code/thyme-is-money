@@ -1,7 +1,5 @@
 # Thyme is Money
 
-![Thyme is Money](docs/thyme.jpg "Photo by Alejandro Piñero Amerio. Source https://unsplash.com/photos/Ut3vw1iLBgk")
-
 A simple time keeping and invoicing application for freelancers. It is written in Javascript using React, Redux Toolkit, Chakra-UI and Formik for the front end, and Express, Knex and SQLite on the backend.
 
 In it's current form it should be considered a fairly complete school project rather than a production ready piece of software.  There are no known bugs but there are some obvious missing features and it it needs some tidying up.
@@ -9,6 +7,12 @@ In it's current form it should be considered a fairly complete school project ra
 Originally written by @nicole-ferma, @yuricowan, @dajabe, and @adamshand for their final [DevAcademy Aotearoa](https://devacademy.co.nz/) project in 2022.  
 
 ## Screenshots
+
+![](screenshots/client.png)
+
+- [Invoice Preview](screenshots/invoice_preview.png)
+- [Landing Page](screenshots/landing.png)
+- [Task and Invoice Overview](screenshots/overview.png) 
 
 ## Current Features
 
