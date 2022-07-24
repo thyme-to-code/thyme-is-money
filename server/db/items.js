@@ -1,7 +1,7 @@
 const config = require('./knexfile').development
-const connection = require('knex')(config)
+const conn = require('knex')(config)
 
-function getItems(isInvoiced = 'all', db = connection) {
+function getItems(isInvoiced = 'all', db = conn) {
   if (isInvoiced === 'all') {
     return db('items')
   } else if (isInvoiced === 'yes') {
@@ -11,7 +11,8 @@ function getItems(isInvoiced = 'all', db = connection) {
   }
 }
 
-function getItemsByClient(client, db = connection) {
+function getItemsByClient(client, db = conn) {
+  // TODO no status column now
   const { id, status } = client
   if (status === 'uninvoiced') {
     return db('items').where({ client_id: id }).andWhere({ invoice_id: null })
@@ -20,46 +21,34 @@ function getItemsByClient(client, db = connection) {
   }
 }
 
-function addItemByClient(item, db = connection) {
-  const { description, hours, rate, status, client_id } = item
-  const today = new Date()
+function addItem(item, db = conn) {
+  const today = new Date().toISOString()
   return db('items')
     .insert({
-      description,
-      hours,
-      rate,
-      status,
-      client_id,
-      created_at: today.toISOString(),
-      updated_at: today.toISOString(),
+      ...item,
+      created_at: today,
+      updated_at: today,
     })
-    .then((id) => {
-      return { ...item, id }
-    })
+    .then(([id]) => db('items').where('id', id))
 }
 
-function deleteItemById(id, db = connection) {
-  return db('items').where({ id }).delete()
-}
-
-function getItemById(id, db = connection) {
-  return db('items').select().where({ id }).first()
-}
-
-function updateItemById(item, id, db = connection) {
-  const { description, hours } = item
+function updateItem(item, db = conn) {
+  const today = new Date().toISOString()
   return db(`items`)
-    .where({ id })
-    .update({ hours, description })
-    .then(() => {
-      return getItemById(id, db)
-    })
+    .where('id', item.id)
+    .update({ ...item, updated_at: today })
+    .then(() => db('items').where('id', item.id))
+}
+
+function deleteItem(id, db = conn) {
+  //TODO if id doesn't exist, doesn't error.  ok?
+  return db('items').where({ id }).delete()
 }
 
 module.exports = {
   getItems,
-  addItemByClient,
-  deleteItemById,
   getItemsByClient,
-  updateItemById,
+  addItem,
+  updateItem,
+  deleteItem,
 }

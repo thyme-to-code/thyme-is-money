@@ -1,17 +1,23 @@
 import request from 'superagent'
-
 const rootUrl = '/api/v1/tasks'
-
-// export function getUninvoicedTasks(clientId) {
-//   return request.get(`${rootUrl}/${clientId}?status=uninvoiced`).then((res) => {
-//     return res.body
-//   })
-// }
 
 // /api/v1/tasks/add
 export function addTask(task) {
   return request
     .post(`${rootUrl}/add`)
+    .send(task)
+    .then((res) => {
+      return res.body
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+// /api/v1/tasks/update/:id
+export function updateTask(task) {
+  return request
+    .patch(`${rootUrl}/update/${task.id}`)
     .send(task)
     .then((res) => {
       return res.body
@@ -28,19 +34,6 @@ export function deleteTask(id) {
     .send()
     .then((res) => {
       return res.status
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
-
-// /api/v1/tasks/update/:id
-export function updateTask(task) {
-  return request
-    .patch(`${rootUrl}/update/${task.id}`)
-    .send(task)
-    .then((res) => {
-      return res.body
     })
     .catch((err) => {
       console.log(err)

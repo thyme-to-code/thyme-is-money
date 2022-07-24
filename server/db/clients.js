@@ -1,14 +1,6 @@
 const config = require('./knexfile').development
 const conn = require('knex')(config)
 
-// TODO remove once redux refactored?
-function getClient(id, db = conn) {
-  return db('clients')
-    .where('id', id)
-    .first()
-    .then((r) => (r ? r : `Client id ${id} not found.`))
-}
-
 function getClients(isActive = 'all', db = conn) {
   if (isActive === 'all') {
     return db('clients').select()
@@ -17,6 +9,14 @@ function getClients(isActive = 'all', db = conn) {
   } else if (isActive === 'no') {
     return db('clients').where('isActive', false)
   }
+}
+
+// TODO all active clients in Redux, remove after refactor
+function getClient(id, db = conn) {
+  return db('clients')
+    .where('id', id)
+    .first()
+    .then((r) => (r ? r : `Client id ${id} not found.`))
 }
 
 function addClient(client, db = conn) {

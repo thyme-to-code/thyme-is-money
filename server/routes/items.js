@@ -5,8 +5,7 @@ const db = require('../db/items')
 
 // GET /api/v1/items?invoiced=[yes|no]
 router.get('/', (req, res) => {
-  return db
-    .getItems(req.query.invoiced)
+  db.getItems(req.query.invoiced)
     .then((items) => {
       res.json(items)
     })
@@ -15,11 +14,10 @@ router.get('/', (req, res) => {
     })
 })
 
-// GET /api/v1/item/:client
-router.get('/:client', (req, res) => {
-  const client = { id: Number(req.params.client) }
-  return db
-    .getItemsByClient(client)
+// GET /api/v1/item/:clientId
+router.get('/:clientId', (req, res) => {
+  const client = { id: req.params.clientId }
+  db.getItemsByClient(client)
     .then((items) => {
       res.json(items)
     })
@@ -28,11 +26,11 @@ router.get('/:client', (req, res) => {
     })
 })
 
-// TODO remove /add
-// POST /api/v1/items/add
-router.post('/add', (req, res) => {
+// POST /api/v1/items
+router.post('/', (req, res) => {
   const item = req.body
-  db.addItemByClient(item)
+  console.log(item)
+  db.addItem(item)
     .then((item) => {
       res.json(item)
     })
@@ -41,13 +39,9 @@ router.post('/add', (req, res) => {
     })
 })
 
-// TODO pass id with object instead of URL?
-// TODO remove /update
-// PATCH /api/v1/items/update/:id
-router.patch('/update/:id', (req, res) => {
-  const id = Number(req.params.id)
-  const updatedItem = req.body
-  db.updateItemById(updatedItem, id)
+// PATCH /api/v1/items
+router.patch('/', (req, res) => {
+  db.updateItem(req.body)
     .then((item) => {
       res.json(item)
     })
@@ -56,12 +50,9 @@ router.patch('/update/:id', (req, res) => {
     })
 })
 
-// TODO pass id with object instead of URL?
-// TODO remove /delete
-// DELETE /api/v1/items/delete/:id
-router.delete('/delete/:id', (req, res) => {
-  const id = Number(req.params.id)
-  db.deleteItemById(id)
+// DELETE /api/v1/items/:clientId
+router.delete('/:clientId', (req, res) => {
+  db.deleteItem(req.params.clientId)
     .then(() => {
       res.sendStatus(200)
     })

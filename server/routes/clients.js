@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     })
 })
 
-// TODO remove? single client access only via redux?
+// TODO all active clients in Redux, remove after refactor
 router.get('/:id', (req, res) => {
   db.getClient(req.params.id)
     .then((client) => {
@@ -27,6 +27,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
+// POST /api/v1/clients
 router.post('/', (req, res) => {
   db.addClient(req.body)
     .then((id) => {
@@ -38,6 +39,7 @@ router.post('/', (req, res) => {
     })
 })
 
+// PATCH /api/v1/clients
 router.patch('/', (req, res) => {
   db.updateClient(req.body)
     .then((client) => {
@@ -48,5 +50,8 @@ router.patch('/', (req, res) => {
       throw new Error('Failed to update client id: ' + req.body.id)
     })
 })
+
+// DELETE /api/v1/clients
+// mark isActive=false
 
 module.exports = router
