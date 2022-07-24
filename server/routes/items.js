@@ -15,6 +15,8 @@ router.get('/', (req, res) => {
 })
 
 // GET /api/v1/item/:clientId?invoiced=[yes|no]
+//? I think when it comes to REST we actually want this route to be
+//? GET /api/v1/clients/:clientId/items
 router.get('/:clientId', (req, res) => {
   const client = { id: req.params.clientId, invoicedState: req.query.invoiced }
   db.getItemsByClient(client)
