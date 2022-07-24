@@ -1,21 +1,23 @@
 const config = require('./knexfile').development
 const conn = require('knex')(config)
 
-function getItems(isInvoiced = 'all', db = conn) {
-  if (isInvoiced === 'all') {
+function getItems(invoicedState = 'all', db = conn) {
+  if (invoicedState === 'all') {
     return db('items')
-  } else if (isInvoiced === 'yes') {
+  } else if (invoicedState === 'yes') {
     return db('items').whereNotNull('invoice_id')
-  } else if (isInvoiced === 'no') {
+  } else if (invoicedState === 'no') {
     return db('items').whereNull('invoice_id')
   }
 }
 
+//TODO should this be merged with getItems?
 function getItemsByClient(client, db = conn) {
-  // TODO no status column now
-  const { id, status } = client
-  if (status === 'uninvoiced') {
-    return db('items').where({ client_id: id }).andWhere({ invoice_id: null })
+  const { id, invoicedState } = client
+  if (invoicedState === 'no') {
+    return db('items').whereNull('invoice_id').andWhere({ client_id: id })
+  } else if (invoicedState === 'yes') {
+    return db('items').whereNotNull('invoice_id').andWhere({ client_id: id })
   } else {
     return db('items').where({ client_id: id })
   }

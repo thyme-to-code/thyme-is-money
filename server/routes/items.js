@@ -14,9 +14,9 @@ router.get('/', (req, res) => {
     })
 })
 
-// GET /api/v1/item/:clientId
+// GET /api/v1/item/:clientId?invoiced=[yes|no]
 router.get('/:clientId', (req, res) => {
-  const client = { id: req.params.clientId }
+  const client = { id: req.params.clientId, invoicedState: req.query.invoiced }
   db.getItemsByClient(client)
     .then((items) => {
       res.json(items)
