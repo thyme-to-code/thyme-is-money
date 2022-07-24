@@ -28,6 +28,7 @@ router.get('/:client', (req, res) => {
     })
 })
 
+// TODO remove /add
 // POST /api/v1/items/add
 router.post('/add', (req, res) => {
   const item = req.body
@@ -40,6 +41,8 @@ router.post('/add', (req, res) => {
     })
 })
 
+// TODO pass id with object instead of URL?
+// TODO remove /update
 // PATCH /api/v1/items/update/:id
 router.patch('/update/:id', (req, res) => {
   const id = Number(req.params.id)
@@ -53,6 +56,8 @@ router.patch('/update/:id', (req, res) => {
     })
 })
 
+// TODO pass id with object instead of URL?
+// TODO remove /delete
 // DELETE /api/v1/items/delete/:id
 router.delete('/delete/:id', (req, res) => {
   const id = Number(req.params.id)

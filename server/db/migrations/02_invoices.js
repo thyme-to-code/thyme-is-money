@@ -7,6 +7,7 @@ exports.up = function (knex) {
     t.increments('id').primary()
     t.int('user_id').references('users.id')
     t.integer('client_id').references('clients.id')
+    t.int('status')
     t.float('total')
     t.datetime('date_sent')
     t.datetime('date_paid')
