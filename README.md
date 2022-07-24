@@ -4,6 +4,9 @@
 
 A simple time keeping and invoicing application for freelancers.
 
+## Community
+You can join the community [on discord](https://discord.gg/uggrQuhh)
+
 ## MVP
 
 - Keeps client details (name, contact, address, rate etc) for invoicing
