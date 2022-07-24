@@ -240,7 +240,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 29,
+      id: 27,
       description: 'Initial consult with Maya with tour of factory',
       quantity: 4,
       cost: null,
@@ -249,7 +249,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 30,
+      id: 28,
       description: 'Mock up of custom furniture for Mayas client',
       quantity: 3,
       cost: null,
@@ -258,7 +258,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 31,
+      id: 29,
       description: 'Proposal sent and discussed with Maya',
       quantity: 3,
       cost: 41.2,
@@ -267,7 +267,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 32,
+      id: 30,
       description: 'Two cabinets built and finished',
       quantity: 5,
       cost: null,
@@ -276,7 +276,7 @@ exports.seed = async function (knex) {
       invoice_id: 3,
     },
     {
-      id: 33,
+      id: 31,
       description: 'Dining table and six chairs complete',
       quantity: 4,
       cost: 53.1,
@@ -285,7 +285,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 35,
+      id: 32,
       description: 'Valve seals replaces in Sarahs Suzuki Swift',
       quantity: 5,
       cost: null,
@@ -294,7 +294,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 36,
+      id: 33,
       description: 'Rear windscreen replaced for Harrys Silvia',
       quantity: 3,
       cost: null,
@@ -303,7 +303,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 37,
+      id: 34,
       description: 'General service on Garys Toyota Prius',
       quantity: 4,
       cost: null,
@@ -312,7 +312,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 38,
+      id: 35,
       description: 'Replace rear wheel bearings on Yuris BMW 3-series',
       quantity: 7,
       cost: 70.9,
@@ -321,7 +321,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 39,
+      id: 36,
       description: 'Courier security equipment for Penelope order #4134',
       quantity: 2,
       cost: null,
@@ -330,7 +330,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 40,
+      id: 37,
       description: 'Courier delivery for order #4123',
       quantity: 1,
       cost: null,
@@ -339,7 +339,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 41,
+      id: 38,
       description: 'Courier delivery for order #4124',
       quantity: 1,
       cost: null,
@@ -348,7 +348,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 42,
+      id: 39,
       description: 'Courier delivery for order #4126',
       quantity: 3,
       cost: 51.4,
@@ -357,7 +357,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 43,
+      id: 40,
       description: 'Courier delivery for order #4127',
       quantity: 2,
       cost: null,
@@ -366,7 +366,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 44,
+      id: 41,
       description: 'Courier delivery for order #4130',
       quantity: 1,
       cost: null,
@@ -375,7 +375,7 @@ exports.seed = async function (knex) {
       invoice_id: 1,
     },
     {
-      id: 46,
+      id: 42,
       description: 'Order of 10kg of mince | 5kg of mushrooms | 50kg of flour',
       quantity: 7,
       cost: null,
@@ -384,7 +384,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 47,
+      id: 43,
       description:
         'Order of 12kg of mince | 5kg of potato | 50kg of cool bananas',
       quantity: 3,
@@ -394,7 +394,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 48,
+      id: 44,
       description:
         'Order of 10kg of cool beans | 5kg of mushrooms | 50kg of flour',
       quantity: 4,
@@ -404,7 +404,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 49,
+      id: 45,
       description: 'Special order of 12kg of more cool bananas',
       quantity: 8,
       cost: null,
@@ -413,7 +413,7 @@ exports.seed = async function (knex) {
       invoice_id: null,
     },
     {
-      id: 50,
+      id: 46,
       description: 'Another urgent order for 15kg of cool bananas',
       quantity: 7,
       cost: null,
