@@ -3,10 +3,10 @@ const router = express.Router()
 
 const db = require('../db/items')
 
-// GET /api/v1/tasks
+// GET /api/v1/items?invoiced=[yes|no]
 router.get('/', (req, res) => {
   return db
-    .getAllTasks()
+    .getItems(req.query.invoiced)
     .then((tasks) => {
       res.json(tasks)
     })
@@ -15,22 +15,11 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/uninvoiced', (req, res) => {
-  return db
-    .getUninvoicedTasks()
-    .then((tasks) => {
-      res.json(tasks)
-    })
-    .catch((err) => {
-      res.status(500).send(err.message)
-    })
-})
-
-// GET /api/v1/tasks/:client?status=
+// GET /api/v1/item/:client
 router.get('/:client', (req, res) => {
-  const client = { id: Number(req.params.client), status: req.query.status }
+  const client = { id: Number(req.params.client) }
   return db
-    .getTasksByClient(client)
+    .getItemsByClient(client)
     .then((tasks) => {
       res.json(tasks)
     })
