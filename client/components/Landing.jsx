@@ -1,9 +1,8 @@
 import React from 'react'
 import LogIn from './LogIn'
-import { Flex, Heading,  Image, HStack, Spacer } from '@chakra-ui/react'
+import { Flex, Heading, Image, HStack } from '@chakra-ui/react'
 
 export function Landing() {
-
   return (
     <div className="landing">
       <div className="context">
@@ -23,10 +22,10 @@ export function Landing() {
           <LogIn />
         </Flex>
       </div>
-      <div className="background" >
+      <div className="background">
         <div className="shapes">
           <div className="shape"></div>
-          <div className="shape"></div>  
+          <div className="shape"></div>
           <div className="shape"></div>
           <div className="shape"></div>
           <div className="shape"></div>
@@ -36,8 +35,7 @@ export function Landing() {
           <div className="shape"></div>
           <div className="shape"></div>
         </div>
-      </div >
+      </div>
     </div>
   )
 }
-
