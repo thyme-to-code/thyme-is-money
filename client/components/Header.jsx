@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   Box,
@@ -9,10 +10,12 @@ import {
   Image,
   Spacer,
 } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+
+import { clearSelectedClient } from '../reducers/clientList'
 
 export function Header() {
   const { logout } = useAuth0()
+  const dispatch = useDispatch()
 
   function handleLogOut(event) {
     event.preventDefault()
@@ -20,17 +23,22 @@ export function Header() {
     logout()
   }
 
+  function handleClick() {
+    dispatch(clearSelectedClient())
+  }
+
   return (
     <Flex>
       <Box>
         <HStack>
           <Image
+            onClick={handleClick}
             boxSize="64px"
             alt="Two leaves as logo"
             src="/favicon-crop.png"
           />
           <Spacer px="1" />
-          <Heading as="h1" color="#fff">
+          <Heading onClick={handleClick} as="h1" color="#fff">
             Thyme is Money
           </Heading>
         </HStack>
@@ -38,7 +46,7 @@ export function Header() {
       <Spacer />
       <Box mr={3}>
         <Button colorScheme="whiteAlpha" onClick={handleLogOut}>
-          <Link to="/">Log Out</Link>
+          Log Out
         </Button>
       </Box>
     </Flex>

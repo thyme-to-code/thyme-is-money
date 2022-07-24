@@ -50,10 +50,11 @@ export function Main() {
       </GridItem>
       <GridItem
         pl="2"
-        bg="brand.100"
+        bg="#c7eae2"
         area={'footer'}
-        color="brand.50"
+        color="blackAlpha.500"
         textAlign="center"
+        fontSize="sm"
         sx={{ position: 'sticky', bottom: 0 }}
       >
         <Footer />
