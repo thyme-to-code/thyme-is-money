@@ -1,0 +1,52 @@
+https://dbdiagram.io/d/62dc91fc0d66c7465538d34a
+
+Table clients {
+  id integer [pk, increment]
+  user_id int [ref: > users.id]
+  business_name string
+  contact_name string
+  email string
+  phone string
+  address string
+  rate float
+  isActive boolean
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table items {
+  id int [pk, increment]
+  user_id int [ref: > users.id]
+  client_id int [ref: > clients.id]
+  invoice_id int [ref: > invoices.id]
+  type enum 
+  description string
+  quantity float
+  cost float
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table invoices {
+  id int [pk, increment]
+  user_id int [ref: > users.id]
+  client_id int [ref: > clients.id]
+  status int
+  total float
+  date_sent date
+  date_paid date
+  amount_paid float
+  json string
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table users {
+  id int [pk, increment]
+  first_name varchar
+  last_name varchar
+  email varchar
+  settings string
+  created_at timestamp
+  updated_at timestamp
+}
