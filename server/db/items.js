@@ -1,14 +1,6 @@
 const config = require('./knexfile').development
 const connection = require('knex')(config)
 
-module.exports = {
-  getItems,
-  addTaskByClient,
-  deleteTaskById,
-  getItemsByClient,
-  updateTaskById,
-}
-
 function getItems(isInvoiced = 'all', db = connection) {
   if (isInvoiced === 'all') {
     return db('items')
@@ -28,8 +20,8 @@ function getItemsByClient(client, db = connection) {
   }
 }
 
-function addTaskByClient(task, db = connection) {
-  const { description, hours, rate, status, client_id } = task
+function addItemByClient(item, db = connection) {
+  const { description, hours, rate, status, client_id } = item
   const today = new Date()
   return db('items')
     .insert({
@@ -42,24 +34,32 @@ function addTaskByClient(task, db = connection) {
       updated_at: today.toISOString(),
     })
     .then((id) => {
-      return { ...task, id }
+      return { ...item, id }
     })
 }
 
-function deleteTaskById(id, db = connection) {
+function deleteItemById(id, db = connection) {
   return db('items').where({ id }).delete()
 }
 
-function getTaskById(id, db = connection) {
+function getItemById(id, db = connection) {
   return db('items').select().where({ id }).first()
 }
 
-function updateTaskById(task, id, db = connection) {
-  const { description, hours } = task
+function updateItemById(item, id, db = connection) {
+  const { description, hours } = item
   return db(`items`)
     .where({ id })
     .update({ hours, description })
     .then(() => {
-      return getTaskById(id, db)
+      return getItemById(id, db)
     })
+}
+
+module.exports = {
+  getItems,
+  addItemByClient,
+  deleteItemById,
+  getItemsByClient,
+  updateItemById,
 }

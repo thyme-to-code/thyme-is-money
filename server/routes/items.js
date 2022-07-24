@@ -7,8 +7,8 @@ const db = require('../db/items')
 router.get('/', (req, res) => {
   return db
     .getItems(req.query.invoiced)
-    .then((tasks) => {
-      res.json(tasks)
+    .then((items) => {
+      res.json(items)
     })
     .catch((err) => {
       res.status(500).send(err.message)
@@ -20,46 +20,45 @@ router.get('/:client', (req, res) => {
   const client = { id: Number(req.params.client) }
   return db
     .getItemsByClient(client)
-    .then((tasks) => {
-      res.json(tasks)
+    .then((items) => {
+      res.json(items)
     })
     .catch((err) => {
       res.status(500).send(err.message)
     })
 })
 
-// POST /api/v1/tasks/add
+// POST /api/v1/items/add
 router.post('/add', (req, res) => {
-  const task = req.body
-  db.addTaskByClient(task)
-    .then((task) => {
-      res.json(task)
+  const item = req.body
+  db.addItemByClient(item)
+    .then((item) => {
+      res.json(item)
     })
     .catch((err) => {
       res.status(500).send(err.message)
     })
 })
 
-// DELETE /api/v1/tasks/delete/:id
-router.delete('/delete/:id', (req, res) => {
-  const id = Number(req.params.id)
-  db.deleteTaskById(id)
-    .then(() => {
-      res.sendStatus(200)
-    })
-    .catch((err) => {
-      res.status(500).send(err.message)
-    })
-})
-
-// UPDATE /api/v1/tasks/update/:id
-
+// PATCH /api/v1/items/update/:id
 router.patch('/update/:id', (req, res) => {
   const id = Number(req.params.id)
-  const updatedTask = req.body
-  db.updateTaskById(updatedTask, id)
-    .then((task) => {
-      res.json(task)
+  const updatedItem = req.body
+  db.updateItemById(updatedItem, id)
+    .then((item) => {
+      res.json(item)
+    })
+    .catch((err) => {
+      res.status(500).send(err.message)
+    })
+})
+
+// DELETE /api/v1/items/delete/:id
+router.delete('/delete/:id', (req, res) => {
+  const id = Number(req.params.id)
+  db.deleteItemById(id)
+    .then(() => {
+      res.sendStatus(200)
     })
     .catch((err) => {
       res.status(500).send(err.message)
