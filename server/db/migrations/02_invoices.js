@@ -11,7 +11,7 @@ exports.up = function (knex) {
     t.datetime('date_sent')
     t.datetime('date_paid')
     t.float('amount_paid')
-    t.text('invoice_json')
+    t.text('json')
     t.timestamps()
   })
 }

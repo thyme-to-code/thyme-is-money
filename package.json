@@ -21,8 +21,10 @@
     "webpack": "webpack --config ./client/webpack.config.js",
     "knex": "knex --knexfile ./server/db/knexfile.js",
     "lint": "eslint --ext .js,.jsx .",
-    "knex:migrate": "npm run knex -- migrate:latest",
-    "knex:seed":"npm run knex -- seed:run",
+    "rmdb": "rm ./server/db/dev.sqlite3",
+    "migrate": "npm run knex -- migrate:latest",
+    "seed":"npm run knex -- seed:run",
+    "resetDev": "run-s rmdb migrate seed",
     "heroku-postbuild": "run-s knex:migrate knex:seed"
 
   },

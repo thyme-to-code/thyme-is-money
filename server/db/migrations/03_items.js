@@ -10,7 +10,7 @@ exports.up = function (knex) {
     t.int('invoice_id').references('invoices.id')
     t.tinyint('type', 2).notNullable()
     t.string('description')
-    t.float('quanity')
+    t.float('quantity')
     t.float('cost')
     t.timestamps()
   })
