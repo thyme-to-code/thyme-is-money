@@ -1,17 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const {
-  getClient,
-  getClients,
-  addClient,
-  updateClient,
-} = require('../db/clients')
+const db = require('../db/clients')
 
-// base URL: /api/v1/clients
+// /api/v1/clients?active=[yes|no]
 router.get('/', (req, res) => {
-  //TODO add isActive query string
-  getClients()
+  db.getClients(req.query.active)
     .then((clients) => {
       res.json(clients)
     })
@@ -23,7 +17,7 @@ router.get('/', (req, res) => {
 
 // TODO remove? single client access only via redux?
 router.get('/:id', (req, res) => {
-  getClient(req.params.id)
+  db.getClient(req.params.id)
     .then((client) => {
       res.json(client)
     })
@@ -34,7 +28,7 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  addClient(req.body)
+  db.addClient(req.body)
     .then((id) => {
       res.json(id)
     })
@@ -45,7 +39,7 @@ router.post('/', (req, res) => {
 })
 
 router.patch('/', (req, res) => {
-  updateClient(req.body)
+  db.updateClient(req.body)
     .then((client) => {
       res.json(client)
     })

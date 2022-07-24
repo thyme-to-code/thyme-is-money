@@ -9,8 +9,14 @@ function getClient(id, db = conn) {
     .then((r) => (r ? r : `Client id ${id} not found.`))
 }
 
-function getClients(isActive = true, db = conn) {
-  return db('clients').select().where({ isActive })
+function getClients(isActive = 'all', db = conn) {
+  if (isActive === 'all') {
+    return db('clients').select()
+  } else if (isActive === 'yes') {
+    return db('clients').where('isActive', true)
+  } else if (isActive === 'no') {
+    return db('clients').where('isActive', false)
+  }
 }
 
 function addClient(client, db = conn) {
