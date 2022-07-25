@@ -5,7 +5,7 @@ const initialState = {
   data: [],
   uninvoiced: {
     amount: 0,
-    hours: 0,
+    quantity: 0,
     tasks: [],
   },
   loading: true,
@@ -61,11 +61,12 @@ export const taskListSlice = createSlice({
   reducers: {
     setUninvoicedTotals: (state, action) => {
       const { tasks, rate } = action.payload
-      state.uninvoiced.hours = 0
+      state.uninvoiced.quantity = 0
       tasks.forEach(
-        (task) => !task.invoice_id && (state.uninvoiced.hours += task.hours)
+        (task) =>
+          !task.invoice_id && (state.uninvoiced.quantity += task.quantity)
       )
-      state.uninvoiced.amount = state.uninvoiced.hours * rate
+      state.uninvoiced.amount = state.uninvoiced.quantity * rate
     },
   },
   extraReducers: (builder) => {

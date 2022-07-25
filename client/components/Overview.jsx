@@ -87,13 +87,13 @@ export function Overview() {
                     }
                   </Td>
                   <Td py="1" isNumeric={true}>
-                    {task.hours}
+                    {task.quantity}
                   </Td>
                   <Td py="1" isNumeric={true}>
                     $&nbsp;
                     {(
                       clients.find((client) => client.id == task.client_id)
-                        .rate * task.hours
+                        .rate * task.quantity
                     ).toLocaleString('en-US')}
                   </Td>
                 </Tr>

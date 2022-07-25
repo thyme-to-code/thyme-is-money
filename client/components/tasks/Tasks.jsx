@@ -65,11 +65,13 @@ export function Tasks() {
                 <Tr key={task.id}>
                   <Td py="1">{task.description}</Td>
                   <Td py="1" isNumeric={true}>
-                    {task.hours}
+                    {task.quantity}
                   </Td>
                   <Td py="1" isNumeric={true}>
                     $
-                    {(task.hours * selectedClient.rate).toLocaleString('en-US')}
+                    {(task.quantity * selectedClient.rate).toLocaleString(
+                      'en-US'
+                    )}
                   </Td>
                   <Td px="2" py="1" isNumeric={true}>
                     <EditTask value={{ task, client_id: selectedClient.id }} />
