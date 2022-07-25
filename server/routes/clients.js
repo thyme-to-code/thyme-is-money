@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const { getClients, addClient, updateClient } = require('../db/clients')
+const db = require('../db/clients')
 
-// base URL: /api/v1/clients
+// /api/v1/clients?active=[yes|no]
 router.get('/', (req, res) => {
-  getClients()
+  db.getClients(req.query.active)
     .then((clients) => {
       res.json(clients)
     })
@@ -15,9 +15,9 @@ router.get('/', (req, res) => {
     })
 })
 
-// TODO remove? single client access only via redux?
+// TODO all active clients in Redux, remove after refactor
 router.get('/:id', (req, res) => {
-  getClients(req.params.id)
+  db.getClient(req.params.id)
     .then((client) => {
       res.json(client)
     })
@@ -27,8 +27,35 @@ router.get('/:id', (req, res) => {
     })
 })
 
+// GET /api/v1/clients/:clientId/items?invoiced=[yes|no]
+router.get('/:clientId/items', (req, res) => {
+  const client = { id: req.params.clientId, invoicedState: req.query.invoiced }
+  db.getClientItems(client)
+    .then((items) => {
+      res.json(items)
+    })
+    .catch((err) => {
+      res.status(500).send(err.message)
+    })
+})
+
+// GET /api/v1/clients/:clientId/invoices
+router.get('/:client_id/invoices', (req, res) => {
+  db.getClientInvoices(req.params.client_id)
+    .then((invoice) => {
+      res.json(invoice)
+    })
+    .catch((err) => {
+      console.error(err)
+      throw new Error(
+        'Failed to fetch invoices for client id: ' + req.params.client_id
+      )
+    })
+})
+
+// POST /api/v1/clients
 router.post('/', (req, res) => {
-  addClient(req.body)
+  db.addClient(req.body)
     .then((id) => {
       res.json(id)
     })
@@ -38,8 +65,9 @@ router.post('/', (req, res) => {
     })
 })
 
+// PATCH /api/v1/clients
 router.patch('/', (req, res) => {
-  updateClient(req.body)
+  db.updateClient(req.body)
     .then((client) => {
       res.json(client)
     })
@@ -48,5 +76,8 @@ router.patch('/', (req, res) => {
       throw new Error('Failed to update client id: ' + req.body.id)
     })
 })
+
+// DELETE /api/v1/clients
+// mark isActive=false
 
 module.exports = router

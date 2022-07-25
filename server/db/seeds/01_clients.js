@@ -7,6 +7,7 @@ exports.seed = async function (knex) {
   await knex('clients').insert([
     {
       id: 1,
+      user_id: '1',
       business_name: 'Skynet Finance',
       contact_name: 'Jason Beam',
       email: 'jason@skynet.com',
@@ -17,6 +18,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 2,
+      user_id: '1',
       business_name: 'Sherry Kitchen',
       contact_name: 'Melissa Kip',
       email: 'melissa@sherrykiten.com',
@@ -27,6 +29,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 3,
+      user_id: '1',
       business_name: 'Grayson and Co',
       contact_name: 'Sarah Grayson',
       email: 'accounts@grayson.co.nz',
@@ -37,6 +40,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 4,
+      user_id: '1',
       business_name: 'Epic landscapes',
       contact_name: 'Stewart Smith',
       email: 'epic@landscapes.co.nz',
@@ -47,6 +51,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 5,
+      user_id: '1',
       business_name: 'Turner LLC',
       contact_name: 'Shanie Trotton',
       email: 'strotton4@nationalgeographic.com',
@@ -57,6 +62,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 6,
+      user_id: '1',
       business_name: 'Blossom Interior Design',
       contact_name: 'Maya Finch',
       email: 'maya@blossom.co.nz',
@@ -67,6 +73,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 7,
+      user_id: '1',
       business_name: 'Mechanic Mike',
       contact_name: 'Mike Holowitz',
       email: 'mholowitz@gmail.com',
@@ -77,6 +84,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 8,
+      user_id: '1',
       business_name: 'Wholesale Security',
       contact_name: 'Penelope Green',
       email: 'accounts@wholesalesecurity.com',
@@ -87,6 +95,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 9,
+      user_id: '1',
       business_name: 'I love Pies',
       contact_name: 'Lexy McInerney',
       email: 'lmcinerney8@wufoo.com',
@@ -97,6 +106,7 @@ exports.seed = async function (knex) {
     },
     {
       id: 10,
+      user_id: '1',
       business_name: 'Snowflake Weddings',
       contact_name: 'Katee Roussel',
       email: 'kroussel9@shareasale.com',

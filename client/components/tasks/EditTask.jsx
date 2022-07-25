@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateClientTask } from '../../reducers/taskList'
 import { Formik, Form, Field } from 'formik'
 import {
   Modal,
@@ -20,10 +19,13 @@ import {
 } from '@chakra-ui/react'
 import { MdEdit } from 'react-icons/md'
 
+import { getActiveClientTasks } from '../../reducers/taskList'
+import { updateTask } from '../../apis/tasks.js'
+
 export function EditTask(props) {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { description, hours, id } = props.value.task
+  const { description, quantity, id } = props.value.task
   const { selectedClient } = useSelector((state) => state.clientList)
 
   return (
@@ -47,13 +49,13 @@ export function EditTask(props) {
           <Formik
             initialValues={{
               description: description,
-              hours: hours,
-              status: 'uninvoiced',
+              quantity: quantity,
               client_id: selectedClient.id,
               id,
             }}
-            onSubmit={(newTask) => {
-              dispatch(updateClientTask(newTask))
+            onSubmit={async (newTask) => {
+              await updateTask(newTask)
+              dispatch(getActiveClientTasks(selectedClient.id))
               onClose()
             }}
           >
@@ -66,6 +68,7 @@ export function EditTask(props) {
                     name="description"
                     id="description"
                     variant="filled"
+                    // eslint-disable-next-line jsx-a11y/no-autofocus
                     autoFocus
                   />
                 </FormControl>
@@ -73,8 +76,8 @@ export function EditTask(props) {
                   <FormLabel>Hours</FormLabel>
                   <Field
                     as={Input}
-                    name="hours"
-                    id="hours"
+                    name="quantity"
+                    id="quantity"
                     type="number"
                     variant="filled"
                   />

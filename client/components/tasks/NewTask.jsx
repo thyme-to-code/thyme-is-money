@@ -17,7 +17,7 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
-import { addClientTask } from '../../reducers/taskList'
+import { addClientTask, getActiveClientTasks } from '../../reducers/taskList'
 
 export function NewTask() {
   const dispatch = useDispatch()
@@ -26,7 +26,13 @@ export function NewTask() {
 
   return (
     <>
-      <Button mr={3} onClick={onOpen} bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
+      <Button
+        mr={3}
+        onClick={onOpen}
+        bg="brand.100"
+        color="brand.50"
+        _hover={{ bg: 'brand.200' }}
+      >
         Create Task
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -37,12 +43,13 @@ export function NewTask() {
           <Formik
             initialValues={{
               description: '',
-              hours: '',
-              status: 'uninvoiced',
+              type: 1,
+              quantity: '',
               client_id: selectedClient.id,
             }}
             onSubmit={(newTask) => {
               dispatch(addClientTask(newTask))
+              dispatch(getActiveClientTasks(selectedClient.id))
               onClose()
             }}
           >
@@ -55,6 +62,7 @@ export function NewTask() {
                     name="description"
                     id="description"
                     variant="filled"
+                    // eslint-disable-next-line jsx-a11y/no-autofocus
                     autoFocus
                   />
                 </FormControl>
@@ -62,8 +70,8 @@ export function NewTask() {
                   <FormLabel>Hours</FormLabel>
                   <Field
                     as={Input}
-                    name="hours"
-                    id="hours"
+                    name="quantity"
+                    id="quantity"
                     type="number"
                     variant="filled"
                   />
@@ -74,7 +82,12 @@ export function NewTask() {
                 <Button mr={3} colorScheme="gray" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button type="submit" bg="brand.100" color="brand.50" _hover={{ bg: "brand.200" }}>
+                <Button
+                  type="submit"
+                  bg="brand.100"
+                  color="brand.50"
+                  _hover={{ bg: 'brand.200' }}
+                >
                   Create
                 </Button>
               </ModalFooter>

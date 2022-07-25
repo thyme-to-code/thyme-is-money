@@ -1,53 +1,41 @@
 const config = require('./knexfile').development
 const conn = require('knex')(config)
 
-function getInvoices(id = null, db = conn) {
-  if (id) {
-    return db('invoices').where('id', id).first()
-  } else {
-    return db('invoices').select()
-  }
+// TODO move to helper library
+const getIsoTime = () => new Date().toISOString()
+
+// TODO impliment getInvoicesByCalendarYear()
+// TODO impliment getInvoicesByFinancialYear()
+
+function getInvoice(id, db = conn) {
+  return db('invoices').where('id', id).first()
 }
 
-function getInvoiceByClientID(client_id, db = conn) {
-  return db('invoices').where({ client_id })
+function getInvoices(db = conn) {
+  return db('invoices').select()
 }
 
-// TODO impliment getInvoicesByYear
-
-function addInvoice(invoice, db = conn) {
-  return db('invoices').insert(invoice)
-}
-
-function updateInvoice(invoice, db = conn) {
-  return db('invoices').where('id', invoice.id).update(invoice)
-}
-
-async function createInvoice(invoice, db = conn) {
-  const { client_id, total, tasks, invoice_json } = invoice
-  const today = new Date()
+async function addInvoice(invoiceData, db = conn) {
+  const { invoice, items } = invoiceData
   try {
     await db.transaction(async (trx) => {
       const [invoice_id] = await db('invoices')
         .insert({
-          client_id,
-          date_sent: today.toISOString(),
-          total,
-          invoice_json,
-          created_at: today.toISOString(),
-          updated_at: today.toISOString(),
+          ...invoice,
+          date_sent: getIsoTime(),
+          created_at: getIsoTime(),
+          updated_at: getIsoTime(),
         })
         .transacting(trx)
 
-      // Instead of passing all the task objects you could pass an array of task Ids
-      const taskIds = tasks.map((task) => task.id)
+      // Instead of passing all the item objects you could pass an array of item Ids
+      const itemIds = items.map((item) => item.id)
 
-      await db('tasks')
-        .whereIn('id', taskIds)
+      await db('items')
+        .whereIn('id', itemIds)
         .update({
           invoice_id,
-          status: 'invoiced',
-          updated_at: today.toISOString(),
+          updated_at: getIsoTime(),
         })
         .transacting(trx)
     })
@@ -56,7 +44,11 @@ async function createInvoice(invoice, db = conn) {
   }
 }
 
-function getInvoicesAndClientInfo(db = conn) {
+function updateInvoice(invoice, db = conn) {
+  return db('invoices').where('id', invoice.id).update(invoice)
+}
+
+function getInvoiceCsv(db = conn) {
   return db('invoices')
     .join('clients', 'invoices.client_id', 'clients.id')
     .select(
@@ -74,10 +66,9 @@ function getInvoicesAndClientInfo(db = conn) {
 }
 
 module.exports = {
-  createInvoice,
+  getInvoice,
   getInvoices,
   addInvoice,
   updateInvoice,
-  getInvoiceByClientID,
-  getInvoicesAndClientInfo,
+  getInvoiceCsv,
 }

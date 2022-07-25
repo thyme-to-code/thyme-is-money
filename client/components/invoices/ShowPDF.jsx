@@ -38,7 +38,7 @@ export function ShowPDF() {
 
   const invoiceTasks = clientTasks.map((task) => ({
     name: task.description,
-    quantity: task.hours,
+    quantity: task.quantity,
     unit_cost: selectedClient.rate,
   }))
 

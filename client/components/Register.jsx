@@ -66,6 +66,7 @@ export function Register() {
                     name="name"
                     id="name"
                     variant="filled"
+                    // eslint-disable-next-line jsx-a11y/no-autofocus
                     autoFocus
                   />
                 </FormControl>
@@ -80,12 +81,7 @@ export function Register() {
                 </FormControl>
                 <FormControl>
                   <FormLabel>Bio</FormLabel>
-                  <Field
-                    as={Input}
-                    name="bio"
-                    id="bio"
-                    variant="filled"
-                  />
+                  <Field as={Input} name="bio" id="bio" variant="filled" />
                 </FormControl>
               </ModalBody>
 

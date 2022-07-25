@@ -2,16 +2,11 @@ const express = require('express')
 const request = require('superagent')
 const router = express.Router()
 
-const {
-  getInvoices,
-  createInvoice,
-  updateInvoice,
-  getInvoiceByClientID,
-  getInvoicesAndClientInfo,
-} = require('../db/invoices')
+const db = require('../db/invoices')
 
+// /api/v1/invoices
 router.get('/', (req, res) => {
-  getInvoices()
+  db.getInvoices()
     .then((clients) => {
       res.json(clients)
     })
@@ -21,9 +16,12 @@ router.get('/', (req, res) => {
     })
 })
 
-// '/api/v1/invoices'
-router.get('/all', (req, res) => {
-  getInvoicesAndClientInfo()
+// TODO impliment getInvoicesByCalendarYear
+// TODO impliment getInvoicesByCalendarYear
+
+// GET /api/v1/invoices/csv?from=YYYYMMDD&to=YYYYMMDD
+router.get('/csv', (req, res) => {
+  db.getInvoiceCsv()
     .then((response) => {
       res.json(response)
     })
@@ -33,10 +31,9 @@ router.get('/all', (req, res) => {
     })
 })
 
-//* TODO impliment getInvoicesByYear
-
+// /api/v1/invoices/:id
 router.get('/:id', (req, res) => {
-  getInvoices(req.params.id)
+  db.getInvoice(req.params.id)
     .then((client) => {
       res.json(client)
     })
@@ -45,30 +42,18 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.get('/client/:client_id', (req, res) => {
-  getInvoiceByClientID(req.params.client_id)
-    .then((invoice) => {
-      res.json(invoice)
-    })
-    .catch((err) => {
-      console.error(err)
-      throw new Error(
-        'Failed to fetch invoices for client id: ' + req.params.client_id
-      )
-    })
-})
-
-const invoiceApi = `https://invoice-generator.com`
-// /api/v1/invoices/CreatePDF
-router.post('/createPDF', (req, res) => {
+// POST /api/v1/invoices/pdf
+router.post('/pdf', (req, res) => {
+  const invoiceApi = `https://invoice-generator.com`
   return request
     .post(invoiceApi)
     .send(req.body)
     .pipe(res.contentType('application/pdf'))
 })
 
-router.post('/create', (req, res) => {
-  createInvoice(req.body)
+// POST /api/v1/invoices/
+router.post('/', (req, res) => {
+  db.addInvoice(req.body)
     .then((id) => {
       res.json(id)
     })
@@ -78,8 +63,9 @@ router.post('/create', (req, res) => {
     })
 })
 
-router.patch('/update', (req, res) => {
-  updateInvoice(req.body)
+// PATCH /api/v1/invoices/
+router.patch('/', (req, res) => {
+  db.updateInvoice(req.body)
     .then((client) => {
       res.json(client)
     })

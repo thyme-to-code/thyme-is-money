@@ -24,6 +24,7 @@ export function ClientForm(props) {
             id="business_name"
             type="text"
             variant="filled"
+            // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
           />
           <FormLabel htmlFor="contact_name">Primary Contact</FormLabel>
@@ -79,8 +80,8 @@ export function ClientForm(props) {
           Cancel
         </Button>
         <Button
-          color="brand.50" 
-          _hover={props.isUpdate ? {bg: "brand.500"} : { bg: "brand.200" }}
+          color="brand.50"
+          _hover={props.isUpdate ? { bg: 'brand.500' } : { bg: 'brand.200' }}
           bg={props.isUpdate ? 'brand.400' : 'brand.100'}
           type="submit"
         >

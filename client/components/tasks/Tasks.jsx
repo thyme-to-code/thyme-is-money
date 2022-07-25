@@ -30,6 +30,10 @@ export function Tasks() {
     dispatch(getActiveClientTasks(selectedClient.id))
   }, [selectedClient])
 
+  if (taskList.loading) {
+    return <>Loading ...</>
+  }
+
   return (
     <div className="tasks">
       <TableContainer mr={5}>
@@ -65,11 +69,13 @@ export function Tasks() {
                 <Tr key={task.id}>
                   <Td py="1">{task.description}</Td>
                   <Td py="1" isNumeric={true}>
-                    {task.hours}
+                    {task.quantity}
                   </Td>
                   <Td py="1" isNumeric={true}>
                     $
-                    {(task.hours * selectedClient.rate).toLocaleString('en-US')}
+                    {(task.quantity * selectedClient.rate).toLocaleString(
+                      'en-US'
+                    )}
                   </Td>
                   <Td px="2" py="1" isNumeric={true}>
                     <EditTask value={{ task, client_id: selectedClient.id }} />
@@ -90,7 +96,7 @@ export function Tasks() {
             </Tbody>
           ) : (
             <Tbody>
-              <Tr>
+              <Tr key="dafe">
                 <Td py="3.5">No tasks. Do some Work!</Td>
                 <Td py="3.5"></Td>
                 <Td py="3.5"></Td>
