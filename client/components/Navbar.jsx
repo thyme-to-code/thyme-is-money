@@ -14,7 +14,7 @@ export function Navbar() {
 
   return (
     <>
-      <Flex height={'100%'} direction="column">
+      <Flex height={'100%'} direction="column" display={{ base: 'none', lg: 'flex' }}>
         <ClientSelector />
         <Spacer />
         <Flex sx={{ position: 'sticky', bottom: 0 }} direction="column">
