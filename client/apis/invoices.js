@@ -4,7 +4,7 @@ const rootUrl = '/api/v1/invoices'
 
 export function createInvoice(invoice) {
   return request
-    .post(rootUrl + '/createPDF')
+    .post(rootUrl + '/pdf')
     .send(invoice)
     .responseType('blob')
     .then((res) => {
@@ -14,7 +14,7 @@ export function createInvoice(invoice) {
 
 export function saveInvoice(invoice, items) {
   return request
-    .post(rootUrl + '/create')
+    .post(rootUrl + '/')
     .send({ invoice, items })
     .then((res) => res.body)
 }
@@ -24,5 +24,16 @@ export function getInvoicesByClient(id) {
 }
 
 export function getInvoices() {
-  return request.get(rootUrl + '/all/').then((res) => res.body)
+  return request.get(rootUrl).then((res) => res.body)
+}
+
+export function getInvoiceCsv() {
+  return request
+    .get(`${rootUrl}/csv`)
+    .then((res) => {
+      return res.body
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }

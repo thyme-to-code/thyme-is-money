@@ -1,13 +1,13 @@
 import React from 'react'
 import { Button } from '@chakra-ui/react'
 import * as dfd from 'danfojs'
-import { getInvoiceData } from '../../apis/invoiceCsv'
+import { getInvoiceCsv } from '../../apis/invoices'
 
 export function InvoiceCsv() {
   function handleClick() {
     let df_data = []
 
-    return getInvoiceData().then((invoiceData) => {
+    return getInvoiceCsv().then((invoiceData) => {
       const df_columns = Object.keys(invoiceData[0])
 
       invoiceData.map((invoiceData) => {

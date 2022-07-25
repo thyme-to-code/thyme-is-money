@@ -1,10 +1,10 @@
 import request from 'superagent'
-const rootUrl = '/api/v1/tasks'
+const rootUrl = '/api/v1/items'
 
 // /api/v1/tasks/add
 export function addTask(task) {
   return request
-    .post(`${rootUrl}/add`)
+    .post(`${rootUrl}`)
     .send(task)
     .then((res) => {
       return res.body
@@ -17,7 +17,7 @@ export function addTask(task) {
 // /api/v1/tasks/update/:id
 export function updateTask(task) {
   return request
-    .patch(`${rootUrl}/update/${task.id}`)
+    .patch(`${rootUrl}/${task.id}`)
     .send(task)
     .then((res) => {
       return res.body
@@ -30,7 +30,7 @@ export function updateTask(task) {
 // /api/v1/tasks/delete/:id
 export function deleteTask(id) {
   return request
-    .del(`${rootUrl}/delete/${id}`)
+    .del(`${rootUrl}/${id}`)
     .send()
     .then((res) => {
       return res.status

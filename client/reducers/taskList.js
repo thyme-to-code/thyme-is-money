@@ -16,7 +16,7 @@ export const getActiveClientTasks = createAsyncThunk(
   async (clientId) => {
     try {
       const res = await fetch(
-        `/api/v1/tasks/${clientId}?status=uninvoiced`
+        `/api/v1/clients/${clientId}/items?invoiced=no`
       ).then((data) => data.json())
       return res
     } catch (err) {
@@ -29,7 +29,7 @@ export const getUninvoicedTasks = createAsyncThunk(
   'taskList/getUninvoicedTasks',
   async () => {
     try {
-      const res = await fetch(`/api/v1/tasks/uninvoiced`).then((data) =>
+      const res = await fetch(`/api/v1/items?invoiced=no`).then((data) =>
         data.json()
       )
       return res
