@@ -21,6 +21,9 @@ import {
 import { GoGrabber } from 'react-icons/go'
 
 import { clearSelectedClient } from '../reducers/clientList'
+import { InvoiceCsv } from './invoices/InvoiceCsv'
+import { NewClient } from './clients/NewClient'
+import { ClientSelector } from './clients/ClientSelector'
 
 export function Header() {
   const { logout } = useAuth0()
@@ -56,6 +59,7 @@ export function Header() {
             <Heading onClick={handleClick} as="h1" color="#fff">
               Thyme is Money
             </Heading>
+            <Spacer />
             <IconButton
             onClick={expandMenu}
             colorScheme="whiteAlpha"
@@ -66,7 +70,7 @@ export function Header() {
         </Box>
         <Spacer />
         <Box mr={3}>
-          <Button colorScheme="whiteAlpha" onClick={handleLogOut}>
+          <Button colorScheme="whiteAlpha" onClick={handleLogOut} display={{ base: 'none', lg: 'inline' }}>
             Log Out
           </Button>
         </Box>
@@ -78,9 +82,14 @@ export function Header() {
           <DrawerCloseButton />
           <DrawerHeader>{`Menu`}</DrawerHeader>
           <DrawerBody>
-            <Button variant="ghost" onClick={handleLogOut}>
-              Log Out
-            </Button>
+            <Flex direction="column">
+              <Button variant="ghost" onClick={handleLogOut}>
+                Log Out
+              </Button>
+              <ClientSelector />
+              <NewClient />
+              <InvoiceCsv />
+            </Flex>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
