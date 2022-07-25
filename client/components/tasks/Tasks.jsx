@@ -30,6 +30,10 @@ export function Tasks() {
     dispatch(getActiveClientTasks(selectedClient.id))
   }, [selectedClient])
 
+  if (taskList.loading) {
+    return <>Loading ...</>
+  }
+
   return (
     <div className="tasks">
       <TableContainer mr={5}>
@@ -92,7 +96,7 @@ export function Tasks() {
             </Tbody>
           ) : (
             <Tbody>
-              <Tr>
+              <Tr key="dafe">
                 <Td py="3.5">No tasks. Do some Work!</Td>
                 <Td py="3.5"></Td>
                 <Td py="3.5"></Td>

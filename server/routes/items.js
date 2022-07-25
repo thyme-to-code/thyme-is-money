@@ -17,7 +17,6 @@ router.get('/', (req, res) => {
 // POST /api/v1/items
 router.post('/', (req, res) => {
   const item = req.body
-  console.log(item)
   db.addItem(item)
     .then((item) => {
       res.json(item)

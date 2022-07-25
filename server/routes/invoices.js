@@ -21,7 +21,6 @@ router.get('/', (req, res) => {
 
 // GET /api/v1/invoices/csv?from=YYYYMMDD&to=YYYYMMDD
 router.get('/csv', (req, res) => {
-  console.log('hit')
   db.getInvoiceCsv()
     .then((response) => {
       res.json(response)

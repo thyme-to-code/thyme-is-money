@@ -27,7 +27,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
-// GET /api/v1/client/:clientId/items?invoiced=[yes|no]
+// GET /api/v1/clients/:clientId/items?invoiced=[yes|no]
 router.get('/:clientId/items', (req, res) => {
   const client = { id: req.params.clientId, invoicedState: req.query.invoiced }
   db.getClientItems(client)
@@ -39,7 +39,7 @@ router.get('/:clientId/items', (req, res) => {
     })
 })
 
-// GET /api/v1/client/:clientId/invoices
+// GET /api/v1/clients/:clientId/invoices
 router.get('/:client_id/invoices', (req, res) => {
   db.getClientInvoices(req.params.client_id)
     .then((invoice) => {

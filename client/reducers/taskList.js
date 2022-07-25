@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { addTask, updateTask } from '../apis/tasks'
+import { addTask } from '../apis/tasks'
 
 const initialState = {
   data: [],
@@ -17,7 +17,7 @@ export const getActiveClientTasks = createAsyncThunk(
     try {
       const res = await fetch(
         `/api/v1/clients/${clientId}/items?invoiced=no`
-      ).then((data) => data.json())
+      ).then((list) => list.json())
       return res
     } catch (err) {
       return
@@ -29,8 +29,8 @@ export const getUninvoicedTasks = createAsyncThunk(
   'taskList/getUninvoicedTasks',
   async () => {
     try {
-      const res = await fetch(`/api/v1/items?invoiced=no`).then((data) =>
-        data.json()
+      const res = await fetch(`/api/v1/items?invoiced=no`).then((list) =>
+        list.json()
       )
       return res
     } catch (err) {
@@ -43,14 +43,6 @@ export const addClientTask = createAsyncThunk(
   'taskList/addClientTask',
   async (task) => {
     const response = await addTask(task)
-    return response
-  }
-)
-
-export const updateClientTask = createAsyncThunk(
-  'taskList/updateClientTask',
-  async (task) => {
-    const response = await updateTask(task)
     return response
   }
 )
@@ -90,6 +82,7 @@ export const taskListSlice = createSlice({
       state.loading = false
       state.data = payload
     })
+    // TODO change this thunk to api function
     builder.addCase(addClientTask.pending, (state) => {
       state.loading = true
     })
@@ -98,20 +91,7 @@ export const taskListSlice = createSlice({
     })
     builder.addCase(addClientTask.fulfilled, (state, action) => {
       state.loading = false
-      state.data.push(action.payload)
-    })
-    builder.addCase(updateClientTask.pending, (state) => {
-      state.loading = true
-    })
-    builder.addCase(updateClientTask.rejected, (state) => {
-      state.loading = false
-    })
-    builder.addCase(updateClientTask.fulfilled, (state, action) => {
-      state.loading = false
-      const indexToUpdate = state.data.findIndex((task) => {
-        return task.id == action.payload.id
-      })
-      state.data[indexToUpdate] = action.payload
+      state.data = action.payload
     })
   },
 })

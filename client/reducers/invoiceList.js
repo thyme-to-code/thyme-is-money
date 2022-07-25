@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getInvoices, getInvoicesByClient } from '../apis/invoices'
+import { getInvoicesByClient, getInvoiceCsv } from '../apis/invoices'
 
 const initialState = {
   client: [],
@@ -36,7 +36,7 @@ export const getClientInvoiceList = createAsyncThunk(
 export const getFullInvoiceList = createAsyncThunk(
   'invoiceList/getFullInvoiceList',
   async () => {
-    const res = await getInvoices()
+    const res = await getInvoiceCsv()
     return res
   }
 )
