@@ -14,20 +14,6 @@ router.get('/', (req, res) => {
     })
 })
 
-// GET /api/v1/item/:clientId?invoiced=[yes|no]
-//? I think when it comes to REST we actually want this route to be
-//? GET /api/v1/clients/:clientId/items
-router.get('/:clientId', (req, res) => {
-  const client = { id: req.params.clientId, invoicedState: req.query.invoiced }
-  db.getItemsByClient(client)
-    .then((items) => {
-      res.json(items)
-    })
-    .catch((err) => {
-      res.status(500).send(err.message)
-    })
-})
-
 // POST /api/v1/items
 router.post('/', (req, res) => {
   const item = req.body

@@ -19,6 +19,17 @@ function getClient(id, db = conn) {
     .then((r) => (r ? r : `Client id ${id} not found.`))
 }
 
+function getClientItems(client, db = conn) {
+  const { id, invoicedState } = client
+  if (invoicedState === 'no') {
+    return db('items').whereNull('invoice_id').andWhere({ client_id: id })
+  } else if (invoicedState === 'yes') {
+    return db('items').whereNotNull('invoice_id').andWhere({ client_id: id })
+  } else {
+    return db('items').where({ client_id: id })
+  }
+}
+
 function addClient(client, db = conn) {
   const today = new Date().toISOString()
   return db('clients')
@@ -41,6 +52,7 @@ function updateClient(client, db = conn) {
 
 module.exports = {
   getClient,
+  getClientItems,
   getClients,
   addClient,
   updateClient,

@@ -27,6 +27,18 @@ router.get('/:id', (req, res) => {
     })
 })
 
+// GET /api/v1/client/:clientId/items?invoiced=[yes|no]
+router.get('/:clientId/items', (req, res) => {
+  const client = { id: req.params.clientId, invoicedState: req.query.invoiced }
+  db.getClientItems(client)
+    .then((items) => {
+      res.json(items)
+    })
+    .catch((err) => {
+      res.status(500).send(err.message)
+    })
+})
+
 // POST /api/v1/clients
 router.post('/', (req, res) => {
   db.addClient(req.body)
