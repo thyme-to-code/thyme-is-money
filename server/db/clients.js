@@ -1,6 +1,8 @@
 const config = require('./knexfile').development
 const conn = require('knex')(config)
 
+const getIsoTime = () => new Date().toISOString()
+
 function getClients(isActive = 'all', db = conn) {
   if (isActive === 'all') {
     return db('clients').select()
@@ -11,7 +13,7 @@ function getClients(isActive = 'all', db = conn) {
   }
 }
 
-// TODO all active clients in Redux, remove after refactor
+// TODO all active clients are in Redux, remove after refactor
 function getClient(id, db = conn) {
   return db('clients')
     .where('id', id)
@@ -30,29 +32,33 @@ function getClientItems(client, db = conn) {
   }
 }
 
+function getClientInvoices(client_id, db = conn) {
+  return db('invoices').where({ client_id })
+}
+
 function addClient(client, db = conn) {
-  const today = new Date().toISOString()
   return db('clients')
     .insert({
       ...client,
       isActive: true,
-      created_at: today,
-      updated_at: today,
+      created_at: getIsoTime(),
+      updated_at: getIsoTime(),
     })
     .then(([id]) => db('clients').where({ id }).first())
 }
 
 function updateClient(client, db = conn) {
-  const today = new Date().toISOString()
+  const { id } = client
   return db('clients')
-    .where('id', client.id)
-    .update({ ...client, updated_at: today })
-    .then(() => db('clients').where('id', client.id).first())
+    .where({ id })
+    .update({ ...client, updated_at: getIsoTime() })
+    .then(() => db('clients').where({ id }).first())
 }
 
 module.exports = {
   getClient,
   getClientItems,
+  getClientInvoices,
   getClients,
   addClient,
   updateClient,

@@ -39,6 +39,20 @@ router.get('/:clientId/items', (req, res) => {
     })
 })
 
+// GET /api/v1/client/:clientId/invoices
+router.get('/:client_id/invoices', (req, res) => {
+  db.getClientInvoices(req.params.client_id)
+    .then((invoice) => {
+      res.json(invoice)
+    })
+    .catch((err) => {
+      console.error(err)
+      throw new Error(
+        'Failed to fetch invoices for client id: ' + req.params.client_id
+      )
+    })
+})
+
 // POST /api/v1/clients
 router.post('/', (req, res) => {
   db.addClient(req.body)

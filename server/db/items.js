@@ -1,6 +1,8 @@
 const config = require('./knexfile').development
 const conn = require('knex')(config)
 
+const getIsoTime = () => new Date().toISOString()
+
 function getItems(invoicedState = 'all', db = conn) {
   if (invoicedState === 'all') {
     return db('items')
@@ -12,21 +14,19 @@ function getItems(invoicedState = 'all', db = conn) {
 }
 
 function addItem(item, db = conn) {
-  const today = new Date().toISOString()
   return db('items')
     .insert({
       ...item,
-      created_at: today,
-      updated_at: today,
+      created_at: getIsoTime(),
+      updated_at: getIsoTime(),
     })
     .then(([id]) => db('items').where('id', id))
 }
 
 function updateItem(item, db = conn) {
-  const today = new Date().toISOString()
   return db(`items`)
     .where('id', item.id)
-    .update({ ...item, updated_at: today })
+    .update({ ...item, updated_at: getIsoTime() })
     .then(() => db('items').where('id', item.id))
 }
 

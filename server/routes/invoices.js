@@ -2,16 +2,13 @@ const express = require('express')
 const request = require('superagent')
 const router = express.Router()
 
-const {
-  getInvoices,
-  createInvoice,
-  updateInvoice,
-  getInvoiceByClientID,
-  getInvoicesAndClientInfo,
-} = require('../db/invoices')
+const db = require('../db/invoices')
+
+// TODO impliment getInvoicesByCalendarYear
+// TODO impliment getInvoicesByCalendarYear
 
 router.get('/', (req, res) => {
-  getInvoices()
+  db.getInvoices()
     .then((clients) => {
       res.json(clients)
     })
@@ -23,7 +20,7 @@ router.get('/', (req, res) => {
 
 // '/api/v1/invoices'
 router.get('/all', (req, res) => {
-  getInvoicesAndClientInfo()
+  db.getInvoicesAndClientInfo()
     .then((response) => {
       res.json(response)
     })
@@ -33,28 +30,13 @@ router.get('/all', (req, res) => {
     })
 })
 
-//* TODO impliment getInvoicesByYear
-
 router.get('/:id', (req, res) => {
-  getInvoices(req.params.id)
+  db.getInvoices(req.params.id)
     .then((client) => {
       res.json(client)
     })
     .catch((err) => {
       console.error(err)
-    })
-})
-
-router.get('/client/:client_id', (req, res) => {
-  getInvoiceByClientID(req.params.client_id)
-    .then((invoice) => {
-      res.json(invoice)
-    })
-    .catch((err) => {
-      console.error(err)
-      throw new Error(
-        'Failed to fetch invoices for client id: ' + req.params.client_id
-      )
     })
 })
 
@@ -68,7 +50,7 @@ router.post('/createPDF', (req, res) => {
 })
 
 router.post('/create', (req, res) => {
-  createInvoice(req.body)
+  db.createInvoice(req.body)
     .then((id) => {
       res.json(id)
     })
@@ -79,7 +61,7 @@ router.post('/create', (req, res) => {
 })
 
 router.patch('/update', (req, res) => {
-  updateInvoice(req.body)
+  db.updateInvoice(req.body)
     .then((client) => {
       res.json(client)
     })
