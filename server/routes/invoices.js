@@ -4,9 +4,7 @@ const router = express.Router()
 
 const db = require('../db/invoices')
 
-// TODO impliment getInvoicesByCalendarYear
-// TODO impliment getInvoicesByCalendarYear
-
+// /api/v1/invoices
 router.get('/', (req, res) => {
   db.getInvoices()
     .then((clients) => {
@@ -18,9 +16,13 @@ router.get('/', (req, res) => {
     })
 })
 
-// '/api/v1/invoices'
-router.get('/all', (req, res) => {
-  db.getInvoicesAndClientInfo()
+// TODO impliment getInvoicesByCalendarYear
+// TODO impliment getInvoicesByCalendarYear
+
+// GET /api/v1/invoices/csv?from=YYYYMMDD&to=YYYYMMDD
+router.get('/csv', (req, res) => {
+  console.log('hit')
+  db.getInvoiceCsv()
     .then((response) => {
       res.json(response)
     })
@@ -30,8 +32,9 @@ router.get('/all', (req, res) => {
     })
 })
 
+// /api/v1/invoices/:id
 router.get('/:id', (req, res) => {
-  db.getInvoices(req.params.id)
+  db.getInvoice(req.params.id)
     .then((client) => {
       res.json(client)
     })
@@ -40,17 +43,18 @@ router.get('/:id', (req, res) => {
     })
 })
 
-const invoiceApi = `https://invoice-generator.com`
-// /api/v1/invoices/CreatePDF
-router.post('/createPDF', (req, res) => {
+// POST /api/v1/invoices/pdf
+router.post('/pdf', (req, res) => {
+  const invoiceApi = `https://invoice-generator.com`
   return request
     .post(invoiceApi)
     .send(req.body)
     .pipe(res.contentType('application/pdf'))
 })
 
-router.post('/create', (req, res) => {
-  db.createInvoice(req.body)
+// POST /api/v1/invoices/
+router.post('/', (req, res) => {
+  db.addInvoice(req.body)
     .then((id) => {
       res.json(id)
     })
@@ -60,7 +64,8 @@ router.post('/create', (req, res) => {
     })
 })
 
-router.patch('/update', (req, res) => {
+// PATCH /api/v1/invoices/
+router.patch('/', (req, res) => {
   db.updateInvoice(req.body)
     .then((client) => {
       res.json(client)

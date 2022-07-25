@@ -1,28 +1,21 @@
 const config = require('./knexfile').development
 const conn = require('knex')(config)
 
+// TODO move to helper library
 const getIsoTime = () => new Date().toISOString()
 
 // TODO impliment getInvoicesByCalendarYear()
 // TODO impliment getInvoicesByFinancialYear()
 
-function getInvoices(id = null, db = conn) {
-  if (id) {
-    return db('invoices').where('id', id).first()
-  } else {
-    return db('invoices').select()
-  }
+function getInvoice(id, db = conn) {
+  return db('invoices').where('id', id).first()
 }
 
-function addInvoice(invoice, db = conn) {
-  return db('invoices').insert(invoice)
+function getInvoices(db = conn) {
+  return db('invoices').select()
 }
 
-function updateInvoice(invoice, db = conn) {
-  return db('invoices').where('id', invoice.id).update(invoice)
-}
-
-async function createInvoice(invoiceData, db = conn) {
+async function addInvoice(invoiceData, db = conn) {
   const { invoice, items } = invoiceData
   try {
     await db.transaction(async (trx) => {
@@ -52,7 +45,11 @@ async function createInvoice(invoiceData, db = conn) {
   }
 }
 
-function getInvoicesAndClientInfo(db = conn) {
+function updateInvoice(invoice, db = conn) {
+  return db('invoices').where('id', invoice.id).update(invoice)
+}
+
+function getInvoiceCsv(db = conn) {
   return db('invoices')
     .join('clients', 'invoices.client_id', 'clients.id')
     .select(
@@ -70,9 +67,9 @@ function getInvoicesAndClientInfo(db = conn) {
 }
 
 module.exports = {
-  createInvoice,
+  getInvoice,
   getInvoices,
   addInvoice,
   updateInvoice,
-  getInvoicesAndClientInfo,
+  getInvoiceCsv,
 }
