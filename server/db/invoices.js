@@ -35,7 +35,6 @@ async function addInvoice(invoiceData, db = conn) {
         .whereIn('id', itemIds)
         .update({
           invoice_id,
-          status: 'invoiced',
           updated_at: getIsoTime(),
         })
         .transacting(trx)

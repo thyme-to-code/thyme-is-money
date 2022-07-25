@@ -43,7 +43,7 @@ export function NewInvoice() {
     const invoice = {
       client_id: selectedClient.id,
       total: (uninvoiced.amount * 1.15).toFixed(2),
-      invoice_json: invoiceJson,
+      json: invoiceJson,
     }
     if (isApproved) {
       await saveFile(invoicePdfUrl)
