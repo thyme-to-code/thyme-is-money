@@ -56,15 +56,19 @@ export function Header() {
             <Heading onClick={handleClick} as="h1" color="#fff">
               Thyme is Money
             </Heading>
+            <IconButton
+            onClick={expandMenu}
+            colorScheme="whiteAlpha"
+            icon={<GoGrabber />}
+            display={{sm: 'flex', md:'none', lg:'none'}}
+          />
           </HStack>
         </Box>
         <Spacer />
         <Box mr={3}>
-          <IconButton
-            onClick={expandMenu}
-            colorScheme="whiteAlpha"
-            icon={<GoGrabber />}
-          />
+          <Button colorScheme="whiteAlpha" onClick={handleLogOut}>
+            Log Out
+          </Button>
         </Box>
       </Flex>
 
@@ -74,7 +78,7 @@ export function Header() {
           <DrawerCloseButton />
           <DrawerHeader>{`Menu`}</DrawerHeader>
           <DrawerBody>
-            <Button variant="outline" onClick={handleLogOut}>
+            <Button variant="ghost" onClick={handleLogOut}>
               Log Out
             </Button>
           </DrawerBody>

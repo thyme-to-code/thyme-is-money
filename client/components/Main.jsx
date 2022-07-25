@@ -20,7 +20,7 @@ export function Main() {
                   "nav main"
                   "nav footer"`}
       gridTemplateRows={'111px 1fr 30px'}
-      gridTemplateColumns={'190px 1fr'}
+      gridTemplateColumns={{base: '0px', lg:'190px 1fr'}}
       h="100vh"
       gap="0"
       color="blackAlpha.700"
