@@ -32,7 +32,6 @@ function updateItem(item, db = conn) {
 
 function deleteItem(id, db = conn) {
   //TODO if id doesn't exist, doesn't error.  ok?
-  //? It will return an empty array or a 0 maybe we do something with that.
   return db('items').where({ id }).delete()
 }
 
