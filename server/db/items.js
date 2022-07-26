@@ -27,7 +27,7 @@ function updateItem(item, db = conn) {
   return db(`items`)
     .where('id', item.id)
     .update({ ...item, updated_at: getIsoTime() })
-    .then(() => db('items').where('id', item.id))
+    .then(() => db('items').where({ id: item.id }))
 }
 
 function deleteItem(id, db = conn) {
