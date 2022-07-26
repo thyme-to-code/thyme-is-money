@@ -20,7 +20,7 @@ function addItem(item, db = conn) {
       created_at: getIsoTime(),
       updated_at: getIsoTime(),
     })
-    .then(([id]) => db('items').where('id', id))
+    .then(([id]) => db('items').where({ id }).first())
 }
 
 function updateItem(item, db = conn) {
