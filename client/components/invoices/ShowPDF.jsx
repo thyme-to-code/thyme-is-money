@@ -28,7 +28,7 @@ function invoiceNumber() {
 
 export function ShowPDF() {
   const dispatch = useDispatch()
-  const { selectedClient } = useSelector((state) => state.clientList)
+  const { selected } = useSelector((state) => state.clients)
   const clientTasks = useSelector((state) => state.taskList.data)
   const { invoiceJson, invoicePdfUrl } = useSelector(
     (state) => state.invoiceList
@@ -39,7 +39,7 @@ export function ShowPDF() {
   const invoiceTasks = clientTasks.map((task) => ({
     name: task.description,
     quantity: task.quantity,
-    unit_cost: selectedClient.rate,
+    unit_cost: selected.rate,
   }))
 
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
@@ -50,8 +50,8 @@ export function ShowPDF() {
     const invoice = {
       ...invoiceJson,
       items: invoiceTasks,
-      to: `${selectedClient.business_name}\nAttn: ${selectedClient.contact_name}\n${selectedClient.address}`,
-      number: `${invoiceNumber()}-${selectedClient.id}`,
+      to: `${selected.business_name}\nAttn: ${selected.contact_name}\n${selected.address}`,
+      number: `${invoiceNumber()}-${selected.id}`,
     }
     dispatch(setInvoiceJson(invoice))
     createInvoice(invoice)

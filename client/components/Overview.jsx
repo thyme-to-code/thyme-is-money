@@ -21,14 +21,14 @@ export function Overview() {
   const dispatch = useDispatch()
   const { uninvoiced, loading } = useSelector((state) => state.taskList)
   const invoices = useSelector((state) => state.invoiceList.all)
-  const clients = useSelector((state) => state.clientList.data)
+  const clients = useSelector((state) => state.clients)
 
   useEffect(() => {
     dispatch(getUninvoicedTasks())
     dispatch(getFullInvoiceList())
   }, [])
 
-  if (loading) {
+  if (loading && clients.loading) {
     return (
       <Center>
         <CircularProgress isIndeterminate color="teal.300" />
@@ -82,8 +82,9 @@ export function Overview() {
                   <Td py="1">{task.description}</Td>
                   <Td py="1">
                     {
-                      clients.find((client) => client.id == task.client_id)
-                        .business_name
+                      clients.active.find(
+                        (client) => client.id == task.client_id
+                      ).business_name
                     }
                   </Td>
                   <Td py="1" isNumeric={true}>
@@ -92,8 +93,9 @@ export function Overview() {
                   <Td py="1" isNumeric={true}>
                     $&nbsp;
                     {(
-                      clients.find((client) => client.id == task.client_id)
-                        .rate * task.quantity
+                      clients.active.find(
+                        (client) => client.id == task.client_id
+                      ).rate * task.quantity
                     ).toLocaleString('en-US')}
                   </Td>
                 </Tr>

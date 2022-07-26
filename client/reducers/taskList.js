@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { addTask } from '../apis/tasks'
 
 const initialState = {
   data: [],
@@ -39,14 +38,6 @@ export const getUninvoicedTasks = createAsyncThunk(
   }
 )
 
-export const addClientTask = createAsyncThunk(
-  'taskList/addClientTask',
-  async (task) => {
-    const response = await addTask(task)
-    return response
-  }
-)
-
 export const taskListSlice = createSlice({
   name: 'taskList',
   initialState,
@@ -81,17 +72,6 @@ export const taskListSlice = createSlice({
     builder.addCase(getActiveClientTasks.fulfilled, (state, { payload }) => {
       state.loading = false
       state.data = payload
-    })
-    // TODO change this thunk to api function
-    builder.addCase(addClientTask.pending, (state) => {
-      state.loading = true
-    })
-    builder.addCase(addClientTask.rejected, (state) => {
-      state.loading = false
-    })
-    builder.addCase(addClientTask.fulfilled, (state, action) => {
-      state.loading = false
-      state.data = action.payload
     })
   },
 })

@@ -21,17 +21,17 @@ import { setUninvoicedTotals } from '../../reducers/taskList'
 
 export function ClientDetails() {
   const dispatch = useDispatch()
-  const { selectedClient } = useSelector((state) => state.clientList)
+  const { selected } = useSelector((state) => state.clients)
   const { data: tasks, uninvoiced } = useSelector((state) => state.taskList)
 
   useEffect(() => {
-    dispatch(setUninvoicedTotals({ tasks, rate: selectedClient.rate }))
+    dispatch(setUninvoicedTotals({ tasks, rate: selected.rate }))
   }, [tasks])
 
   return (
     <Box>
       <Heading as="h2" fontSize="2xl" color="brand.100">
-        {selectedClient.business_name}
+        {selected.business_name}
       </Heading>
       <Divider my={1} />
       <HStack>
@@ -41,22 +41,20 @@ export function ClientDetails() {
           </Heading>
           <List ml={5} mr={15}>
             <ListItem>
-              <ListIcon as={MdAccountBox} color="brand.100"/>
-              {selectedClient.contact_name}
+              <ListIcon as={MdAccountBox} color="brand.100" />
+              {selected.contact_name}
             </ListItem>
             <ListItem>
-              <ListIcon as={MdPhone} color="brand.100"/>
-              <a href={`tel:${selectedClient.phone}`}>{selectedClient.phone}</a>
+              <ListIcon as={MdPhone} color="brand.100" />
+              <a href={`tel:${selected.phone}`}>{selected.phone}</a>
             </ListItem>
             <ListItem>
-              <ListIcon as={MdEmail} color="brand.100"/>
-              <a href={`mailto:${selectedClient.email}`}>
-                {selectedClient.email}
-              </a>
+              <ListIcon as={MdEmail} color="brand.100" />
+              <a href={`mailto:${selected.email}`}>{selected.email}</a>
             </ListItem>
             <ListItem>
-              <ListIcon as={MdMap} color="brand.100"/>
-              {selectedClient.address}
+              <ListIcon as={MdMap} color="brand.100" />
+              {selected.address}
             </ListItem>
           </List>
         </Box>
@@ -66,16 +64,16 @@ export function ClientDetails() {
           </Heading>
           <List ml={5} mr={15}>
             <ListItem>
-              <ListIcon as={MdAttachMoney} color="brand.100"/>
+              <ListIcon as={MdAttachMoney} color="brand.100" />
               {uninvoiced.amount.toLocaleString('en-US')}
             </ListItem>
             <ListItem>
-              <ListIcon as={MdHourglassBottom} color="brand.100"/>
+              <ListIcon as={MdHourglassBottom} color="brand.100" />
               {uninvoiced.hours} hours
             </ListItem>
             <ListItem>
-              <ListIcon as={MdAttachMoney} color="brand.100"/>
-              {selectedClient.rate} / hour
+              <ListIcon as={MdAttachMoney} color="brand.100" />
+              {selected.rate} / hour
             </ListItem>
           </List>
         </Box>

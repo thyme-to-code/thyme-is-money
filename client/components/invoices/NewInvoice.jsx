@@ -24,7 +24,7 @@ import {
 export function NewInvoice() {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { selectedClient } = useSelector((state) => state.clientList)
+  const { selected } = useSelector((state) => state.clients)
   const { data: tasks, uninvoiced } = useSelector((state) => state.taskList)
   const { invoicePdfUrl, invoiceJson } = useSelector(
     (state) => state.invoiceList
@@ -33,7 +33,7 @@ export function NewInvoice() {
 
   const saveFile = async (pdfUrl) => {
     const a = document.createElement('a')
-    a.download = `${selectedClient.business_name}-invoice.pdf`
+    a.download = `${selected.business_name}-invoice.pdf`
     a.href = pdfUrl
     a.click()
   }
@@ -41,7 +41,7 @@ export function NewInvoice() {
   async function handleClick(e) {
     e.preventDefault()
     const invoice = {
-      client_id: selectedClient.id,
+      client_id: selected.id,
       total: (uninvoiced.amount * 1.15).toFixed(2),
       json: invoiceJson,
     }
@@ -57,8 +57,8 @@ export function NewInvoice() {
     dispatch(clearInvoicePdfUrl())
     dispatch(clearInvoiceJson())
     if (isApproved) {
-      dispatch(getActiveClientTasks(selectedClient.id))
-      dispatch(getClientInvoiceList(selectedClient.id))
+      dispatch(getActiveClientTasks(selected.id))
+      dispatch(getClientInvoiceList(selected.id))
       setIsApproved(false)
     }
     onClose()

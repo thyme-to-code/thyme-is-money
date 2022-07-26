@@ -25,11 +25,11 @@ export function ClientInvoiceList() {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { client } = useSelector((state) => state.invoiceList)
-  const { selectedClient } = useSelector((state) => state.clientList)
+  const { selected } = useSelector((state) => state.clients)
 
   useEffect(() => {
-    dispatch(getClientInvoiceList(selectedClient.id))
-  }, [selectedClient])
+    dispatch(getClientInvoiceList(selected.id))
+  }, [selected])
 
   return (
     <>
@@ -46,7 +46,7 @@ export function ClientInvoiceList() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color="#0CA789">
-            Invoice History: {selectedClient.business_name}
+            Invoice History: {selected.business_name}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>

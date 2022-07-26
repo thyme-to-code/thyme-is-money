@@ -11,7 +11,7 @@ import {
   Spacer,
 } from '@chakra-ui/react'
 
-import { clearSelectedClient } from '../reducers/clientList'
+import { clearSelectedClient } from '../reducers/clients'
 
 export function Header() {
   const { logout } = useAuth0()

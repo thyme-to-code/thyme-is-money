@@ -6,7 +6,7 @@ import { NewClient } from './clients/NewClient'
 import { ClientSelector } from './clients/ClientSelector'
 
 export function Navbar() {
-  const clients = useSelector((state) => state.clientList)
+  const clients = useSelector((state) => state.clients)
 
   if (clients.loading) {
     return <>Loading ...</>

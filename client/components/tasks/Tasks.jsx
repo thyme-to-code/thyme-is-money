@@ -18,17 +18,17 @@ import { EditTask } from './EditTask'
 
 export function Tasks() {
   const dispatch = useDispatch()
-  const { selectedClient } = useSelector((state) => state.clientList)
+  const { selected } = useSelector((state) => state.clients)
   const taskList = useSelector((state) => state.taskList)
 
   function handleDelete(id) {
     deleteTask(id)
-    dispatch(getActiveClientTasks(selectedClient.id))
+    dispatch(getActiveClientTasks(selected.id))
   }
 
   useEffect(() => {
-    dispatch(getActiveClientTasks(selectedClient.id))
-  }, [selectedClient])
+    dispatch(getActiveClientTasks(selected.id))
+  }, [selected])
 
   if (taskList.loading) {
     return <>Loading ...</>
@@ -40,7 +40,7 @@ export function Tasks() {
         <Table p="1" variant="striped" colorScheme="table">
           {/* borderColor="brand.500" borderWidth="1px" borderRadius="lg" */}
 
-          {selectedClient.business_name && (
+          {selected.business_name && (
             <Thead color="brand.100">
               <Tr>
                 <Td py="1">
@@ -72,13 +72,10 @@ export function Tasks() {
                     {task.quantity}
                   </Td>
                   <Td py="1" isNumeric={true}>
-                    $
-                    {(task.quantity * selectedClient.rate).toLocaleString(
-                      'en-US'
-                    )}
+                    ${(task.quantity * selected.rate).toLocaleString('en-US')}
                   </Td>
                   <Td px="2" py="1" isNumeric={true}>
-                    <EditTask value={{ task, client_id: selectedClient.id }} />
+                    <EditTask value={{ task, client_id: selected.id }} />
                     <IconButton
                       fontSize="1.4em"
                       size="sm"

@@ -11,7 +11,8 @@ export const getActiveClients = createAsyncThunk(
   'clients/getActiveClients',
   async (post, { rejectWithValue }) => {
     try {
-      return await getClients('active')
+      //TODO Change this to be active clients only once tasks reducer has been similarly modified
+      return await getClients()
     } catch (err) {
       return rejectWithValue('That failed')
     }

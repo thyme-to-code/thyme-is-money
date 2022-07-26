@@ -26,7 +26,7 @@ export function EditTask(props) {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { description, quantity, id } = props.value.task
-  const { selectedClient } = useSelector((state) => state.clientList)
+  const { selected } = useSelector((state) => state.clients)
 
   return (
     <>
@@ -50,12 +50,12 @@ export function EditTask(props) {
             initialValues={{
               description: description,
               quantity: quantity,
-              client_id: selectedClient.id,
+              client_id: selected.id,
               id,
             }}
             onSubmit={async (newTask) => {
               await updateTask(newTask)
-              dispatch(getActiveClientTasks(selectedClient.id))
+              dispatch(getActiveClientTasks(selected.id))
               onClose()
             }}
           >

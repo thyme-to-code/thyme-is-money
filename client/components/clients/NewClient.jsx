@@ -12,7 +12,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-import { setSelectedClient, getClients } from '../../reducers/clientList'
+import { setSelectedClient, getActiveClients } from '../../reducers/clients'
 import { ClientForm } from './ClientForm'
 
 export function NewClient() {
@@ -49,7 +49,7 @@ export function NewClient() {
                 .post('/api/v1/clients')
                 .send(values)
                 .then((res) => {
-                  dispatch(getClients())
+                  dispatch(getActiveClients())
                   dispatch(setSelectedClient(res.body))
                   onClose()
                 })

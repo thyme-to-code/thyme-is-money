@@ -17,11 +17,12 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
-import { addClientTask, getActiveClientTasks } from '../../reducers/taskList'
+import { getActiveClientTasks } from '../../reducers/taskList'
+import { addTask } from '../../apis/tasks'
 
 export function NewTask() {
   const dispatch = useDispatch()
-  const { selectedClient } = useSelector((state) => state.clientList)
+  const { selected } = useSelector((state) => state.clients)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -45,11 +46,11 @@ export function NewTask() {
               description: '',
               type: 1,
               quantity: '',
-              client_id: selectedClient.id,
+              client_id: selected.id,
             }}
             onSubmit={(newTask) => {
-              dispatch(addClientTask(newTask))
-              dispatch(getActiveClientTasks(selectedClient.id))
+              addTask(newTask)
+              dispatch(getActiveClientTasks(selected.id))
               onClose()
             }}
           >
