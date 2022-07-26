@@ -3,13 +3,13 @@ const conn = require('knex')(config)
 
 const getIsoTime = () => new Date().toISOString()
 
-function getClients(isActive = 'all', db = conn) {
-  if (isActive === 'all') {
-    return db('clients').select()
-  } else if (isActive === 'yes') {
+function getClients(filter, db = conn) {
+  if (filter === 'active') {
     return db('clients').where('isActive', true)
-  } else if (isActive === 'no') {
+  } else if (filter === 'inactive') {
     return db('clients').where('isActive', false)
+  } else {
+    return db('clients').select()
   }
 }
 
