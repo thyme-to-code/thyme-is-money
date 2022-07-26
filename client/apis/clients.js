@@ -2,9 +2,10 @@ import request from 'superagent'
 
 const rootUrl = '/api/v1/clients'
 
-// export function getAllClients() {
-//   return request.get(rootUrl).then((res) => {
-//     // console.log(res.body)
-//     return res.body
-//   })
-// }
+export function getClients(filter) {
+  return request.get(rootUrl + '?filter=' + filter).then((res) => {
+    return res.body
+  })
+}
+
+getClients('active')
