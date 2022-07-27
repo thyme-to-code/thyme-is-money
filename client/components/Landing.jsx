@@ -1,3 +1,4 @@
+// @ts-check
 import React from 'react'
 import LogIn from './LogIn'
 import { Flex, Heading, Image, HStack } from '@chakra-ui/react'

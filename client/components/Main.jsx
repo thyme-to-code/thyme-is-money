@@ -1,3 +1,4 @@
+// @ts-check
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Grid, GridItem } from '@chakra-ui/react'

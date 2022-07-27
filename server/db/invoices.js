@@ -1,3 +1,4 @@
+// @ts-check
 const config = require('./knexfile').development
 const conn = require('knex')(config)
 
