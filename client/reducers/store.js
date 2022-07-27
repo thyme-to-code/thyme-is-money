@@ -1,3 +1,4 @@
+// @ts-check
 import { configureStore } from '@reduxjs/toolkit'
 
 import clientList from './clientList'

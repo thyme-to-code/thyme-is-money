@@ -1,3 +1,4 @@
+// @ts-check
 import React from 'react'
 import { Button } from '@chakra-ui/react'
 import * as dfd from 'danfojs'

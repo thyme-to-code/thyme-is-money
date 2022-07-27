@@ -1,3 +1,4 @@
+// @ts-check
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getInvoicesByClient, getInvoiceCsv } from '../apis/invoices'
 
