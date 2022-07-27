@@ -1,3 +1,4 @@
+// @ts-check
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Flex, Spacer } from '@chakra-ui/react'

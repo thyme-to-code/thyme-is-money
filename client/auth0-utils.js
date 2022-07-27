@@ -1,3 +1,4 @@
+// @ts-check
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoggedInUser } from './reducers/user'
 

@@ -1,3 +1,4 @@
+// @ts-check
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -9,9 +10,9 @@ import { Paths } from './Paths'
 
 function App() {
   cacheUser(useAuth0)
-  const token = useSelector(state => state.user.token)
+  const token = useSelector((state) => state.user.token)
   const navigate = useNavigate()
-  
+
   useEffect(() => {
     if (token && window.location.pathname === '/') {
       navigate('/home', { replace: true })

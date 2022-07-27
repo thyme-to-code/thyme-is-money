@@ -1,3 +1,4 @@
+// @ts-check
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getClients } from '../apis/clients'
 
