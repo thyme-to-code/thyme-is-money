@@ -9,8 +9,6 @@ const initialState = {
     amount: 0,
     pdfUrl: '',
     json: {
-      // Would it be worth having a seperate templates piece of state?
-      // Future feature perhaps; Selectable invoice templates.
       header: 'TAX INVOICE',
       tax_title: 'GST',
       logo: 'https://whau.haume.nz/thyme.png',
@@ -43,11 +41,16 @@ export const invoicesSlice = createSlice({
   name: 'invoices',
   initialState,
   reducers: {
+    //TODO investigate combining these into an updateCurrentInvoice reducer.
+    // Where action.payload = { total: 121 }
+    // so we can do things like this state.current = action.payload
+    // Will this update all of state.current or only the state.current.total key
+    // working on the immer library. It may not work quite as expected.
     setInvoiceJson: (state, action) => {
-      state.invoiceJson = action.payload
+      state.current.json = action.payload
     },
     setInvoicePdfUrl: (state, action) => {
-      state.invoicePdfUrl = action.payload
+      state.current.pdfUrl = action.payload
     },
     clearCurrentInvoice: (state) => {
       URL.revokeObjectURL(state.invoicePdfUrl)
