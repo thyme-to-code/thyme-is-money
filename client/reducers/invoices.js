@@ -54,11 +54,7 @@ export const invoicesSlice = createSlice({
     },
     clearCurrentInvoice: (state) => {
       URL.revokeObjectURL(state.invoicePdfUrl)
-      // This is a potential option here but it will clear our totals and amount values.
-      // This wouldn't be a problem as long as we ensure it's set again on return to client details
-      // state.current = initialState.current
-      state.current.pdfUrl = initialState.current.pdfUrl
-      state.current.json = initialState.current.json
+      state.current = initialState.current
     },
   },
   extraReducers: (builder) => {
