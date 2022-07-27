@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import clients from './clients'
 import taskList from './taskList'
 import invoiceList from './invoiceList'
+import invoices from './invoices'
 import user from './user'
 
 export const store = configureStore({
@@ -11,5 +12,6 @@ export const store = configureStore({
     taskList,
     user,
     invoiceList,
+    invoices,
   },
 })

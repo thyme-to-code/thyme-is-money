@@ -14,6 +14,7 @@ export const getActiveClients = createAsyncThunk(
       //TODO Change this to be active clients only once tasks reducer has been similarly modified
       return await getClients()
     } catch (err) {
+      //TODO better error message
       return rejectWithValue('That failed')
     }
   }
