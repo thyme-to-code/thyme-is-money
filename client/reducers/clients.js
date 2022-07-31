@@ -2,9 +2,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getClients } from '../apis/clients'
 
 const initialState = {
+  loading: true,
   active: [],
   selected: {},
-  loading: true,
+  totals: {
+    amount: 0,
+    quantity: 0,
+  },
 }
 
 export const getActiveClients = createAsyncThunk(
@@ -30,6 +34,14 @@ export const clientSlice = createSlice({
     clearSelectedClient: (state) => {
       state.selected = {}
     },
+    setTotals: (state, action) => {
+      const { items, rate } = action.payload
+      state.totals.quantity = 0
+      items.forEach(
+        (item) => !item.invoice_id && (state.totals.quantity += item.quantity)
+      )
+      state.totals.amount = state.totals.quantity * rate
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getActiveClients.pending, (state) => {
@@ -45,5 +57,6 @@ export const clientSlice = createSlice({
   },
 })
 
-export const { setSelectedClient, clearSelectedClient } = clientSlice.actions
+export const { setTotals, setSelectedClient, clearSelectedClient } =
+  clientSlice.actions
 export default clientSlice.reducer

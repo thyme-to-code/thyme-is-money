@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getTasks } from '../apis/tasks'
 
 const initialState = {
-  uninvoiced: [],
   loading: true,
+  uninvoiced: [],
 }
 
 export const getUninvoicedTasks = createAsyncThunk(
