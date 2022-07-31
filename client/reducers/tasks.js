@@ -35,5 +35,4 @@ export const tasksSlice = createSlice({
   },
 })
 
-export const { setUninvoicedTotals } = tasksSlice.actions
 export default tasksSlice.reducer
