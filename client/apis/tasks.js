@@ -39,3 +39,10 @@ export function deleteTask(id) {
       console.log(err)
     })
 }
+
+export function getTasks(query) {
+  return request
+    .get(rootUrl + query)
+    .then((res) => res.body.json())
+    .catch((err) => console.log(err))
+}
