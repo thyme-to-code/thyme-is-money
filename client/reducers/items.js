@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getTasks } from '../apis/tasks'
+import { getItems } from '../apis/items'
 
 const initialState = {
   loading: true,
@@ -10,7 +10,7 @@ export const getUninvoicedItems = createAsyncThunk(
   'items/getUninvoicedItems',
   async () => {
     try {
-      return await getTasks('?invoiced=no')
+      return await getItems('?invoiced=no')
     } catch (err) {
       return err
     }
