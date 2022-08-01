@@ -6,8 +6,8 @@ const initialState = {
   uninvoiced: [],
 }
 
-export const getUninvoicedTasks = createAsyncThunk(
-  'taskList/getUninvoicedTasks',
+export const getUninvoicedItems = createAsyncThunk(
+  'items/getUninvoicedItems',
   async () => {
     try {
       return await getTasks('?invoiced=no')
@@ -17,22 +17,22 @@ export const getUninvoicedTasks = createAsyncThunk(
   }
 )
 
-export const tasksSlice = createSlice({
-  name: 'tasks',
+export const itemsSlice = createSlice({
+  name: 'items',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getUninvoicedTasks.pending, (state) => {
+    builder.addCase(getUninvoicedItems.pending, (state) => {
       state.loading = true
     })
-    builder.addCase(getUninvoicedTasks.rejected, (state) => {
+    builder.addCase(getUninvoicedItems.rejected, (state) => {
       state.loading = false
     })
-    builder.addCase(getUninvoicedTasks.fulfilled, (state, { payload }) => {
+    builder.addCase(getUninvoicedItems.fulfilled, (state, { payload }) => {
       state.loading = false
       state.uninvoiced = payload
     })
   },
 })
 
-export default tasksSlice.reducer
+export default itemsSlice.reducer

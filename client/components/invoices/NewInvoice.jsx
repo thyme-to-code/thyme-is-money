@@ -15,20 +15,14 @@ import {
 import { ShowPDF } from './ShowPDF'
 import { saveInvoice } from '../../apis/invoices'
 import { getActiveClientTasks } from '../../reducers/taskList'
-import {
-  clearInvoiceJson,
-  clearInvoicePdfUrl,
-  getClientInvoiceList,
-} from '../../reducers/invoiceList'
+import { clearCurrentInvoice, getInvoices } from '../../reducers/invoices'
 
 export function NewInvoice() {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { selected } = useSelector((state) => state.clients)
   const { data: tasks, uninvoiced } = useSelector((state) => state.taskList)
-  const { invoicePdfUrl, invoiceJson } = useSelector(
-    (state) => state.invoiceList
-  )
+  const { pdfUrl, json } = useSelector((state) => state.invoices.current)
   const [isApproved, setIsApproved] = useState(false)
 
   const saveFile = async (pdfUrl) => {
@@ -43,10 +37,10 @@ export function NewInvoice() {
     const invoice = {
       client_id: selected.id,
       total: (uninvoiced.amount * 1.15).toFixed(2),
-      json: invoiceJson,
+      json,
     }
     if (isApproved) {
-      await saveFile(invoicePdfUrl)
+      await saveFile(pdfUrl)
     } else {
       await saveInvoice(invoice, tasks)
       setIsApproved(true)
@@ -54,11 +48,10 @@ export function NewInvoice() {
   }
 
   function afterClose() {
-    dispatch(clearInvoicePdfUrl())
-    dispatch(clearInvoiceJson())
+    dispatch(clearCurrentInvoice())
     if (isApproved) {
       dispatch(getActiveClientTasks(selected.id))
-      dispatch(getClientInvoiceList(selected.id))
+      dispatch(getInvoices())
       setIsApproved(false)
     }
     onClose()

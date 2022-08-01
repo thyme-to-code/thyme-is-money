@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Grid, GridItem } from '@chakra-ui/react'
+
 import { getActiveClients } from '../reducers/clients'
+import { getInvoices } from '../reducers/invoices'
+
 import { Content } from './Content'
 import { Footer } from './Footer'
 import { Header } from './Header'
@@ -12,6 +15,7 @@ export function Main() {
 
   useEffect(() => {
     dispatch(getActiveClients())
+    dispatch(getInvoices())
   }, [])
 
   return (

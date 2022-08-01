@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { createInvoice } from '../../apis/invoices'
 import { Spinner } from '@chakra-ui/react'
-import { setInvoiceJson, setInvoicePdfUrl } from '../../reducers/invoiceList'
-
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+
+import { createInvoice } from '../../apis/invoices'
+import { setInvoiceJson, setInvoicePdfUrl } from '../../reducers/invoices'
 import '../../styles/ShowPdf.css'
 
 const options = {
@@ -30,12 +30,11 @@ export function ShowPDF() {
   const dispatch = useDispatch()
   const { selected } = useSelector((state) => state.clients)
   const clientTasks = useSelector((state) => state.taskList.data)
-  const { invoiceJson, invoicePdfUrl } = useSelector(
-    (state) => state.invoiceList
-  )
+  const { json, pdfUrl } = useSelector((state) => state.invoices.current)
 
   const [numPages, setNumPages] = useState(null)
 
+  // Needs to filter for current client
   const invoiceTasks = clientTasks.map((task) => ({
     name: task.description,
     quantity: task.quantity,
@@ -48,7 +47,7 @@ export function ShowPDF() {
 
   useEffect(() => {
     const invoice = {
-      ...invoiceJson,
+      ...json,
       items: invoiceTasks,
       to: `${selected.business_name}\nAttn: ${selected.contact_name}\n${selected.address}`,
       number: `${invoiceNumber()}-${selected.id}`,
@@ -61,12 +60,12 @@ export function ShowPDF() {
       .catch((err) => err)
   }, [])
 
-  return invoicePdfUrl ? (
+  return pdfUrl ? (
     <div className="pdf">
       <div className="pdf__container">
         <div className="pdf__container__document">
           <Document
-            file={invoicePdfUrl}
+            file={pdfUrl}
             onLoadSuccess={onDocumentLoadSuccess}
             options={options}
           >

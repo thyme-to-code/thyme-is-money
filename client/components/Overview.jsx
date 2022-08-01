@@ -15,17 +15,15 @@ import {
 } from '@chakra-ui/react'
 
 import { getUninvoicedTasks } from '../reducers/taskList'
-import { getFullInvoiceList } from '../reducers/invoiceList'
 
 export function Overview() {
   const dispatch = useDispatch()
   const { uninvoiced, loading } = useSelector((state) => state.taskList)
-  const invoices = useSelector((state) => state.invoiceList.all)
+  const invoices = useSelector((state) => state.invoices.all)
   const clients = useSelector((state) => state.clients)
 
   useEffect(() => {
     dispatch(getUninvoicedTasks())
-    dispatch(getFullInvoiceList())
   }, [])
 
   if (loading && clients.loading) {

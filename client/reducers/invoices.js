@@ -53,7 +53,7 @@ export const invoicesSlice = createSlice({
       state.current.pdfUrl = action.payload
     },
     clearCurrentInvoice: (state) => {
-      URL.revokeObjectURL(state.invoicePdfUrl)
+      URL.revokeObjectURL(state.current.pdfUrl)
       state.current = initialState.current
     },
   },
