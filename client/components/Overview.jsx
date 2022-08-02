@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import {
   Center,
   CircularProgress,
@@ -14,17 +14,10 @@ import {
   Text,
 } from '@chakra-ui/react'
 
-import { getUninvoicedTasks } from '../reducers/taskList'
-
 export function Overview() {
-  const dispatch = useDispatch()
-  const { uninvoiced, loading } = useSelector((state) => state.taskList)
+  const { uninvoiced, loading } = useSelector((state) => state.items)
   const invoices = useSelector((state) => state.invoices.all)
   const clients = useSelector((state) => state.clients)
-
-  useEffect(() => {
-    dispatch(getUninvoicedTasks())
-  }, [])
 
   if (loading && clients.loading) {
     return (
@@ -67,7 +60,7 @@ export function Overview() {
             </Tr>
           </Thead>
           <Tbody>
-            {uninvoiced?.tasks.length === 0 ? (
+            {uninvoiced?.length === 0 ? (
               <Tr>
                 <Td>No uninvoiced tasks? Go do some work!</Td>
                 <Td></Td>
@@ -75,7 +68,7 @@ export function Overview() {
                 <Td></Td>
               </Tr>
             ) : (
-              uninvoiced?.tasks.map((task, i) => (
+              uninvoiced?.map((task, i) => (
                 <Tr key={i}>
                   <Td py="1">{task.description}</Td>
                   <Td py="1">

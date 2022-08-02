@@ -4,6 +4,7 @@ import { Grid, GridItem } from '@chakra-ui/react'
 
 import { getActiveClients } from '../reducers/clients'
 import { getInvoices } from '../reducers/invoices'
+import { getUninvoicedItems } from '../reducers/items'
 
 import { Content } from './Content'
 import { Footer } from './Footer'
@@ -16,6 +17,7 @@ export function Main() {
   useEffect(() => {
     dispatch(getActiveClients())
     dispatch(getInvoices())
+    dispatch(getUninvoicedItems())
   }, [])
 
   return (
