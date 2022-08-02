@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   IconButton,
@@ -12,25 +12,23 @@ import {
 } from '@chakra-ui/react'
 import { MdDeleteForever } from 'react-icons/md'
 
+import { getUninvoicedItems } from '../../reducers/items'
+
+// TODO Update to be items
 import { deleteTask } from '../../apis/tasks'
-import { getActiveClientTasks } from '../../reducers/taskList'
 import { EditTask } from './EditTask'
 
 export function Tasks() {
   const dispatch = useDispatch()
   const { selected } = useSelector((state) => state.clients)
-  const taskList = useSelector((state) => state.taskList)
+  const items = useSelector((state) => state.items)
 
   function handleDelete(id) {
     deleteTask(id)
-    dispatch(getActiveClientTasks(selected.id))
+    dispatch(getUninvoicedItems())
   }
 
-  useEffect(() => {
-    dispatch(getActiveClientTasks(selected.id))
-  }, [selected])
-
-  if (taskList.loading) {
+  if (items.loading) {
     return <>Loading ...</>
   }
 
@@ -38,8 +36,6 @@ export function Tasks() {
     <div className="tasks">
       <TableContainer mr={5}>
         <Table p="1" variant="striped" colorScheme="table">
-          {/* borderColor="brand.500" borderWidth="1px" borderRadius="lg" */}
-
           {selected.business_name && (
             <Thead color="brand.100">
               <Tr>
@@ -63,33 +59,40 @@ export function Tasks() {
             </Thead>
           )}
 
-          {taskList?.data.length > 0 ? (
+          {items?.uninvoiced.length > 0 ? (
             <Tbody>
-              {taskList?.data.map((task) => (
-                <Tr key={task.id}>
-                  <Td py="1">{task.description}</Td>
-                  <Td py="1" isNumeric={true}>
-                    {task.quantity}
-                  </Td>
-                  <Td py="1" isNumeric={true}>
-                    ${(task.quantity * selected.rate).toLocaleString('en-US')}
-                  </Td>
-                  <Td px="2" py="1" isNumeric={true}>
-                    <EditTask value={{ task, client_id: selected.id }} />
-                    <IconButton
-                      fontSize="1.4em"
-                      size="sm"
-                      bg="brand.400"
-                      color="brand.50"
-                      _hover={{ bg: 'brand.500' }}
-                      id={task.id}
-                      value={task.id}
-                      onClick={() => handleDelete(task.id)}
-                      icon={<MdDeleteForever />}
-                    />
-                  </Td>
-                </Tr>
-              ))}
+              {items?.uninvoiced.map((item) => {
+                if (item.client_id === selected.id) {
+                  return (
+                    <Tr key={item.id}>
+                      <Td py="1">{item.description}</Td>
+                      <Td py="1" isNumeric={true}>
+                        {item.quantity}
+                      </Td>
+                      <Td py="1" isNumeric={true}>
+                        $
+                        {(item.quantity * selected.rate).toLocaleString(
+                          'en-US'
+                        )}
+                      </Td>
+                      <Td px="2" py="1" isNumeric={true}>
+                        <EditTask value={{ item }} />
+                        <IconButton
+                          fontSize="1.4em"
+                          size="sm"
+                          bg="brand.400"
+                          color="brand.50"
+                          _hover={{ bg: 'brand.500' }}
+                          id={item.id}
+                          value={item.id}
+                          onClick={() => handleDelete(item.id)}
+                          icon={<MdDeleteForever />}
+                        />
+                      </Td>
+                    </Tr>
+                  )
+                }
+              })}
             </Tbody>
           ) : (
             <Tbody>

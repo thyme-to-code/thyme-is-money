@@ -29,13 +29,16 @@ function invoiceNumber() {
 export function ShowPDF() {
   const dispatch = useDispatch()
   const { selected } = useSelector((state) => state.clients)
-  const clientTasks = useSelector((state) => state.taskList.data)
+  const items = useSelector((state) => state.items)
   const { json, pdfUrl } = useSelector((state) => state.invoices.current)
 
   const [numPages, setNumPages] = useState(null)
 
-  // Needs to filter for current client
-  const invoiceTasks = clientTasks.map((task) => ({
+  const clientItems = items.uninvoiced.filter(
+    (item) => item.client_id === selected.id
+  )
+
+  const invoiceTasks = clientItems.map((task) => ({
     name: task.description,
     quantity: task.quantity,
     unit_cost: selected.rate,

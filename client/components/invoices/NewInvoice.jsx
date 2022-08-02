@@ -12,18 +12,25 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 
-import { ShowPDF } from './ShowPDF'
-import { saveInvoice } from '../../apis/invoices'
-import { getActiveClientTasks } from '../../reducers/taskList'
+// import { getActiveClientTasks } from '../../reducers/taskList'
+import { getUninvoicedItems } from '../../reducers/items'
 import { clearCurrentInvoice, getInvoices } from '../../reducers/invoices'
+
+import { saveInvoice } from '../../apis/invoices'
+import { ShowPDF } from './ShowPDF'
 
 export function NewInvoice() {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { selected } = useSelector((state) => state.clients)
-  const { data: tasks, uninvoiced } = useSelector((state) => state.taskList)
+  const { amount } = useSelector((state) => state.taskList.uninvoiced)
+  const items = useSelector((state) => state.items)
   const { pdfUrl, json } = useSelector((state) => state.invoices.current)
   const [isApproved, setIsApproved] = useState(false)
+
+  const clientItems = items.uninvoiced.filter(
+    (item) => item.client_id === selected.id
+  )
 
   const saveFile = async (pdfUrl) => {
     const a = document.createElement('a')
@@ -36,13 +43,13 @@ export function NewInvoice() {
     e.preventDefault()
     const invoice = {
       client_id: selected.id,
-      total: (uninvoiced.amount * 1.15).toFixed(2),
+      total: (amount * 1.15).toFixed(2),
       json,
     }
     if (isApproved) {
       await saveFile(pdfUrl)
     } else {
-      await saveInvoice(invoice, tasks)
+      await saveInvoice(invoice, clientItems)
       setIsApproved(true)
     }
   }
@@ -50,7 +57,7 @@ export function NewInvoice() {
   function afterClose() {
     dispatch(clearCurrentInvoice())
     if (isApproved) {
-      dispatch(getActiveClientTasks(selected.id))
+      dispatch(getUninvoicedItems())
       dispatch(getInvoices())
       setIsApproved(false)
     }
@@ -59,7 +66,7 @@ export function NewInvoice() {
 
   return (
     <>
-      {tasks.length > 0 && (
+      {clientItems.length > 0 && (
         <Button
           onClick={onOpen}
           bg="brand.100"

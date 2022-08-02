@@ -17,7 +17,7 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
-import { getActiveClientTasks } from '../../reducers/taskList'
+import { getUninvoicedItems } from '../../reducers/items'
 import { addTask } from '../../apis/tasks'
 
 export function NewTask() {
@@ -50,7 +50,7 @@ export function NewTask() {
             }}
             onSubmit={(newTask) => {
               addTask(newTask)
-              dispatch(getActiveClientTasks(selected.id))
+              dispatch(getUninvoicedItems())
               onClose()
             }}
           >
