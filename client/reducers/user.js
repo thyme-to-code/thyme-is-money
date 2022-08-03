@@ -1,3 +1,4 @@
+// @ts-check
 import { createSlice } from '@reduxjs/toolkit'
 
 // state.user containts this object
