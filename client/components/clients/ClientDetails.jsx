@@ -17,16 +17,18 @@ import {
   MdMap,
   MdPhone,
 } from 'react-icons/md'
-import { setUninvoicedTotals } from '../../reducers/taskList'
+import { setTotals } from '../../reducers/clients'
 
 export function ClientDetails() {
   const dispatch = useDispatch()
-  const { selected } = useSelector((state) => state.clients)
-  const { data: tasks, uninvoiced } = useSelector((state) => state.taskList)
+  const { totals, selected } = useSelector((state) => state.clients)
+  const { uninvoiced } = useSelector((state) => state.items)
+
+  const items = uninvoiced.filter((item) => item.client_id === selected.id)
 
   useEffect(() => {
-    dispatch(setUninvoicedTotals({ tasks, rate: selected.rate }))
-  }, [tasks])
+    dispatch(setTotals({ items, rate: selected.rate }))
+  }, [uninvoiced, selected])
 
   return (
     <Box>
@@ -65,11 +67,11 @@ export function ClientDetails() {
           <List ml={5} mr={15}>
             <ListItem>
               <ListIcon as={MdAttachMoney} color="brand.100" />
-              {uninvoiced.amount.toLocaleString('en-US')}
+              {totals.amount.toLocaleString('en-US')}
             </ListItem>
             <ListItem>
               <ListIcon as={MdHourglassBottom} color="brand.100" />
-              {uninvoiced.hours} hours
+              {totals.quantity} hours
             </ListItem>
             <ListItem>
               <ListIcon as={MdAttachMoney} color="brand.100" />

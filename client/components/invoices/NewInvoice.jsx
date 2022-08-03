@@ -12,7 +12,6 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 
-// import { getActiveClientTasks } from '../../reducers/taskList'
 import { getUninvoicedItems } from '../../reducers/items'
 import { clearCurrentInvoice, getInvoices } from '../../reducers/invoices'
 
@@ -22,8 +21,7 @@ import { ShowPDF } from './ShowPDF'
 export function NewInvoice() {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { selected } = useSelector((state) => state.clients)
-  const { amount } = useSelector((state) => state.taskList.uninvoiced)
+  const { totals, selected } = useSelector((state) => state.clients)
   const items = useSelector((state) => state.items)
   const { pdfUrl, json } = useSelector((state) => state.invoices.current)
   const [isApproved, setIsApproved] = useState(false)
@@ -43,7 +41,7 @@ export function NewInvoice() {
     e.preventDefault()
     const invoice = {
       client_id: selected.id,
-      total: (amount * 1.15).toFixed(2),
+      total: (totals.amount * 1.15).toFixed(2),
       json,
     }
     if (isApproved) {
