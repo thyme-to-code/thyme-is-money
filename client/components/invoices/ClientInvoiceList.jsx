@@ -1,8 +1,10 @@
 // @ts-check
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import {
   Button,
+  Center,
+  CircularProgress,
   Heading,
   Modal,
   ModalBody,
@@ -20,17 +22,18 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 
-import { getClientInvoiceList } from '../../reducers/invoiceList'
-
 export function ClientInvoiceList() {
-  const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { client } = useSelector((state) => state.invoiceList)
-  const { selectedClient } = useSelector((state) => state.clientList)
+  const { all: invoices, loading } = useSelector((state) => state.invoices)
+  const { selected } = useSelector((state) => state.clients)
 
-  useEffect(() => {
-    dispatch(getClientInvoiceList(selectedClient.id))
-  }, [selectedClient])
+  if (loading) {
+    return (
+      <Center>
+        <CircularProgress isIndeterminate color="teal.300" />
+      </Center>
+    )
+  }
 
   return (
     <>
@@ -47,7 +50,7 @@ export function ClientInvoiceList() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color="#0CA789">
-            Invoice History: {selectedClient.business_name}
+            Invoice History: {selected.business_name}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -88,32 +91,46 @@ export function ClientInvoiceList() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {client?.map((invoice) => (
-                    <Tr key={invoice.id}>
-                      <Td py="1">INV-{invoice.id}</Td>
-                      <Td py="1" isNumeric={true}>
-                        {new Date(invoice.date_sent).toLocaleDateString(
-                          'en-NZ'
-                        )}
-                      </Td>
-                      <Td py="1" isNumeric={true}>
-                        {invoice.date_paid &&
-                          new Date(invoice.date_paid).toLocaleDateString(
-                            'en-NZ'
-                          )}
-                      </Td>
-                      <Td py="1" isNumeric={true}>
-                        {invoice.amount_paid &&
-                          '$' + invoice.amount_paid.toLocaleString('en-NZ')}
-                      </Td>
-                      <Td py="1" isNumeric={true}>
-                        ${invoice.total.toLocaleString('en-NZ')}
-                      </Td>
-                      <Td py="1" isNumeric={true}>
-                        JSON
-                      </Td>
+                  {invoices?.length === 0 ? ( // This could potentially be handled better
+                    <Tr key="something">
+                      <Td>No invoices! Are you a freelancer or what?</Td>
+                      <Td></Td>
+                      <Td></Td>
+                      <Td></Td>
                     </Tr>
-                  ))}
+                  ) : (
+                    invoices?.map((invoice) => {
+                      if (invoice?.client_id === selected.id) {
+                        return (
+                          <Tr key={invoice.invoice_number}>
+                            <Td py="1">INV-{invoice.invoice_number}</Td>
+                            <Td py="1" isNumeric={true}>
+                              {new Date(invoice.date_sent).toLocaleDateString(
+                                'en-NZ'
+                              )}
+                            </Td>
+                            <Td py="1" isNumeric={true}>
+                              {invoice.date_paid &&
+                                new Date(invoice.date_paid).toLocaleDateString(
+                                  'en-NZ'
+                                )}
+                            </Td>
+                            <Td py="1" isNumeric={true}>
+                              {invoice.amount_paid &&
+                                '$' +
+                                  invoice.amount_paid.toLocaleString('en-NZ')}
+                            </Td>
+                            <Td py="1" isNumeric={true}>
+                              ${invoice.total.toLocaleString('en-NZ')}
+                            </Td>
+                            <Td py="1" isNumeric={true}>
+                              JSON
+                            </Td>
+                          </Tr>
+                        )
+                      }
+                    })
+                  )}
                 </Tbody>
               </Table>
             </TableContainer>

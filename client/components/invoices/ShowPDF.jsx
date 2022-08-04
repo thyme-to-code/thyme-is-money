@@ -1,11 +1,11 @@
 // @ts-check
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { createInvoice } from '../../apis/invoices'
 import { Spinner } from '@chakra-ui/react'
-import { setInvoiceJson, setInvoicePdfUrl } from '../../reducers/invoiceList'
-
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+
+import { createInvoice } from '../../apis/invoices'
+import { setInvoiceJson, setInvoicePdfUrl } from '../../reducers/invoices'
 import '../../styles/ShowPdf.css'
 
 const options = {
@@ -29,18 +29,20 @@ function invoiceNumber() {
 
 export function ShowPDF() {
   const dispatch = useDispatch()
-  const { selectedClient } = useSelector((state) => state.clientList)
-  const clientTasks = useSelector((state) => state.taskList.data)
-  const { invoiceJson, invoicePdfUrl } = useSelector(
-    (state) => state.invoiceList
-  )
+  const { selected } = useSelector((state) => state.clients)
+  const items = useSelector((state) => state.items)
+  const { json, pdfUrl } = useSelector((state) => state.invoices.current)
 
   const [numPages, setNumPages] = useState(null)
 
-  const invoiceTasks = clientTasks.map((task) => ({
+  const clientItems = items.uninvoiced.filter(
+    (item) => item.client_id === selected.id
+  )
+
+  const invoiceTasks = clientItems.map((task) => ({
     name: task.description,
     quantity: task.quantity,
-    unit_cost: selectedClient.rate,
+    unit_cost: selected.rate,
   }))
 
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
@@ -49,10 +51,10 @@ export function ShowPDF() {
 
   useEffect(() => {
     const invoice = {
-      ...invoiceJson,
+      ...json,
       items: invoiceTasks,
-      to: `${selectedClient.business_name}\nAttn: ${selectedClient.contact_name}\n${selectedClient.address}`,
-      number: `${invoiceNumber()}-${selectedClient.id}`,
+      to: `${selected.business_name}\nAttn: ${selected.contact_name}\n${selected.address}`,
+      number: `${invoiceNumber()}-${selected.id}`,
     }
     dispatch(setInvoiceJson(invoice))
     createInvoice(invoice)
@@ -62,12 +64,12 @@ export function ShowPDF() {
       .catch((err) => err)
   }, [])
 
-  return invoicePdfUrl ? (
+  return pdfUrl ? (
     <div className="pdf">
       <div className="pdf__container">
         <div className="pdf__container__document">
           <Document
-            file={invoicePdfUrl}
+            file={pdfUrl}
             onLoadSuccess={onDocumentLoadSuccess}
             options={options}
           >

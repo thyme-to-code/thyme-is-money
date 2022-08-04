@@ -4,9 +4,9 @@ const router = express.Router()
 
 const db = require('../db/clients')
 
-// /api/v1/clients?active=[yes|no]
+// /api/v1/clients?filter=[active|inactive]
 router.get('/', (req, res) => {
-  db.getClients(req.query.active)
+  db.getClients(req.query.filter)
     .then((clients) => {
       res.json(clients)
     })

@@ -18,7 +18,7 @@ import { Overview } from './Overview'
 import { ClientInvoiceList } from './invoices/ClientInvoiceList'
 
 export function Content() {
-  const { selectedClient, loading } = useSelector((state) => state.clientList)
+  const { selected, loading } = useSelector((state) => state.clients)
 
   if (loading) {
     return (
@@ -28,7 +28,7 @@ export function Content() {
     )
   }
 
-  return selectedClient.id ? (
+  return selected.id ? (
     <>
       <ClientDetails />
       <Divider mt={2} mb={2} />

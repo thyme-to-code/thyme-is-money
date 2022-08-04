@@ -1,16 +1,16 @@
 // @ts-check
 import { configureStore } from '@reduxjs/toolkit'
 
-import clientList from './clientList'
-import taskList from './taskList'
-import invoiceList from './invoiceList'
+import clients from './clients'
+import items from './items'
+import invoices from './invoices'
 import user from './user'
 
 export const store = configureStore({
   reducer: {
-    clientList,
-    taskList,
+    clients,
+    items,
     user,
-    invoiceList,
+    invoices,
   },
 })

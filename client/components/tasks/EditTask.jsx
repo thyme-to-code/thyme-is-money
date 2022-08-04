@@ -1,6 +1,6 @@
 // @ts-check
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Formik, Form, Field } from 'formik'
 import {
   Modal,
@@ -20,14 +20,14 @@ import {
 } from '@chakra-ui/react'
 import { MdEdit } from 'react-icons/md'
 
-import { getActiveClientTasks } from '../../reducers/taskList'
+import { getUninvoicedItems } from '../../reducers/items'
+
 import { updateTask } from '../../apis/tasks.js'
 
 export function EditTask(props) {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { description, quantity, id } = props.value.task
-  const { selectedClient } = useSelector((state) => state.clientList)
+  const { description, quantity, id, client_id } = props.value.item
 
   return (
     <>
@@ -49,14 +49,14 @@ export function EditTask(props) {
           <ModalCloseButton />
           <Formik
             initialValues={{
-              description: description,
-              quantity: quantity,
-              client_id: selectedClient.id,
+              description,
+              quantity,
+              client_id,
               id,
             }}
             onSubmit={async (newTask) => {
               await updateTask(newTask)
-              dispatch(getActiveClientTasks(selectedClient.id))
+              dispatch(getUninvoicedItems())
               onClose()
             }}
           >

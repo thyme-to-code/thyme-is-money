@@ -2,22 +2,19 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Heading, Select, FormLabel } from '@chakra-ui/react'
-import {
-  setSelectedClient,
-  clearSelectedClient,
-} from '../../reducers/clientList'
+import { setSelectedClient, clearSelectedClient } from '../../reducers/clients'
 
 export function ClientSelector() {
   const dispatch = useDispatch()
-  const clients = useSelector((state) => state.clientList)
+  const clients = useSelector((state) => state.clients)
 
-  const orderedCompanyNames = clients.data
+  const orderedCompanyNames = clients.active
     .map((client) => client.business_name)
     .sort()
 
   function handleChange(e) {
     if (e.target.value) {
-      const myClient = clients.data.find(
+      const myClient = clients.active.find(
         (client) => client.business_name == e.target.value
       )
       return dispatch(setSelectedClient(myClient))

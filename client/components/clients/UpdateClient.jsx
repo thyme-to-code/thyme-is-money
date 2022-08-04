@@ -13,12 +13,12 @@ import {
   Button,
 } from '@chakra-ui/react'
 
-import { setSelectedClient, getClients } from '../../reducers/clientList'
+import { setSelectedClient, getActiveClients } from '../../reducers/clients'
 import { ClientForm } from './ClientForm'
 
 export function UpdateClient() {
   const dispatch = useDispatch()
-  const { selectedClient } = useSelector((state) => state.clientList)
+  const { selected } = useSelector((state) => state.clients)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -38,13 +38,13 @@ export function UpdateClient() {
           <ModalHeader color="#0CA789">Update client</ModalHeader>
           <ModalCloseButton />
           <Formik
-            initialValues={selectedClient}
+            initialValues={selected}
             onSubmit={(values) => {
               request
                 .patch('/api/v1/clients')
                 .send(values)
                 .then((res) => {
-                  dispatch(getClients())
+                  dispatch(getActiveClients())
                   dispatch(setSelectedClient(res.body))
                   onClose()
                 })

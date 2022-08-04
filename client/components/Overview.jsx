@@ -1,6 +1,6 @@
 // @ts-check
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import {
   Center,
   CircularProgress,
@@ -15,21 +15,12 @@ import {
   Text,
 } from '@chakra-ui/react'
 
-import { getUninvoicedTasks } from '../reducers/taskList'
-import { getFullInvoiceList } from '../reducers/invoiceList'
-
 export function Overview() {
-  const dispatch = useDispatch()
-  const { uninvoiced, loading } = useSelector((state) => state.taskList)
-  const invoices = useSelector((state) => state.invoiceList.all)
-  const clients = useSelector((state) => state.clientList.data)
+  const { uninvoiced, loading } = useSelector((state) => state.items)
+  const invoices = useSelector((state) => state.invoices.all)
+  const clients = useSelector((state) => state.clients)
 
-  useEffect(() => {
-    dispatch(getUninvoicedTasks())
-    dispatch(getFullInvoiceList())
-  }, [])
-
-  if (loading) {
+  if (loading && clients.loading) {
     return (
       <Center>
         <CircularProgress isIndeterminate color="teal.300" />
@@ -70,7 +61,7 @@ export function Overview() {
             </Tr>
           </Thead>
           <Tbody>
-            {uninvoiced?.tasks.length === 0 ? (
+            {uninvoiced?.length === 0 ? (
               <Tr>
                 <Td>No uninvoiced tasks? Go do some work!</Td>
                 <Td></Td>
@@ -78,13 +69,14 @@ export function Overview() {
                 <Td></Td>
               </Tr>
             ) : (
-              uninvoiced?.tasks.map((task, i) => (
+              uninvoiced?.map((task, i) => (
                 <Tr key={i}>
                   <Td py="1">{task.description}</Td>
                   <Td py="1">
                     {
-                      clients.find((client) => client.id == task.client_id)
-                        .business_name
+                      clients.active.find(
+                        (client) => client.id == task.client_id
+                      ).business_name
                     }
                   </Td>
                   <Td py="1" isNumeric={true}>
@@ -93,8 +85,9 @@ export function Overview() {
                   <Td py="1" isNumeric={true}>
                     $&nbsp;
                     {(
-                      clients.find((client) => client.id == task.client_id)
-                        .rate * task.quantity
+                      clients.active.find(
+                        (client) => client.id == task.client_id
+                      ).rate * task.quantity
                     ).toLocaleString('en-US')}
                   </Td>
                 </Tr>

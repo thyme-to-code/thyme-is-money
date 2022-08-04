@@ -13,28 +13,27 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 
-import { ShowPDF } from './ShowPDF'
+import { getUninvoicedItems } from '../../reducers/items'
+import { clearCurrentInvoice, getInvoices } from '../../reducers/invoices'
+
 import { saveInvoice } from '../../apis/invoices'
-import { getActiveClientTasks } from '../../reducers/taskList'
-import {
-  clearInvoiceJson,
-  clearInvoicePdfUrl,
-  getClientInvoiceList,
-} from '../../reducers/invoiceList'
+import { ShowPDF } from './ShowPDF'
 
 export function NewInvoice() {
   const dispatch = useDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { selectedClient } = useSelector((state) => state.clientList)
-  const { data: tasks, uninvoiced } = useSelector((state) => state.taskList)
-  const { invoicePdfUrl, invoiceJson } = useSelector(
-    (state) => state.invoiceList
-  )
+  const { totals, selected } = useSelector((state) => state.clients)
+  const items = useSelector((state) => state.items)
+  const { pdfUrl, json } = useSelector((state) => state.invoices.current)
   const [isApproved, setIsApproved] = useState(false)
+
+  const clientItems = items.uninvoiced.filter(
+    (item) => item.client_id === selected.id
+  )
 
   const saveFile = async (pdfUrl) => {
     const a = document.createElement('a')
-    a.download = `${selectedClient.business_name}-invoice.pdf`
+    a.download = `${selected.business_name}-invoice.pdf`
     a.href = pdfUrl
     a.click()
   }
@@ -42,24 +41,23 @@ export function NewInvoice() {
   async function handleClick(e) {
     e.preventDefault()
     const invoice = {
-      client_id: selectedClient.id,
-      total: (uninvoiced.amount * 1.15).toFixed(2),
-      json: invoiceJson,
+      client_id: selected.id,
+      total: (totals.amount * 1.15).toFixed(2),
+      json,
     }
     if (isApproved) {
-      await saveFile(invoicePdfUrl)
+      await saveFile(pdfUrl)
     } else {
-      await saveInvoice(invoice, tasks)
+      await saveInvoice(invoice, clientItems)
       setIsApproved(true)
     }
   }
 
   function afterClose() {
-    dispatch(clearInvoicePdfUrl())
-    dispatch(clearInvoiceJson())
+    dispatch(clearCurrentInvoice())
     if (isApproved) {
-      dispatch(getActiveClientTasks(selectedClient.id))
-      dispatch(getClientInvoiceList(selectedClient.id))
+      dispatch(getUninvoicedItems())
+      dispatch(getInvoices())
       setIsApproved(false)
     }
     onClose()
@@ -67,7 +65,7 @@ export function NewInvoice() {
 
   return (
     <>
-      {tasks.length > 0 && (
+      {clientItems.length > 0 && (
         <Button
           onClick={onOpen}
           bg="brand.100"
