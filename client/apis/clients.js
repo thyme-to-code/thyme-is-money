@@ -8,5 +8,3 @@ export function getClients(filter) {
     return res.body
   })
 }
-
-getClients('active')
