@@ -1,6 +1,5 @@
 // @ts-check
-const config = require('./knexfile').development
-const conn = require('knex')(config)
+const conn = require('./conn')
 
 const getIsoTime = () => new Date().toISOString()
 
