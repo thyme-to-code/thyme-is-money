@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "Thyme is Money",
   "engines": {
-    "node": "16.x"
+    "node": ">=16"
   },
   "repository": "https://github.com/mako-goblin-2022/thyme-is-money",
   "main": "server/index.js",

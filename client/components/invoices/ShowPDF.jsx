@@ -39,7 +39,7 @@ export function ShowPDF() {
     (item) => item.client_id === selected.id
   )
 
-  const invoiceTasks = clientItems.map((task) => ({
+  const invoiceItems = clientItems.map((task) => ({
     name: task.description,
     quantity: task.quantity,
     unit_cost: selected.rate,
@@ -52,7 +52,7 @@ export function ShowPDF() {
   useEffect(() => {
     const invoice = {
       ...json,
-      items: invoiceTasks,
+      items: invoiceItems,
       to: `${selected.business_name}\nAttn: ${selected.contact_name}\n${selected.address}`,
       number: `${invoiceNumber()}-${selected.id}`,
     }
