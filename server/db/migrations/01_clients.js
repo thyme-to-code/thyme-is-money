@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('clients', (t) => {
     t.increments('id').primary()
-    t.int('user_id').references('users.id')
+    t.integer('user_id').references('users.id')
     t.string('business_name')
     t.string('contact_name')
     t.string('email')

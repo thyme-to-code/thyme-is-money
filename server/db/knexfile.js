@@ -28,8 +28,11 @@ module.exports = {
     client: 'postgresql',
     // connection: process.env.DATABASE_URL,
     connection: {
-      connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
+      database: process.env.DATABASE_NAME || 'thymeismoney',
+      user: process.env.POSTGRES_USER || 'thyme',
+      password: process.env.POSTGRES_USER_PW || 'testingThyme',
+      port: process.env.POSTGRES_PORT || 5432,
+      host: process.env.POSTGRES_HOST || '192.168.11.2',
     },
     pool: {
       min: 2,

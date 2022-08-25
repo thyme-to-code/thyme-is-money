@@ -49,8 +49,8 @@ export function NewTask() {
               quantity: '',
               client_id: selected.id,
             }}
-            onSubmit={(newTask) => {
-              addTask(newTask)
+            onSubmit={async (newTask) => {
+              await addTask(newTask)
               dispatch(getUninvoicedItems())
               onClose()
             }}

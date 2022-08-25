@@ -19,7 +19,8 @@ async function addInvoice(invoiceData, db = conn) {
   const { invoice, items } = invoiceData
   try {
     await db.transaction(async (trx) => {
-      const [invoice_id] = await db('invoices')
+      let [invoice_id] = await db('invoices')
+        .returning('id')
         .insert({
           ...invoice,
           date_sent: getIsoTime(),
@@ -27,6 +28,9 @@ async function addInvoice(invoiceData, db = conn) {
           updated_at: getIsoTime(),
         })
         .transacting(trx)
+
+      // Changes PostgreSQL's return value to match SQLite
+      if (typeof invoice_id === 'object') invoice_id = invoice_id.id
 
       // Instead of passing all the item objects you could pass an array of item Ids
       const itemIds = items.map((item) => item.id)
