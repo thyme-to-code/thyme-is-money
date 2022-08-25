@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
 // POST /api/v1/items
 router.post('/', (req, res) => {
   const item = req.body
+  console.log('task add route hit')
   db.addItem(item)
     .then((item) => {
       res.json(item)

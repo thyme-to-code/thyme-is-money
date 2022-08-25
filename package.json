@@ -23,7 +23,7 @@
     "lint": "eslint --ext .js,.jsx .",
     "rmdb": "rm ./server/db/dev.sqlite3",
     "migrate": "npm run knex -- migrate:latest",
-    "seed":"npm run knex -- seed:run",
+    "seed": "npm run knex -- seed:run",
     "resetDev": "run-s rmdb migrate seed",
     "heroku-postbuild": "run-s knex:migrate knex:seed",
     "deploy": "git push heroku main:main"
@@ -98,13 +98,13 @@
     "pg": "^8.7.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
+    "react-pdf": "^5.7.2",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "redux": "^4.2.0",
-    "react-icons": "^4.4.0",
-    "react-pdf": "^5.7.2",
-    "superagent": "7.1.1",
-    "sqlite3": "^5.0.8"
+    "sqlite3": "^5.0.8",
+    "superagent": "7.1.1"
   },
   "browserslist": "> 2%, not dead"
 }

@@ -3,10 +3,8 @@
  * @returns { Promise<void> }
  */
 exports.seed = async function (knex) {
-  await knex('invoices').del()
   await knex('invoices').insert([
     {
-      id: 1,
       user_id: '1',
       client_id: 5,
       total: 1243.15,
@@ -16,7 +14,6 @@ exports.seed = async function (knex) {
       json: '',
     },
     {
-      id: 2,
       user_id: '1',
       client_id: 1,
       total: 788.9,
@@ -26,7 +23,6 @@ exports.seed = async function (knex) {
       json: '',
     },
     {
-      id: 3,
       user_id: '1',
       client_id: 1,
       total: 289.8,

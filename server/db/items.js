@@ -25,10 +25,11 @@ function addItem(item, db = conn) {
   return db('items')
     .insert({
       ...item,
-      created_at: getIsoTime(),
-      updated_at: getIsoTime(),
+      // created_at: getIsoTime(),
+      // updated_at: getIsoTime(),
     })
     .then(([id]) => db('items').where({ id }).first())
+    .catch((err) => console.log(err))
 }
 
 /**

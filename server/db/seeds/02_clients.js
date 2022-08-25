@@ -3,7 +3,6 @@
  * @returns { Promise<void> }
  */
 exports.seed = async function (knex) {
-  await knex('clients').del()
   await knex('clients').insert([
     {
       id: 1,
@@ -83,7 +82,6 @@ exports.seed = async function (knex) {
       isActive: false,
     },
     {
-      id: 8,
       user_id: '1',
       business_name: 'Wholesale Security',
       contact_name: 'Penelope Green',
@@ -94,7 +92,6 @@ exports.seed = async function (knex) {
       isActive: true,
     },
     {
-      id: 9,
       user_id: '1',
       business_name: 'I love Pies',
       contact_name: 'Lexy McInerney',
@@ -105,7 +102,6 @@ exports.seed = async function (knex) {
       isActive: false,
     },
     {
-      id: 10,
       user_id: '1',
       business_name: 'Snowflake Weddings',
       contact_name: 'Katee Roussel',
