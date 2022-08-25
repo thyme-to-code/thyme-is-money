@@ -4,7 +4,6 @@ const rootUrl = '/api/v1/items'
 
 // /api/v1/tasks/add
 export function addTask(task) {
-  console.log(task)
   return request
     .post(rootUrl)
     .send(task)

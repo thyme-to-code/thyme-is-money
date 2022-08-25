@@ -38,13 +38,19 @@ function getClientInvoices(client_id, db = conn) {
 
 function addClient(client, db = conn) {
   return db('clients')
+    .returning('id')
     .insert({
       ...client,
       isActive: true,
       created_at: getIsoTime(),
       updated_at: getIsoTime(),
     })
-    .then(([id]) => db('clients').where({ id }).first())
+    .then(([id]) => {
+      // Changes SQLite's return value to match PostgreSQL
+      if (typeof id === 'number') id = { id }
+      return db('clients').where(id).first()
+    })
+    .catch((err) => console.log(err))
 }
 
 function updateClient(client, db = conn) {

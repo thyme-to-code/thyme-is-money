@@ -5,7 +5,7 @@
 exports.seed = async function (knex) {
   await knex('invoices').insert([
     {
-      user_id: '1',
+      user_id: 1,
       client_id: 5,
       total: 1243.15,
       date_sent: '2022-01-21 02:52:53',
@@ -14,7 +14,7 @@ exports.seed = async function (knex) {
       json: '',
     },
     {
-      user_id: '1',
+      user_id: 1,
       client_id: 1,
       total: 788.9,
       date_sent: '2022-03-03 04:06:08',
@@ -23,7 +23,7 @@ exports.seed = async function (knex) {
       json: '',
     },
     {
-      user_id: '1',
+      user_id: 1,
       client_id: 1,
       total: 289.8,
       date_sent: '2021-08-08 04:06:08',
