@@ -50,7 +50,6 @@ export function NewTask() {
               client_id: selected.id,
             }}
             onSubmit={(newTask) => {
-              console.log(newTask)
               addTask(newTask)
               dispatch(getUninvoicedItems())
               onClose()
