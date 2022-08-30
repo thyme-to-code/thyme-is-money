@@ -1,4 +1,3 @@
-// @ts-check
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -20,10 +19,11 @@ import {
   MdMenu,
   MdOutlineLogout,
   MdOutlineTextSnippet,
-  MdPersonAdd,
 } from "react-icons/md";
 
 import { clearSelectedClient } from "../reducers/clients";
+
+import { AddClient } from "./clients/AddClient";
 
 export function Header() {
   const { logout } = useAuth0();
@@ -51,15 +51,7 @@ export function Header() {
         <MenuItem icon={<MdHome />} onClick={showSummary}>
           Home
         </MenuItem>
-        <MenuItem
-          icon={<MdPersonAdd />}
-          // bg="brand.100"
-          // mb={3}
-          // color="brand.50"
-          // _hover={{ bg: "brand.200" }}
-        >
-          Add Client
-        </MenuItem>
+        <AddClient />
         <MenuItem icon={<MdOutlineTextSnippet />}>Download CSV</MenuItem>
         <MenuItem icon={<MdOutlineLogout />} onClick={handleLogOut}>
           Logout

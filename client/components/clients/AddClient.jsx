@@ -1,20 +1,60 @@
 import React from "react";
-import { MenuItem } from "@chakra-ui/react";
-
+import { useDispatch } from "react-redux";
+import request from "superagent";
+import { Formik } from "formik";
+import {
+  useDisclosure,
+  MenuItem,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 import { MdPersonAdd } from "react-icons/md";
 
+import { setSelectedClient, getActiveClients } from "../../reducers/clients";
+import { ClientForm } from "./ClientForm";
+
 export function AddClient() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
+
   return (
     <>
-      <MenuItem
-        icon={<MdPersonAdd />}
-        // bg="brand.100"
-        // mb={3}
-        // color="brand.50"
-        // _hover={{ bg: "brand.200" }}
-      >
+      <MenuItem icon={<MdPersonAdd />} onClick={onOpen}>
         Add Client
       </MenuItem>
+      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader color="#0CA789">Create client</ModalHeader>
+          <ModalCloseButton />
+          <Formik
+            initialValues={{
+              business_name: "",
+              contact_name: "",
+              phone: "",
+              email: "",
+              address: "New Zealand",
+              rate: 50,
+            }}
+            onSubmit={(values) => {
+              request
+                .post("/api/v1/clients")
+                .send(values)
+                .then((res) => {
+                  dispatch(getActiveClients());
+                  dispatch(setSelectedClient(res.body));
+                  onClose();
+                })
+                .catch((err) => console.log(err));
+            }}
+          >
+            {() => <ClientForm isUpdate={false} onClose={onClose} />}
+          </Formik>
+        </ModalContent>
+      </Modal>
     </>
   );
 }
