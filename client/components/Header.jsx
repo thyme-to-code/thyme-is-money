@@ -14,12 +14,7 @@ import {
   Spacer,
   IconButton,
 } from '@chakra-ui/react'
-import {
-  MdHome,
-  MdMenu,
-  MdOutlineLogout,
-  MdOutlineTextSnippet,
-} from 'react-icons/md'
+import { MdHome, MdMenu, MdOutlineLogout } from 'react-icons/md'
 
 import { clearSelectedClient } from '../reducers/clients'
 
@@ -46,11 +41,9 @@ export function Header() {
         as={IconButton}
         aria-label="Options"
         icon={<MdMenu />}
-        variant="outline"
+        variant="flush"
         fontSize={'xxx-large'}
         color="brand.50"
-        height={'1em'}
-        width={'1em'}
         _hover={{ bg: 'brand.200' }}
         _active={{ bg: 'brand.200' }}
       />

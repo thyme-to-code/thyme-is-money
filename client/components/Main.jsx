@@ -10,7 +10,6 @@ import { getUninvoicedItems } from '../reducers/items'
 import { Content } from './Content'
 import { Footer } from './Footer'
 import { Header } from './Header'
-import { Navbar } from './Navbar'
 import { ClientSelector } from './clients/ClientSelector'
 
 export function Main() {
