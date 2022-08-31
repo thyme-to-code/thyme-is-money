@@ -10,7 +10,7 @@ import { getUninvoicedItems } from '../reducers/items'
 import { Content } from './Content'
 import { Footer } from './Footer'
 import { Header } from './Header'
-import { Navbar } from './Navbar'
+import { ClientSelector } from './clients/ClientSelector'
 
 export function Main() {
   const dispatch = useDispatch()
@@ -23,11 +23,11 @@ export function Main() {
 
   return (
     <Grid
-      templateAreas={`"header header"
-                  "nav main"
-                  "nav footer"`}
+      templateAreas={`"header"
+                  "main"
+                  "footer"`}
       gridTemplateRows={'111px 1fr 30px'}
-      gridTemplateColumns={'190px 1fr'}
+      gridTemplateColumns={'1fr'}
       h="100vh"
       gap="0"
       color="blackAlpha.700"
@@ -42,17 +42,16 @@ export function Main() {
       >
         <Header />
       </GridItem>
-      <GridItem
+      {/* <GridItem
         pl="2"
         bg="brand.50"
         area={'nav'}
         pt="25px"
         pr="10px"
         boxShadow="base"
-      >
-        <Navbar />
-      </GridItem>
+      ></GridItem> */}
       <GridItem pl="25px" bg="brand.300" area={'main'} pt="25px" pb="25px">
+        <ClientSelector />
         <Content />
       </GridItem>
       <GridItem

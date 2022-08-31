@@ -1,6 +1,7 @@
 // @ts-check
 import React from 'react'
-import { Button } from '@chakra-ui/react'
+import { MenuItem } from '@chakra-ui/react'
+import { MdOutlineTextSnippet } from 'react-icons/md'
 import * as dfd from 'danfojs'
 import { getInvoiceCsv } from '../../apis/invoices'
 
@@ -46,15 +47,13 @@ export function InvoiceCsv() {
 
   return (
     <>
-      <Button
+      <MenuItem
         onClick={() => handleClick()}
-        bg="brand.100"
-        mb={3}
-        color="brand.50"
-        _hover={{ bg: 'brand.200' }}
+        icon={<MdOutlineTextSnippet />}
+        color="brand.200"
       >
         Download CSV
-      </Button>
+      </MenuItem>
     </>
   )
 }

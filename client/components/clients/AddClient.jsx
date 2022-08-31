@@ -1,36 +1,30 @@
-// @ts-check
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import request from 'superagent'
 import { Formik } from 'formik'
 import {
   useDisclosure,
+  MenuItem,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalCloseButton,
-  Button,
 } from '@chakra-ui/react'
+import { MdPersonAdd } from 'react-icons/md'
 
 import { setSelectedClient, getActiveClients } from '../../reducers/clients'
 import { ClientForm } from './ClientForm'
 
-export function NewClient() {
+export function AddClient() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const dispatch = useDispatch()
 
   return (
     <>
-      <Button
-        onClick={onOpen}
-        bg="brand.100"
-        mb={3}
-        color="brand.50"
-        _hover={{ bg: 'brand.200' }}
-      >
-        Create Client
-      </Button>
+      <MenuItem icon={<MdPersonAdd />} color="brand.200" onClick={onOpen}>
+        Add Client
+      </MenuItem>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>

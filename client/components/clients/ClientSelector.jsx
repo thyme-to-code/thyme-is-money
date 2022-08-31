@@ -30,11 +30,19 @@ export function ClientSelector() {
   return (
     <>
       <FormLabel>
-        <Heading as="h2" fontSize="2xl" color="#0CA789">
+        <Heading as="h2" fontSize="2xl" color="brand.100">
           Select Client
         </Heading>
       </FormLabel>
-      <Select onChange={handleChange} placeholder="Summary Page">
+      <Select
+        onChange={handleChange}
+        size="lg"
+        width={'70%'}
+        bg="brand.300"
+        variant="outline"
+        placeholder="Summary"
+        mb="3"
+      >
         {orderedCompanyNames.map((company, i) => (
           <option key={i} value={company}>
             {company}
