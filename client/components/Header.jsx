@@ -1,6 +1,6 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useAuth0 } from "@auth0/auth0-react";
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { useAuth0 } from '@auth0/auth0-react'
 import {
   Box,
   Flex,
@@ -13,30 +13,31 @@ import {
   MenuList,
   Spacer,
   IconButton,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react'
 import {
   MdHome,
   MdMenu,
   MdOutlineLogout,
   MdOutlineTextSnippet,
-} from "react-icons/md";
+} from 'react-icons/md'
 
-import { clearSelectedClient } from "../reducers/clients";
+import { clearSelectedClient } from '../reducers/clients'
 
-import { AddClient } from "./clients/AddClient";
+import { AddClient } from './clients/AddClient'
+import { InvoiceCsv } from './invoices/InvoiceCsv'
 
 export function Header() {
-  const { logout } = useAuth0();
-  const dispatch = useDispatch();
+  const { logout } = useAuth0()
+  const dispatch = useDispatch()
 
   function handleLogOut(event) {
-    event.preventDefault();
-    localStorage.clear();
-    logout();
+    event.preventDefault()
+    localStorage.clear()
+    logout()
   }
 
   function showSummary() {
-    dispatch(clearSelectedClient());
+    dispatch(clearSelectedClient())
   }
 
   const menu = (
@@ -46,19 +47,29 @@ export function Header() {
         aria-label="Options"
         icon={<MdMenu />}
         variant="outline"
+        fontSize={'xxx-large'}
+        color="brand.50"
+        height={'1em'}
+        width={'1em'}
+        _hover={{ bg: 'brand.200' }}
+        _active={{ bg: 'brand.200' }}
       />
       <MenuList>
-        <MenuItem icon={<MdHome />} onClick={showSummary}>
+        <MenuItem color="brand.200" icon={<MdHome />} onClick={showSummary}>
           Home
         </MenuItem>
         <AddClient />
-        <MenuItem icon={<MdOutlineTextSnippet />}>Download CSV</MenuItem>
-        <MenuItem icon={<MdOutlineLogout />} onClick={handleLogOut}>
+        <InvoiceCsv />
+        <MenuItem
+          color="brand.200"
+          icon={<MdOutlineLogout />}
+          onClick={handleLogOut}
+        >
           Logout
         </MenuItem>
       </MenuList>
     </Menu>
-  );
+  )
 
   return (
     <Flex>
@@ -84,5 +95,5 @@ export function Header() {
         </Button> */}
       </Box>
     </Flex>
-  );
+  )
 }
