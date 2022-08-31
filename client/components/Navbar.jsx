@@ -1,8 +1,7 @@
 // @ts-check
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Flex, Spacer } from '@chakra-ui/react'
-import { InvoiceCsv } from './invoices/InvoiceCsv'
+import { Flex } from '@chakra-ui/react'
 import { ClientSelector } from './clients/ClientSelector'
 
 export function Navbar() {
@@ -14,13 +13,8 @@ export function Navbar() {
 
   return (
     <>
-      <Flex height={'100%'} direction="column">
+      <Flex>
         <ClientSelector />
-        <Spacer />
-        <Flex sx={{ position: 'sticky', bottom: 0 }} direction="column">
-          {/* <NewClient /> */}
-          {/* <InvoiceCsv /> */}
-        </Flex>
       </Flex>
     </>
   )
