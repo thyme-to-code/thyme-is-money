@@ -1,7 +1,7 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import request from 'superagent'
-import { Formik } from 'formik'
+import React from "react";
+import { useDispatch } from "react-redux";
+import request from "superagent";
+import { Formik } from "formik";
 import {
   useDisclosure,
   MenuItem,
@@ -10,45 +10,45 @@ import {
   ModalContent,
   ModalHeader,
   ModalCloseButton,
-} from '@chakra-ui/react'
-import { MdPersonAdd } from 'react-icons/md'
+} from "@chakra-ui/react";
+import { MdPersonAdd } from "react-icons/md";
 
-import { setSelectedClient, getActiveClients } from '../../reducers/clients'
-import { ClientForm } from './ClientForm'
+import { setSelectedClient, getActiveClients } from "../../reducers/clients";
+import { ClientForm } from "./ClientForm";
 
 export function AddClient() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const dispatch = useDispatch()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
 
   return (
     <>
       <MenuItem icon={<MdPersonAdd />} color="brand.200" onClick={onOpen}>
         Add Client
       </MenuItem>
-      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader color="#0CA789">Create client</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={{
-              business_name: '',
-              contact_name: '',
-              phone: '',
-              email: '',
-              address: 'New Zealand',
+              business_name: "",
+              contact_name: "",
+              phone: "",
+              email: "",
+              address: "New Zealand",
               rate: 50,
             }}
             onSubmit={(values) => {
               request
-                .post('/api/v1/clients')
+                .post("/api/v1/clients")
                 .send(values)
                 .then((res) => {
-                  dispatch(getActiveClients())
-                  dispatch(setSelectedClient(res.body))
-                  onClose()
+                  dispatch(getActiveClients());
+                  dispatch(setSelectedClient(res.body));
+                  onClose();
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => console.log(err));
             }}
           >
             {() => <ClientForm isUpdate={false} onClose={onClose} />}
@@ -56,5 +56,5 @@ export function AddClient() {
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }

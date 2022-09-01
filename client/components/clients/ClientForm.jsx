@@ -1,6 +1,6 @@
 // @ts-check
-import React from 'react'
-import { Field, Form } from 'formik'
+import React from "react";
+import { Field, Form } from "formik";
 import {
   ModalBody,
   ModalFooter,
@@ -11,7 +11,7 @@ import {
   FormControl,
   FormLabel,
   Textarea,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 
 export function ClientForm(props) {
   return (
@@ -82,13 +82,13 @@ export function ClientForm(props) {
         </Button>
         <Button
           color="brand.50"
-          _hover={props.isUpdate ? { bg: 'brand.500' } : { bg: 'brand.200' }}
-          bg={props.isUpdate ? 'brand.400' : 'brand.100'}
+          _hover={props.isUpdate ? { bg: "brand.500" } : { bg: "brand.200" }}
+          bg={props.isUpdate ? "brand.400" : "brand.100"}
           type="submit"
         >
           {props.isUpdate ? <>Update</> : <>Create</>}
         </Button>
       </ModalFooter>
     </Form>
-  )
+  );
 }

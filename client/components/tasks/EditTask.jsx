@@ -1,7 +1,7 @@
 // @ts-check
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { Formik, Form, Field } from 'formik'
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Formik, Form, Field } from "formik";
 import {
   Modal,
   ModalOverlay,
@@ -17,28 +17,27 @@ import {
   Input,
   Textarea,
   IconButton,
-} from '@chakra-ui/react'
-import { MdEdit } from 'react-icons/md'
+} from "@chakra-ui/react";
+import { MdEdit } from "react-icons/md";
 
-import { getUninvoicedItems } from '../../reducers/items'
+import { getUninvoicedItems } from "../../reducers/items";
 
-import { updateTask } from '../../apis/tasks.js'
+import { updateTask } from "../../apis/tasks.js";
 
 export function EditTask(props) {
-  const dispatch = useDispatch()
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { description, quantity, id, client_id } = props.value.item
+  const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { description, quantity, id, client_id } = props.value.item;
 
   return (
     <>
       <IconButton
         fontSize="1.4em"
         onClick={onOpen}
-        mr="2"
-        size="sm"
+        size="md"
         bg="brand.100"
         color="brand.50"
-        _hover={{ bg: 'brand.200' }}
+        _hover={{ bg: "brand.200" }}
         icon={<MdEdit />}
       ></IconButton>
 
@@ -55,9 +54,9 @@ export function EditTask(props) {
               id,
             }}
             onSubmit={async (newTask) => {
-              await updateTask(newTask)
-              dispatch(getUninvoicedItems())
-              onClose()
+              await updateTask(newTask);
+              dispatch(getUninvoicedItems());
+              onClose();
             }}
           >
             <Form>
@@ -98,5 +97,5 @@ export function EditTask(props) {
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }
