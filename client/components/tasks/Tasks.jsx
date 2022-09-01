@@ -47,7 +47,7 @@ export function Tasks() {
   }
 
   const itemCards = (
-    <Wrap>
+    <Wrap justify="flex-start">
       {items?.uninvoiced.map((item) => {
         if (item.client_id === selected.id) {
           return (
@@ -57,7 +57,7 @@ export function Tasks() {
               borderColor={"brand.200"}
               borderWidth="2px"
               borderRadius="lg"
-              w="24%"
+              w="356px"
             >
               <Stack direction={"column"} spacing="3px">
                 <Heading mb={2} as="h2" size="sm">
