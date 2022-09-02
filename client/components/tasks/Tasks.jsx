@@ -53,25 +53,24 @@ export function Tasks() {
           return (
             <WrapItem
               key={item.id}
-              p="2"
-              borderColor={"brand.200"}
-              borderWidth="2px"
+              p="4"
+              bg={"rgba(255, 255, 255, 0.4)"}
               borderRadius="lg"
               w="356px"
             >
               <Stack direction={"column"} spacing="3px">
-                <Heading mb={2} as="h2" size="sm">
+                <Heading mb={5} as="h2" size="sm" pt={2}>
                   {item.description}
                 </Heading>
-                <Grid templateColumns="repeat(4, 1fr)" gap={6}>
+                <Grid templateColumns="repeat(4, 1fr)" gap={6} mt="auto">
                   <GridItem>
-                    <Tag p={1} variant="outline" fontSize="2xl">
+                    <Tag p={1} variant="ghost" fontSize="2xl">
                       <TagLeftIcon boxSize="24px" as={MdHourglassBottom} />
                       <TagLabel>{item.quantity}</TagLabel>
                     </Tag>
                   </GridItem>
                   <GridItem>
-                    <Tag p={1} variant="outline" fontSize="2xl">
+                    <Tag p={1} variant="ghost" fontSize="2xl">
                       <TagLeftIcon boxSize="24px" as={MdAttachMoney} />
                       <TagLabel>
                         {(item.quantity * selected.rate).toLocaleString(
