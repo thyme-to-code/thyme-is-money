@@ -53,8 +53,11 @@ export function Tasks() {
           return (
             <WrapItem
               key={item.id}
-              p="4"
-              bg={"rgba(255, 255, 255, 0.4)"}
+              pt="4"
+              pb="6"
+              pr="9"
+              pl="9"
+              bg="#eaf9f6"
               borderRadius="lg"
               w="356px"
             >
@@ -65,13 +68,13 @@ export function Tasks() {
                 <Grid templateColumns="repeat(4, 1fr)" gap={6} mt="auto">
                   <GridItem>
                     <Tag p={1} variant="ghost" fontSize="2xl">
-                      <TagLeftIcon boxSize="24px" as={MdHourglassBottom} />
+                      <TagLeftIcon boxSize="24px" as={MdHourglassBottom} color={"brand.100"} />
                       <TagLabel>{item.quantity}</TagLabel>
                     </Tag>
                   </GridItem>
                   <GridItem>
                     <Tag p={1} variant="ghost" fontSize="2xl">
-                      <TagLeftIcon boxSize="24px" as={MdAttachMoney} />
+                      <TagLeftIcon boxSize="24px" as={MdAttachMoney} color={"brand.100"} />
                       <TagLabel>
                         {(item.quantity * selected.rate).toLocaleString(
                           "en-US"
