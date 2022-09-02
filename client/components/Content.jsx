@@ -1,4 +1,3 @@
-// @ts-check
 import React from "react";
 import { useSelector } from "react-redux";
 import {
@@ -32,13 +31,13 @@ export function Content() {
     <>
       <ClientDetails />
       <Divider m={3} />
-      <Center>
+      <Flex minWidth="max-content" alignItems="center">
         <NewTask />
         <NewInvoice />
         <Spacer />
         <ClientInvoiceList />
         <UpdateClient />
-      </Center>
+      </Flex>
       <Divider m={3} />
       <Tasks />
     </>

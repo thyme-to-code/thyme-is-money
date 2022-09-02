@@ -1,8 +1,8 @@
 // @ts-check
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import request from 'superagent'
-import { Formik } from 'formik'
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import request from "superagent";
+import { Formik } from "formik";
 import {
   useDisclosure,
   Modal,
@@ -11,26 +11,28 @@ import {
   ModalHeader,
   ModalCloseButton,
   Button,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 
-import { setSelectedClient, getActiveClients } from '../../reducers/clients'
-import { ClientForm } from './ClientForm'
+import { setSelectedClient, getActiveClients } from "../../reducers/clients";
+import { ClientForm } from "./ClientForm";
+import { MdEdit } from "react-icons/md";
 
 export function UpdateClient() {
-  const dispatch = useDispatch()
-  const { selected } = useSelector((state) => state.clients)
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const dispatch = useDispatch();
+  const { selected } = useSelector((state) => state.clients);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <Button
+        leftIcon={<MdEdit />}
         onClick={onOpen}
         mr={5}
         bg="brand.100"
         color="brand.50"
-        _hover={{ bg: 'brand.200' }}
+        _hover={{ bg: "brand.200" }}
       >
-        Edit Client
+        Client
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
@@ -41,14 +43,14 @@ export function UpdateClient() {
             initialValues={selected}
             onSubmit={(values) => {
               request
-                .patch('/api/v1/clients')
+                .patch("/api/v1/clients")
                 .send(values)
                 .then((res) => {
-                  dispatch(getActiveClients())
-                  dispatch(setSelectedClient(res.body))
-                  onClose()
+                  dispatch(getActiveClients());
+                  dispatch(setSelectedClient(res.body));
+                  onClose();
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => console.log(err));
             }}
           >
             {() => <ClientForm isUpdate={true} onClose={onClose} />}
@@ -56,5 +58,5 @@ export function UpdateClient() {
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }

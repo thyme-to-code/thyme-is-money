@@ -40,7 +40,7 @@ export function EditTask(props) {
         _hover={{ bg: "brand.200" }}
         icon={<MdEdit />}
         aria-label={"button"}
-      ></IconButton>
+      />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

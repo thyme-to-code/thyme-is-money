@@ -1,6 +1,5 @@
-// @ts-check
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Button,
   Modal,
@@ -11,68 +10,70 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
+import { MdAddCircle } from "react-icons/md";
 
-import { getUninvoicedItems } from '../../reducers/items'
-import { clearCurrentInvoice, getInvoices } from '../../reducers/invoices'
+import { getUninvoicedItems } from "../../reducers/items";
+import { clearCurrentInvoice, getInvoices } from "../../reducers/invoices";
 
-import { saveInvoice } from '../../apis/invoices'
-import { ShowPDF } from './ShowPDF'
+import { saveInvoice } from "../../apis/invoices";
+import { ShowPDF } from "./ShowPDF";
 
 export function NewInvoice() {
-  const dispatch = useDispatch()
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { totals, selected } = useSelector((state) => state.clients)
-  const items = useSelector((state) => state.items)
-  const { pdfUrl, json } = useSelector((state) => state.invoices.current)
-  const [isApproved, setIsApproved] = useState(false)
+  const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { totals, selected } = useSelector((state) => state.clients);
+  const items = useSelector((state) => state.items);
+  const { pdfUrl, json } = useSelector((state) => state.invoices.current);
+  const [isApproved, setIsApproved] = useState(false);
 
   const clientItems = items.uninvoiced.filter(
     (item) => item.client_id === selected.id
-  )
+  );
 
   const saveFile = async (pdfUrl) => {
-    const a = document.createElement('a')
-    a.download = `${selected.business_name}-invoice.pdf`
-    a.href = pdfUrl
-    a.click()
-  }
+    const a = document.createElement("a");
+    a.download = `${selected.business_name}-invoice.pdf`;
+    a.href = pdfUrl;
+    a.click();
+  };
 
   async function handleClick(e) {
-    e.preventDefault()
+    e.preventDefault();
     const invoice = {
       client_id: selected.id,
       total: (totals.amount * 1.15).toFixed(2),
       json,
-    }
+    };
     if (isApproved) {
-      await saveFile(pdfUrl)
+      await saveFile(pdfUrl);
     } else {
-      await saveInvoice(invoice, clientItems)
-      setIsApproved(true)
+      await saveInvoice(invoice, clientItems);
+      setIsApproved(true);
     }
   }
 
   function afterClose() {
-    dispatch(clearCurrentInvoice())
+    dispatch(clearCurrentInvoice());
     if (isApproved) {
-      dispatch(getUninvoicedItems())
-      dispatch(getInvoices())
-      setIsApproved(false)
+      dispatch(getUninvoicedItems());
+      dispatch(getInvoices());
+      setIsApproved(false);
     }
-    onClose()
+    onClose();
   }
 
   return (
     <>
       {clientItems.length > 0 && (
         <Button
+          leftIcon={<MdAddCircle />}
           onClick={onOpen}
           bg="brand.100"
           color="brand.50"
-          _hover={{ bg: 'brand.200' }}
+          _hover={{ bg: "brand.200" }}
         >
-          Create Invoice
+          Invoice
         </Button>
       )}
       <Modal
@@ -99,7 +100,7 @@ export function NewInvoice() {
                 type="submit"
                 bg="brand.400"
                 color="brand.50"
-                _hover={{ bg: 'brand.500' }}
+                _hover={{ bg: "brand.500" }}
               >
                 Download
               </Button>
@@ -109,7 +110,7 @@ export function NewInvoice() {
                 type="submit"
                 bg="brand.100"
                 color="brand.50"
-                _hover={{ bg: 'brand.200' }}
+                _hover={{ bg: "brand.200" }}
               >
                 Approve
               </Button>
@@ -118,5 +119,5 @@ export function NewInvoice() {
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 // @ts-check
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Formik, Form, Field } from 'formik'
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Formik, Form, Field } from "formik";
 import {
   Modal,
   ModalOverlay,
@@ -16,26 +16,29 @@ import {
   FormLabel,
   Input,
   Textarea,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 
-import { getUninvoicedItems } from '../../reducers/items'
-import { addTask } from '../../apis/tasks'
+import { getUninvoicedItems } from "../../reducers/items";
+import { addTask } from "../../apis/tasks";
+import { MdAddCircle } from "react-icons/md";
 
 export function NewTask() {
-  const dispatch = useDispatch()
-  const { selected } = useSelector((state) => state.clients)
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const dispatch = useDispatch();
+  const { selected } = useSelector((state) => state.clients);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <Button
+        leftIcon={<MdAddCircle />}
         mr={3}
         onClick={onOpen}
         bg="brand.100"
         color="brand.50"
-        _hover={{ bg: 'brand.200' }}
+        _hover={{ bg: "brand.200" }}
+        variant="outline"
       >
-        Create Task
+        Task
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -44,15 +47,15 @@ export function NewTask() {
           <ModalCloseButton />
           <Formik
             initialValues={{
-              description: '',
+              description: "",
               type: 1,
-              quantity: '',
+              quantity: "",
               client_id: selected.id,
             }}
             onSubmit={async (newTask) => {
-              await addTask(newTask)
-              dispatch(getUninvoicedItems())
-              onClose()
+              await addTask(newTask);
+              dispatch(getUninvoicedItems());
+              onClose();
             }}
           >
             <Form>
@@ -88,7 +91,7 @@ export function NewTask() {
                   type="submit"
                   bg="brand.100"
                   color="brand.50"
-                  _hover={{ bg: 'brand.200' }}
+                  _hover={{ bg: "brand.200" }}
                 >
                   Create
                 </Button>
@@ -98,5 +101,5 @@ export function NewTask() {
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }

@@ -1,6 +1,6 @@
 // @ts-check
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from "react";
+import { useSelector } from "react-redux";
 import {
   Button,
   Center,
@@ -20,29 +20,31 @@ import {
   Thead,
   Tr,
   useDisclosure,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
+import { MdList } from "react-icons/md";
 
 export function ClientInvoiceList() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { all: invoices, loading } = useSelector((state) => state.invoices)
-  const { selected } = useSelector((state) => state.clients)
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { all: invoices, loading } = useSelector((state) => state.invoices);
+  const { selected } = useSelector((state) => state.clients);
 
   if (loading) {
     return (
       <Center>
         <CircularProgress isIndeterminate color="teal.300" />
       </Center>
-    )
+    );
   }
 
   return (
     <>
       <Button
+        leftIcon={<MdList />}
         mr={3}
         onClick={onOpen}
         bg="brand.100"
         color="brand.50"
-        _hover={{ bg: 'brand.200' }}
+        _hover={{ bg: "brand.200" }}
       >
         Invoices
       </Button>
@@ -106,28 +108,28 @@ export function ClientInvoiceList() {
                             <Td py="1">INV-{invoice.invoice_number}</Td>
                             <Td py="1" isNumeric={true}>
                               {new Date(invoice.date_sent).toLocaleDateString(
-                                'en-NZ'
+                                "en-NZ"
                               )}
                             </Td>
                             <Td py="1" isNumeric={true}>
                               {invoice.date_paid &&
                                 new Date(invoice.date_paid).toLocaleDateString(
-                                  'en-NZ'
+                                  "en-NZ"
                                 )}
                             </Td>
                             <Td py="1" isNumeric={true}>
                               {invoice.amount_paid &&
-                                '$' +
-                                  invoice.amount_paid.toLocaleString('en-NZ')}
+                                "$" +
+                                  invoice.amount_paid.toLocaleString("en-NZ")}
                             </Td>
                             <Td py="1" isNumeric={true}>
-                              ${invoice.total.toLocaleString('en-NZ')}
+                              ${invoice.total.toLocaleString("en-NZ")}
                             </Td>
                             <Td py="1" isNumeric={true}>
                               JSON
                             </Td>
                           </Tr>
-                        )
+                        );
                       }
                     })
                   )}
@@ -140,7 +142,7 @@ export function ClientInvoiceList() {
               bg="brand.100"
               color="brand.50"
               onClick={onClose}
-              _hover={{ bg: 'brand.200' }}
+              _hover={{ bg: "brand.200" }}
             >
               Close
             </Button>
@@ -148,5 +150,5 @@ export function ClientInvoiceList() {
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }
