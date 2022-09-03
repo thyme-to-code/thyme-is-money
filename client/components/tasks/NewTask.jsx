@@ -35,7 +35,6 @@ export function NewTask() {
         bg="brand.100"
         color="brand.50"
         _hover={{ bg: "brand.200" }}
-        variant="outline"
       >
         Task
       </Button>

@@ -33,9 +33,11 @@ export function Content() {
         <>
           <ClientDetails />
           <Divider m={3} />
-          <Flex minWidth="max-content" alignItems="center">
+          <Flex direction="row" minWidth="max-content" alignItems="center">
             <NewTask />
+
             <NewInvoice />
+            <Spacer />
             <ClientInvoiceList />
           </Flex>
           <Divider m={3} />

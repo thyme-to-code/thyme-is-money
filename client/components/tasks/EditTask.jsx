@@ -33,11 +33,11 @@ export function EditTask(props) {
     <>
       <IconButton
         aria-label={"button"}
-        bg="brand.100"
+        bgColor="brand.200"
         color="brand.50"
         fontSize="1.4em"
         icon={<MdEdit />}
-        _hover={{ bg: "brand.200" }}
+        _hover={{ color: "brand.500" }}
         onClick={onOpen}
         size="md"
       />

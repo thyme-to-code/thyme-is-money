@@ -47,14 +47,16 @@ export function Tasks() {
       {items?.uninvoiced.map((item) => {
         if (item.client_id === selected.id) {
           return (
-            <Box
+            <Flex
               bg="brand.300"
               borderBottomRadius="lg"
               borderColor={"brand.100"}
               borderWidth={1}
+              direction="column"
               key={item.id}
             >
               <Text p={3}> {item.description}</Text>
+              <Spacer />
               <Flex bg={"brand.200"} borderBottomRadius="lg" direction="row">
                 <EditTask value={{ item }} />
                 <Spacer />
@@ -76,18 +78,18 @@ export function Tasks() {
                 <Spacer />
                 <IconButton
                   aria-label={"button"}
-                  bgColor="brand.300"
+                  bgColor="brand.200"
                   color="brand.50"
                   fontSize="1.4em"
-                  _hover={{ bg: "brand.500" }}
                   icon={<MdDeleteForever />}
                   id={item.id}
                   onClick={() => handleDelete(item.id)}
                   size="md"
                   value={item.id}
+                  _hover={{ color: "red" }}
                 />
               </Flex>
-            </Box>
+            </Flex>
           );
         }
       })}
