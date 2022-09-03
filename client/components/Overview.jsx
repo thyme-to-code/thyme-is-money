@@ -78,10 +78,10 @@ export function Overview() {
                       ).business_name
                     }
                   </Td>
-                  <Td py="1" isNumeric={true}>
+                  <Td py="1" isNumeric>
                     {task.quantity}
                   </Td>
-                  <Td py="1" isNumeric={true}>
+                  <Td py="1" isNumeric>
                     $&nbsp;
                     {(
                       clients.active.find(

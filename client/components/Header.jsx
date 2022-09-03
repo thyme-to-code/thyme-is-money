@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
   Box,
-  Flex,
   Heading,
   Image,
   Menu,
@@ -42,9 +41,9 @@ export function Header() {
         aria-label="Options"
         icon={<MdMenu />}
         variant="flush"
-        fontSize={"xxx-large"}
+        fontSize={"xx-large"}
         color="brand.50"
-        _hover={{ bg: "brand.200" }}
+        _hover={{ bg: "brand.100" }}
         _active={{ bg: "brand.200" }}
       />
       <MenuList>

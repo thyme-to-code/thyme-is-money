@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Heading,
-  HStack,
   List,
   ListIcon,
   ListItem,

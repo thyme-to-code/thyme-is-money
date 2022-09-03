@@ -32,14 +32,14 @@ export function EditTask(props) {
   return (
     <>
       <IconButton
-        fontSize="1.4em"
-        onClick={onOpen}
-        size="md"
+        aria-label={"button"}
         bg="brand.100"
         color="brand.50"
-        _hover={{ bg: "brand.200" }}
+        fontSize="1.4em"
         icon={<MdEdit />}
-        aria-label={"button"}
+        _hover={{ bg: "brand.200" }}
+        onClick={onOpen}
+        size="md"
       />
 
       <Modal isOpen={isOpen} onClose={onClose}>
