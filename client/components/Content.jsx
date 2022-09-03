@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import {
+  Box,
   Center,
   CircularProgress,
   Divider,
@@ -26,20 +27,23 @@ export function Content() {
     );
   }
 
-  return selected.id ? (
-    <>
-      <ClientDetails />
-      <Divider m={3} />
-      <Flex minWidth="max-content" alignItems="center">
-        <NewTask />
-        <NewInvoice />
-        <Spacer />
-        <ClientInvoiceList />
-      </Flex>
-      <Divider m={3} />
-      <Tasks />
-    </>
-  ) : (
-    <Overview />
+  return (
+    <Box m={5}>
+      {selected.id ? (
+        <>
+          <ClientDetails />
+          <Divider m={3} />
+          <Flex minWidth="max-content" alignItems="center">
+            <NewTask />
+            <NewInvoice />
+            <ClientInvoiceList />
+          </Flex>
+          <Divider m={3} />
+          <Tasks />
+        </>
+      ) : (
+        <Overview />
+      )}
+    </Box>
   );
 }

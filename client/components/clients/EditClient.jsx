@@ -9,7 +9,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalCloseButton,
-  Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
 
@@ -24,37 +23,20 @@ export function EditClient() {
 
   return (
     <>
-      <Tooltip
-        bg="bisque"
-        color="brand.100"
-        label="Edit Client Details"
-        placement="top-end"
-      >
-        <Button
-          leftIcon={<MdEdit />}
-          _hover={{ color: "bisque" }}
-          onClick={onOpen}
-          pt={1.5}
-          style={{ fontSize: "1.4em", fontWeight: "600" }}
-          // onClick={onOpen}
-          variant="ghost"
-        />
-      </Tooltip>
-
-      {/* <Button
+      <Button
         leftIcon={<MdEdit />}
+        _hover={{ color: "bisque" }}
         onClick={onOpen}
-        mr={5}
-        bg="brand.100"
-        color="brand.50"
-        _hover={{ bg: "brand.200" }}
-      >
-        Client
-      </Button> */}
+        pt={1.5}
+        fontWeight="600"
+        fontSize="1.4em"
+        variant="ghost"
+      />
+
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color="#0CA789">Update client</ModalHeader>
+          <ModalHeader color="#0CA789">Edit client</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={selected}

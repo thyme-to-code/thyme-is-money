@@ -5,13 +5,13 @@ import {
   Box,
   Flex,
   Heading,
-  HStack,
   Image,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Spacer,
+  Stack,
   IconButton,
 } from "@chakra-ui/react";
 import { MdHome, MdMenu, MdOutlineLogout } from "react-icons/md";
@@ -65,28 +65,24 @@ export function Header() {
   );
 
   return (
-    <Flex>
-      <Box>
-        <HStack>
-          <Image
-            onClick={showSummary}
-            boxSize="64px"
-            alt="Two leaves as logo"
-            src="/favicon-crop.png"
-          />
-          <Spacer px="1" />
-          <Heading onClick={showSummary} as="h1" color="#fff">
-            Thyme is Money
-          </Heading>
-        </HStack>
-      </Box>
-      <Spacer />
-      <Box mr={3}>
+    <Box bg="brand.200" p={3}>
+      <Stack direction="row">
+        <Image
+          onClick={showSummary}
+          boxSize="42px"
+          alt="Two leaves as logo"
+          src="/favicon-crop.png"
+        />
+        <Spacer px="1" />
+        <Heading onClick={showSummary} as="h1" fontSize="1.5em" color="#fff">
+          Thyme is Money
+        </Heading>
+        <Spacer />
         {menu}
         {/* <Button colorScheme="whiteAlpha" onClick={handleLogOut}>
           Log Out
         </Button> */}
-      </Box>
-    </Flex>
+      </Stack>
+    </Box>
   );
 }

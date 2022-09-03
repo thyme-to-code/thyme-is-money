@@ -1,11 +1,13 @@
 // @ts-check
-import React from 'react'
+import React from "react";
+// import { FaGithub } from "react-icons/fa";
 
 export function Footer() {
   return (
     <footer>
-      Dev Academy 2022, Mako Goblins cohort. Built by Nicole, Yuri, David &amp;
-      Adam.
+      {/* <a href="https://github.com/thyme-to-code/">
+        <FaGithub /> Thyme to Code
+      </a> */}
     </footer>
-  )
+  );
 }

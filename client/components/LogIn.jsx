@@ -1,12 +1,12 @@
 // @ts-check
-import React from 'react'
-import { useAuth0 } from '@auth0/auth0-react'
-import { Button } from '@chakra-ui/react'
+import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Button } from "@chakra-ui/react";
 
-import { IfNotAuthenticated } from './Authenticated'
+import { IfNotAuthenticated } from "./Authenticated";
 
-function LogIn() {
-  const { loginWithRedirect } = useAuth0()
+export default function LogIn() {
+  const { loginWithRedirect } = useAuth0();
 
   // wip
   // function handleRegister(event) {
@@ -14,8 +14,8 @@ function LogIn() {
   // }
 
   function handleLogIn(event) {
-    event.preventDefault()
-    loginWithRedirect()
+    event.preventDefault();
+    loginWithRedirect();
   }
 
   return (
@@ -29,7 +29,5 @@ function LogIn() {
         </Button>
       </IfNotAuthenticated>
     </>
-  )
+  );
 }
-
-export default LogIn

@@ -1,15 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Box,
-  Button,
-  Divider,
-  FormLabel,
-  Heading,
-  Select,
-  Stack,
-  Tooltip,
-} from "@chakra-ui/react";
+import { Box, Select, Stack } from "@chakra-ui/react";
 import { setSelectedClient, clearSelectedClient } from "../../reducers/clients";
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 
@@ -37,19 +28,18 @@ export function ClientSelector() {
   if (clients.loading) {
     return <>Loading ...</>;
   }
-
+  console.log(clients.selected.id);
   return (
     <>
-      <Box bg="brand.100" borderRadius="lg" color="brand.50" mb="3">
+      <Box bg="brand.100" borderRadius="lg" color="brand.50">
         <Stack direction="row">
-          <EditClient />
-
+          {clients.selected.id && <EditClient />}
           <Select
             icon={<MdOutlineArrowDropDownCircle />}
             iconSize={64}
             onChange={handleChange}
             size="lg"
-            placeholder="Select client"
+            placeholder="Select a client"
             borderColor="brand.100"
             _hover={{ color: "bisque" }}
             style={{ fontSize: "1.4em", fontWeight: "600" }}

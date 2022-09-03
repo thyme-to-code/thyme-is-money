@@ -1,27 +1,19 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  Box,
   Heading,
   IconButton,
   Grid,
   GridItem,
+  SimpleGrid,
   Stack,
   Tag,
   TagLeftIcon,
   TagLabel,
-  Text,
-  TableContainer,
-  Table,
-  Tbody,
-  Thead,
-  Tr,
-  Td,
-  Wrap,
-  WrapItem,
 } from "@chakra-ui/react";
 import {
   MdDeleteForever,
-  MdTaskAlt,
   MdAttachMoney,
   MdHourglassBottom,
 } from "react-icons/md";
@@ -47,11 +39,12 @@ export function Tasks() {
   }
 
   const itemCards = (
-    <Wrap justify="flex-start" align="center}">
+    // <Wrap justify="flex-start" align="center}">
+    <SimpleGrid minChildWidth="330px" spacing="40px">
       {items?.uninvoiced.map((item) => {
         if (item.client_id === selected.id) {
           return (
-            <WrapItem
+            <Box
               key={item.id}
               pt="4"
               pb="6"
@@ -59,7 +52,6 @@ export function Tasks() {
               pl="9"
               bg="#eaf9f6"
               borderRadius="lg"
-              w="356px"
             >
               <Stack direction={"column"} spacing="3px">
                 <Heading mb={5} as="h2" size="sm" pt={2}>
@@ -109,11 +101,11 @@ export function Tasks() {
                   </GridItem>
                 </Grid>
               </Stack>
-            </WrapItem>
+            </Box>
           );
         }
       })}
-    </Wrap>
+    </SimpleGrid>
   );
 
   return <div className="tasks">{itemCards}</div>;

@@ -1,6 +1,5 @@
-// @ts-check
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from "react";
+import { useSelector } from "react-redux";
 import {
   Center,
   CircularProgress,
@@ -13,19 +12,19 @@ import {
   Tr,
   Td,
   Text,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 
 export function Overview() {
-  const { uninvoiced, loading } = useSelector((state) => state.items)
-  const invoices = useSelector((state) => state.invoices.all)
-  const clients = useSelector((state) => state.clients)
+  const { uninvoiced, loading } = useSelector((state) => state.items);
+  const invoices = useSelector((state) => state.invoices.all);
+  const clients = useSelector((state) => state.clients);
 
   if (loading && clients.loading) {
     return (
       <Center>
         <CircularProgress isIndeterminate color="teal.300" />
       </Center>
-    )
+    );
   }
 
   return (
@@ -34,7 +33,7 @@ export function Overview() {
         Uninvoiced Tasks
       </Heading>
       <Divider my={1} />
-      <TableContainer mr={5}>
+      <TableContainer>
         <Table p="1" variant="striped" colorScheme="table">
           <Thead color="brand.100">
             <Tr>
@@ -88,7 +87,7 @@ export function Overview() {
                       clients.active.find(
                         (client) => client.id == task.client_id
                       ).rate * task.quantity
-                    ).toLocaleString('en-US')}
+                    ).toLocaleString("en-US")}
                   </Td>
                 </Tr>
               ))
@@ -147,14 +146,14 @@ export function Overview() {
                 <Tr key={invoice.invoice_number}>
                   <Td py="1">{invoice.business_name}</Td>
                   <Td py="1" isNumeric={true}>
-                    {new Date(invoice.date_sent).toLocaleDateString('en-NZ')}
+                    {new Date(invoice.date_sent).toLocaleDateString("en-NZ")}
                   </Td>
                   <Td py="1" isNumeric={true}>
-                    $ {invoice.total.toFixed(2).toLocaleString('en-US')}
+                    $ {invoice.total.toFixed(2).toLocaleString("en-US")}
                   </Td>
                   <Td py="1" isNumeric={true}>
                     {invoice.date_paid ? (
-                      new Date(invoice.date_paid).toLocaleDateString('en-NZ')
+                      new Date(invoice.date_paid).toLocaleDateString("en-NZ")
                     ) : (
                       <></>
                     )}
@@ -162,13 +161,13 @@ export function Overview() {
                   <Td py="1" isNumeric={true}>
                     {invoice.amount_paid &&
                       (invoice.amount_paid == invoice.total ? (
-                        '$ ' + invoice.amount_paid.toLocaleString('en-US')
+                        "$ " + invoice.amount_paid.toLocaleString("en-US")
                       ) : (
                         <Text color="red">
                           $&nbsp;
                           {invoice.amount_paid
                             .toFixed(2)
-                            .toLocaleString('en-US')}
+                            .toLocaleString("en-US")}
                         </Text>
                       ))}
                   </Td>
@@ -179,5 +178,5 @@ export function Overview() {
         </Table>
       </TableContainer>
     </>
-  )
+  );
 }
