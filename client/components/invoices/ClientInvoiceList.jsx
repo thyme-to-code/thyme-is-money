@@ -40,7 +40,6 @@ export function ClientInvoiceList() {
     <>
       <Button
         leftIcon={<MdList />}
-        mr={3}
         onClick={onOpen}
         bg="brand.100"
         color="brand.50"

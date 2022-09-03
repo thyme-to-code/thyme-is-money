@@ -1,8 +1,19 @@
-// @ts-check
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Heading, Select, FormLabel } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Divider,
+  FormLabel,
+  Heading,
+  Select,
+  Stack,
+  Tooltip,
+} from "@chakra-ui/react";
 import { setSelectedClient, clearSelectedClient } from "../../reducers/clients";
+import { MdOutlineArrowDropDownCircle } from "react-icons/md";
+
+import { EditClient } from "./EditClient";
 
 export function ClientSelector() {
   const dispatch = useDispatch();
@@ -28,22 +39,29 @@ export function ClientSelector() {
   }
 
   return (
-    <Select
-      onChange={handleChange}
-      size="lg"
-      placeholder="Select client"
-      mb="3"
-      borderColor="brand.100"
-      bg="brand.100"
-      color="brand.50"
-      _hover={{ bg: "brand.200" }}
-      style={{ fontSize: "1.4em", fontWeight: "600" }}
-    >
-      {orderedCompanyNames.map((company, i) => (
-        <option key={i} value={company}>
-          {company}
-        </option>
-      ))}
-    </Select>
+    <>
+      <Box bg="brand.100" borderRadius="lg" color="brand.50" mb="3">
+        <Stack direction="row">
+          <EditClient />
+
+          <Select
+            icon={<MdOutlineArrowDropDownCircle />}
+            iconSize={64}
+            onChange={handleChange}
+            size="lg"
+            placeholder="Select client"
+            borderColor="brand.100"
+            _hover={{ color: "bisque" }}
+            style={{ fontSize: "1.4em", fontWeight: "600" }}
+          >
+            {orderedCompanyNames.map((company, i) => (
+              <option key={i} value={company}>
+                {company}
+              </option>
+            ))}
+          </Select>
+        </Stack>
+      </Box>
+    </>
   );
 }

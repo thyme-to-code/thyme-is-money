@@ -31,7 +31,6 @@ export function NewTask() {
     <>
       <Button
         leftIcon={<MdAddCircle />}
-        mr={3}
         onClick={onOpen}
         bg="brand.100"
         color="brand.50"

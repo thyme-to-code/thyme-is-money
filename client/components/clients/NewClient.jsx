@@ -16,7 +16,7 @@ import { MdPersonAdd } from "react-icons/md";
 import { setSelectedClient, getActiveClients } from "../../reducers/clients";
 import { ClientForm } from "./ClientForm";
 
-export function AddClient() {
+export function NewClient() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
 

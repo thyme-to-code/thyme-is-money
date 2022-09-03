@@ -13,7 +13,7 @@ import {
   MdAttachMoney,
   MdEmail,
   MdHourglassBottom,
-  MdMap,
+  MdLocationOn,
   MdPhone,
 } from "react-icons/md";
 import { setTotals } from "../../reducers/clients";
@@ -49,7 +49,7 @@ export function ClientDetails() {
             <a href={`mailto:${selected.email}`}>{selected.email}</a>
           </ListItem>
           <ListItem>
-            <ListIcon as={MdMap} color="brand.100" />
+            <ListIcon as={MdLocationOn} color="brand.100" />
             {selected.address}
           </ListItem>
         </List>

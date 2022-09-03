@@ -12,7 +12,6 @@ import { ClientDetails } from "./clients/ClientDetails";
 import { NewInvoice } from "./invoices/NewInvoice";
 import { NewTask } from "./tasks/NewTask";
 import { Tasks } from "./tasks/Tasks";
-import { UpdateClient } from "./clients/UpdateClient";
 import { Overview } from "./Overview";
 import { ClientInvoiceList } from "./invoices/ClientInvoiceList";
 
@@ -36,7 +35,6 @@ export function Content() {
         <NewInvoice />
         <Spacer />
         <ClientInvoiceList />
-        <UpdateClient />
       </Flex>
       <Divider m={3} />
       <Tasks />

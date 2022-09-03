@@ -1,6 +1,6 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { useAuth0 } from '@auth0/auth0-react'
+import React from "react";
+import { useDispatch } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   Box,
   Flex,
@@ -13,26 +13,26 @@ import {
   MenuList,
   Spacer,
   IconButton,
-} from '@chakra-ui/react'
-import { MdHome, MdMenu, MdOutlineLogout } from 'react-icons/md'
+} from "@chakra-ui/react";
+import { MdHome, MdMenu, MdOutlineLogout } from "react-icons/md";
 
-import { clearSelectedClient } from '../reducers/clients'
+import { clearSelectedClient } from "../reducers/clients";
 
-import { AddClient } from './clients/AddClient'
-import { InvoiceCsv } from './invoices/InvoiceCsv'
+import { NewClient } from "./clients/NewClient";
+import { InvoiceCsv } from "./invoices/InvoiceCsv";
 
 export function Header() {
-  const { logout } = useAuth0()
-  const dispatch = useDispatch()
+  const { logout } = useAuth0();
+  const dispatch = useDispatch();
 
   function handleLogOut(event) {
-    event.preventDefault()
-    localStorage.clear()
-    logout()
+    event.preventDefault();
+    localStorage.clear();
+    logout();
   }
 
   function showSummary() {
-    dispatch(clearSelectedClient())
+    dispatch(clearSelectedClient());
   }
 
   const menu = (
@@ -42,16 +42,16 @@ export function Header() {
         aria-label="Options"
         icon={<MdMenu />}
         variant="flush"
-        fontSize={'xxx-large'}
+        fontSize={"xxx-large"}
         color="brand.50"
-        _hover={{ bg: 'brand.200' }}
-        _active={{ bg: 'brand.200' }}
+        _hover={{ bg: "brand.200" }}
+        _active={{ bg: "brand.200" }}
       />
       <MenuList>
         <MenuItem color="brand.200" icon={<MdHome />} onClick={showSummary}>
           Home
         </MenuItem>
-        <AddClient />
+        <NewClient />
         <InvoiceCsv />
         <MenuItem
           color="brand.200"
@@ -62,7 +62,7 @@ export function Header() {
         </MenuItem>
       </MenuList>
     </Menu>
-  )
+  );
 
   return (
     <Flex>
@@ -88,5 +88,5 @@ export function Header() {
         </Button> */}
       </Box>
     </Flex>
-  )
+  );
 }
