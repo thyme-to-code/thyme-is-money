@@ -2,6 +2,15 @@
 import { extendTheme, theme as base } from '@chakra-ui/react'
 
 const theme = extendTheme({
+  components: {
+    Select: {
+      baseStyle: {
+        icon: {
+          right: '0.25em',
+        },
+      },
+    },
+  },
   colors: {
     brand: {
       50: '#fff',
