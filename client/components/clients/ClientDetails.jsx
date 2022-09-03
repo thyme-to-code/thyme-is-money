@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Box,
   Heading,
@@ -8,7 +8,7 @@ import {
   ListItem,
   Wrap,
   WrapItem,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react'
 import {
   MdAccountBox,
   MdAttachMoney,
@@ -16,22 +16,22 @@ import {
   MdHourglassBottom,
   MdLocationOn,
   MdPhone,
-} from "react-icons/md";
-import { setTotals } from "../../reducers/clients";
+} from 'react-icons/md'
+import { setTotals } from '../../reducers/clients'
 
 export function ClientDetails() {
-  const dispatch = useDispatch();
-  const { totals, selected } = useSelector((state) => state.clients);
-  const { uninvoiced } = useSelector((state) => state.items);
+  const dispatch = useDispatch()
+  const { totals, selected } = useSelector((state) => state.clients)
+  const { uninvoiced } = useSelector((state) => state.items)
 
-  const items = uninvoiced.filter((item) => item.client_id === selected.id);
+  const items = uninvoiced.filter((item) => item.client_id === selected.id)
 
   useEffect(() => {
-    dispatch(setTotals({ items, rate: selected.rate }));
-  }, [uninvoiced, selected]);
+    dispatch(setTotals({ items, rate: selected.rate }))
+  }, [uninvoiced, selected])
 
   return (
-    <Wrap ml={5}>
+    <Wrap flex="1" ml={5}>
       <WrapItem>
         <Box>
           <Heading as="h3" size="md" color="brand.100">
@@ -65,7 +65,7 @@ export function ClientDetails() {
           <List ml={5} mr={15}>
             <ListItem>
               <ListIcon as={MdAttachMoney} color="brand.100" />
-              {totals.amount.toLocaleString("en-US")}
+              {totals.amount.toLocaleString('en-US')}
             </ListItem>
             <ListItem>
               <ListIcon as={MdHourglassBottom} color="brand.100" />
@@ -79,5 +79,5 @@ export function ClientDetails() {
         </Box>
       </WrapItem>
     </Wrap>
-  );
+  )
 }
