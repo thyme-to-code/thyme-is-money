@@ -10,7 +10,6 @@ import {
   MenuItem,
   MenuList,
   Spacer,
-  Stack,
   IconButton,
 } from "@chakra-ui/react";
 import { MdHome, MdMenu, MdOutlineLogout } from "react-icons/md";

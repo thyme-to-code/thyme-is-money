@@ -23,7 +23,7 @@ export function NewClient() {
   return (
     <>
       <MenuItem icon={<MdPersonAdd />} color="brand.200" onClick={onOpen}>
-        Add Client
+        New Client
       </MenuItem>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

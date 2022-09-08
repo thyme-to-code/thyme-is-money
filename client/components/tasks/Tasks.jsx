@@ -1,19 +1,22 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  Box,
-  Heading,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  Button,
   IconButton,
   Flex,
-  Grid,
-  GridItem,
   SimpleGrid,
   Spacer,
-  Stack,
   Tag,
   TagLeftIcon,
   TagLabel,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   MdDeleteForever,
@@ -21,21 +24,27 @@ import {
   MdHourglassBottom,
 } from "react-icons/md";
 
-import { getUninvoicedItems } from "../../reducers/items";
+// import { getUninvoicedItems } from "../../reducers/items";
 
 // TODO Update to be items
-import { deleteTask } from "../../apis/tasks";
+// import { deleteTask } from "../../apis/tasks";
 import { EditTask } from "./EditTask";
+import { DeleteTask } from "./DeleteTask";
 
 export function Tasks() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { selected } = useSelector((state) => state.clients);
   const items = useSelector((state) => state.items);
 
-  function handleDelete(id) {
-    deleteTask(id);
-    dispatch(getUninvoicedItems());
-  }
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  // const cancelRef = React.useRef();
+
+  // function handleDelete(id) {
+  //   onOpen();
+  //   deleteTask(id);
+  //   dispatch(getUninvoicedItems());
+  //   onClose();
+  // }
 
   if (items.loading) {
     return <>Loading ...</>;
@@ -76,18 +85,7 @@ export function Tasks() {
                   </TagLabel>
                 </Tag>
                 <Spacer />
-                <IconButton
-                  aria-label={"button"}
-                  bgColor="brand.200"
-                  color="brand.50"
-                  fontSize="1.4em"
-                  icon={<MdDeleteForever />}
-                  id={item.id}
-                  onClick={() => handleDelete(item.id)}
-                  size="md"
-                  value={item.id}
-                  _hover={{ color: "red" }}
-                />
+                <DeleteTask itemId={item.id} />
               </Flex>
             </Flex>
           );

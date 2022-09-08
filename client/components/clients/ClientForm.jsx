@@ -18,7 +18,7 @@ export function ClientForm(props) {
     <Form>
       <ModalBody>
         <FormControl isRequired>
-          <FormLabel htmlFor="business_name">Business Name</FormLabel>
+          <FormLabel>Business Name</FormLabel>
           <Field
             as={Input}
             name="business_name"
@@ -28,7 +28,9 @@ export function ClientForm(props) {
             // eslint-disable-next-line jsx-a11y/no-autofocus
             autoFocus
           />
-          <FormLabel htmlFor="contact_name">Primary Contact</FormLabel>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Primary Contact</FormLabel>
           <Field
             as={Input}
             name="contact_name"
@@ -36,7 +38,9 @@ export function ClientForm(props) {
             type="text"
             variant="filled"
           />
-          <FormLabel htmlFor="phone">Phone</FormLabel>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Phone</FormLabel>
           <InputGroup>
             <InputLeftAddon>+64</InputLeftAddon>
             <Field
@@ -47,7 +51,9 @@ export function ClientForm(props) {
               variant="filled"
             />
           </InputGroup>
-          <FormLabel htmlFor="email">Email</FormLabel>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Email</FormLabel>
           <Field
             as={Input}
             name="email"
@@ -55,7 +61,9 @@ export function ClientForm(props) {
             type="email"
             variant="filled"
           />
-          <FormLabel htmlFor="address">Address</FormLabel>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Address</FormLabel>
           <Field
             as={Textarea}
             name="address"
@@ -63,7 +71,9 @@ export function ClientForm(props) {
             type="text"
             variant="filled"
           />
-          <FormLabel htmlFor="rate">Hourly Rate</FormLabel>
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel>Hourly Rate</FormLabel>
           <InputGroup>
             <InputLeftAddon>NZD$</InputLeftAddon>
             <Field
