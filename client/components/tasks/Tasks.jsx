@@ -1,14 +1,6 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogBody,
-  AlertDialogFooter,
-  Button,
-  IconButton,
   Flex,
   SimpleGrid,
   Spacer,
@@ -16,42 +8,21 @@ import {
   TagLeftIcon,
   TagLabel,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
-import {
-  MdDeleteForever,
-  MdAttachMoney,
-  MdHourglassBottom,
-} from "react-icons/md";
+import { MdAttachMoney, MdHourglassBottom } from "react-icons/md";
 
-// import { getUninvoicedItems } from "../../reducers/items";
-
-// TODO Update to be items
-// import { deleteTask } from "../../apis/tasks";
 import { EditTask } from "./EditTask";
 import { DeleteTask } from "./DeleteTask";
 
 export function Tasks() {
-  // const dispatch = useDispatch();
   const { selected } = useSelector((state) => state.clients);
   const items = useSelector((state) => state.items);
-
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-  // const cancelRef = React.useRef();
-
-  // function handleDelete(id) {
-  //   onOpen();
-  //   deleteTask(id);
-  //   dispatch(getUninvoicedItems());
-  //   onClose();
-  // }
 
   if (items.loading) {
     return <>Loading ...</>;
   }
 
   const itemCards = (
-    // <Wrap justify="flex-start" align="center}">
     <SimpleGrid minChildWidth="260px" spacing="11px">
       {items?.uninvoiced.map((item) => {
         if (item.client_id === selected.id) {
