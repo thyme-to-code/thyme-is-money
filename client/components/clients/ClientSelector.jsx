@@ -1,34 +1,34 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Box, Select, Stack } from '@chakra-ui/react'
-import { setSelectedClient, clearSelectedClient } from '../../reducers/clients'
-import { MdOutlineArrowDropDownCircle } from 'react-icons/md'
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Box, Select, Stack } from "@chakra-ui/react";
+import { setSelectedClient, clearSelectedClient } from "../../reducers/clients";
+import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 
-import { EditClient } from './EditClient'
+import { EditClient } from "./EditClient";
 
 export function ClientSelector() {
-  const dispatch = useDispatch()
-  const clients = useSelector((state) => state.clients)
+  const dispatch = useDispatch();
+  const clients = useSelector((state) => state.clients);
 
   const orderedCompanyNames = clients.active
     .map((client) => client.business_name)
-    .sort()
+    .sort();
 
   function handleChange(e) {
     if (e.target.value) {
       const myClient = clients.active.find(
         (client) => client.business_name == e.target.value
-      )
-      return dispatch(setSelectedClient(myClient))
+      );
+      return dispatch(setSelectedClient(myClient));
     } else {
-      return dispatch(clearSelectedClient())
+      return dispatch(clearSelectedClient());
     }
   }
 
   if (clients.loading) {
-    return <>Loading ...</>
+    return <>Loading ...</>;
   }
-  console.log(clients.selected.id)
+
   return (
     <>
       <Box bg="brand.100" borderRadius="lg" color="brand.50">
@@ -42,11 +42,12 @@ export function ClientSelector() {
             p="0px"
             placeholder="Select a client"
             borderColor="brand.100"
-            _hover={{ color: 'brand.500' }}
+            _hover={{ color: "brand.500" }}
             style={{
-              fontSize: '1.4em',
-              fontWeight: '600',
+              fontSize: "1.4em",
+              fontWeight: "600",
             }}
+            value={clients.selected?.business_name || ""}
           >
             {orderedCompanyNames.map((company, i) => (
               <option key={i} value={company}>
@@ -57,5 +58,5 @@ export function ClientSelector() {
         </Stack>
       </Box>
     </>
-  )
+  );
 }

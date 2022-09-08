@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
-  Box,
+  Flex,
   Heading,
   Image,
   Menu,
@@ -64,24 +64,19 @@ export function Header() {
   );
 
   return (
-    <Box bg="brand.200" p={3}>
-      <Stack direction="row">
-        <Image
-          onClick={showSummary}
-          boxSize="42px"
-          alt="Two leaves as logo"
-          src="/favicon-crop.png"
-        />
-        <Spacer px="1" />
-        <Heading onClick={showSummary} as="h1" fontSize="1.5em" color="#fff">
-          Thyme is Money
-        </Heading>
-        <Spacer />
-        {menu}
-        {/* <Button colorScheme="whiteAlpha" onClick={handleLogOut}>
-          Log Out
-        </Button> */}
-      </Stack>
-    </Box>
+    <Flex bg="brand.200" p={3} alignItems="center">
+      <Image
+        onClick={showSummary}
+        boxSize="42px"
+        alt="Two leaves as logo"
+        src="/favicon-crop.png"
+      />
+      <Spacer />
+      <Heading onClick={showSummary} as="h1" fontSize="1.5em" color="#fff">
+        Thyme is Money
+      </Heading>
+      <Spacer />
+      {menu}
+    </Flex>
   );
 }
