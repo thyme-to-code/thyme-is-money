@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import {
   Center,
   CircularProgress,
-  Divider,
   Heading,
   TableContainer,
   Table,
@@ -46,14 +45,24 @@ export function Overview() {
     if (
       uninvoiced?.find((item) => item.client_id === client.id) === undefined
     ) {
-      return <></>
+      return <div key={client.id}></div>
     }
     return (
       <>
-        <Heading my={2} as="h2" size="md" color="brand.100">
+        <Heading
+          key={'client' + client.id}
+          my={2}
+          as="h2"
+          size="md"
+          color="brand.100"
+        >
           {client.business_name}
         </Heading>
-        <SimpleGrid minChildWidth="260px" spacing="11px">
+        <SimpleGrid
+          key={client.id + 'items'}
+          minChildWidth="260px"
+          spacing="11px"
+        >
           {uninvoiced?.map((item) => {
             if (item.client_id === client.id) {
               return (
@@ -68,11 +77,7 @@ export function Overview() {
                 >
                   <Text p={3}> {item.description}</Text>
                   <Spacer />
-                  <Flex
-                    bg={'brand.200'}
-                    borderBottomRadius="lg"
-                    direction="row"
-                  >
+                  <Flex bg={'brand.200'} direction="row">
                     <EditTask value={{ item }} />
                     <Spacer />
                     <Tag p={1} variant="ghost" fontSize="2xl">
@@ -101,6 +106,43 @@ export function Overview() {
       </>
     )
   })
+
+  const invoiceCards = (
+    <SimpleGrid minChildWidth="260px" spacing="11px">
+      {invoices?.map((invoice) => {
+        return (
+          <Flex
+            bg="brand.300"
+            borderBottomRadius="lg"
+            borderColor={'brand.200'}
+            borderWidth={2}
+            direction="column"
+            key={invoice.invoice_number}
+          >
+            <Text p={3}>{invoice.business_name}</Text>
+            <Text p={3}>Date Sent: {invoice.date_sent}</Text>
+            <Text p={3}>Date Paid: {invoice.date_paid}</Text>
+            <Spacer />
+            <Flex bg={'brand.200'} direction="row">
+              <Tag p={1} variant="ghost" fontSize="2xl">
+                <TagLeftIcon as={MdAttachMoney} color={'brand.50'} />
+                <TagLabel color="brand.50">{invoice.total} </TagLabel>
+              </Tag>
+              <Spacer />
+              <Tag p={1} variant="ghost" fontSize="2xl">
+                <TagLeftIcon
+                  boxSize="24px"
+                  as={MdAttachMoney}
+                  color="brand.50"
+                />
+                <TagLabel color="brand.50">{invoice.amount_paid * 1}</TagLabel>
+              </Tag>
+            </Flex>
+          </Flex>
+        )
+      })}
+    </SimpleGrid>
+  )
 
   const invoicesTable = (
     <TableContainer mr={10}>
@@ -182,13 +224,15 @@ export function Overview() {
     <>
       <Tabs>
         <TabList>
-          <Tab>Tasks</Tab>
-          <Tab>Invoices</Tab>
+          <Tab key="TaskTab">Tasks</Tab>
+          <Tab key="InvoiceTab">Invoices</Tab>
+          <Tab key="InvoiceTableTab">Invoice Table</Tab>
         </TabList>
 
         <TabPanels>
-          <TabPanel>{itemCards}</TabPanel>
-          <TabPanel>{invoicesTable}</TabPanel>
+          <TabPanel key="TaskPanel">{itemCards}</TabPanel>
+          <TabPanel key="InvoicePanel">{invoiceCards}</TabPanel>
+          <TabPanel key="InvoiceTablePanel">{invoicesTable}</TabPanel>
         </TabPanels>
       </Tabs>
     </>
