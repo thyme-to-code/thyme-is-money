@@ -102,69 +102,6 @@ export function Overview() {
     )
   })
 
-  const itemsTable = (
-    <TableContainer>
-      <Table p="1" variant="striped" colorScheme="table">
-        <Thead color="brand.100">
-          <Tr>
-            <Td py="1">
-              <Heading as="h3" size="sm">
-                Description
-              </Heading>
-            </Td>
-            <Td py="1">
-              <Heading as="h3" size="sm">
-                Client
-              </Heading>
-            </Td>
-            <Td py="1" isNumeric={true}>
-              <Heading as="h3" size="sm">
-                Hours
-              </Heading>
-            </Td>
-            <Td py="1" isNumeric={true}>
-              <Heading as="h3" size="sm">
-                Amount
-              </Heading>
-            </Td>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {uninvoiced?.length === 0 ? (
-            <Tr>
-              <Td>No uninvoiced tasks? Go do some work!</Td>
-              <Td></Td>
-              <Td></Td>
-              <Td></Td>
-            </Tr>
-          ) : (
-            uninvoiced?.map((task, i) => (
-              <Tr key={i}>
-                <Td py="1">{task.description}</Td>
-                <Td py="1">
-                  {
-                    clients.active.find((client) => client.id == task.client_id)
-                      .business_name
-                  }
-                </Td>
-                <Td py="1" isNumeric>
-                  {task.quantity}
-                </Td>
-                <Td py="1" isNumeric>
-                  $&nbsp;
-                  {(
-                    clients.active.find((client) => client.id == task.client_id)
-                      .rate * task.quantity
-                  ).toLocaleString('en-US')}
-                </Td>
-              </Tr>
-            ))
-          )}
-        </Tbody>
-      </Table>
-    </TableContainer>
-  )
-
   const invoicesTable = (
     <TableContainer mr={10}>
       <Table p="1" variant="striped" colorScheme="table">
