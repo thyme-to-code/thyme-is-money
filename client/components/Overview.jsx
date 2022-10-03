@@ -18,6 +18,11 @@ import {
   Tag,
   TagLeftIcon,
   TagLabel,
+  Tab,
+  Tabs,
+  TabList,
+  TabPanel,
+  TabPanels,
 } from '@chakra-ui/react'
 import { MdAttachMoney, MdHourglassBottom } from 'react-icons/md'
 
@@ -38,9 +43,14 @@ export function Overview() {
   }
 
   const itemCards = clients.active.map((client) => {
+    if (
+      uninvoiced?.find((item) => item.client_id === client.id) === undefined
+    ) {
+      return <></>
+    }
     return (
       <>
-        <Heading mt={3} as="h3" size="sm" color="brand.100">
+        <Heading my={2} as="h2" size="md" color="brand.100">
           {client.business_name}
         </Heading>
         <SimpleGrid minChildWidth="260px" spacing="11px">
@@ -233,21 +243,17 @@ export function Overview() {
 
   return (
     <>
-      <Heading as="h2" size="md" color="brand.100">
-        Uninvoiced Tasks
-      </Heading>
-      <Divider my={1} />
+      <Tabs>
+        <TabList>
+          <Tab>Tasks</Tab>
+          <Tab>Invoices</Tab>
+        </TabList>
 
-      {itemCards}
-
-      <Divider my="5" />
-
-      <Heading as="h2" size="md" color="brand.100">
-        Recent Invoices
-      </Heading>
-      <Divider my={1} />
-
-      {invoicesTable}
+        <TabPanels>
+          <TabPanel>{itemCards}</TabPanel>
+          <TabPanel>{invoicesTable}</TabPanel>
+        </TabPanels>
+      </Tabs>
     </>
   )
 }
