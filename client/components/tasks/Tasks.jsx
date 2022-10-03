@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react'
+import { useSelector } from 'react-redux'
 import {
   Flex,
   SimpleGrid,
@@ -8,18 +8,18 @@ import {
   TagLeftIcon,
   TagLabel,
   Text,
-} from "@chakra-ui/react";
-import { MdAttachMoney, MdHourglassBottom } from "react-icons/md";
+} from '@chakra-ui/react'
+import { MdAttachMoney, MdHourglassBottom } from 'react-icons/md'
 
-import { EditTask } from "./EditTask";
-import { DeleteTask } from "./DeleteTask";
+import { EditTask } from './EditTask'
+import { DeleteTask } from './DeleteTask'
 
 export function Tasks() {
-  const { selected } = useSelector((state) => state.clients);
-  const items = useSelector((state) => state.items);
+  const { selected } = useSelector((state) => state.clients)
+  const items = useSelector((state) => state.items)
 
   if (items.loading) {
-    return <>Loading ...</>;
+    return <>Loading ...</>
   }
 
   const itemCards = (
@@ -30,18 +30,18 @@ export function Tasks() {
             <Flex
               bg="brand.300"
               borderBottomRadius="lg"
-              borderColor={"brand.200"}
+              borderColor={'brand.200'}
               borderWidth={2}
               direction="column"
               key={item.id}
             >
               <Text p={3}> {item.description}</Text>
               <Spacer />
-              <Flex bg={"brand.200"} borderBottomRadius="lg" direction="row">
+              <Flex bg={'brand.200'} direction="row">
                 <EditTask value={{ item }} />
                 <Spacer />
                 <Tag p={1} variant="ghost" fontSize="2xl">
-                  <TagLeftIcon as={MdHourglassBottom} color={"brand.50"} />
+                  <TagLeftIcon as={MdHourglassBottom} color={'brand.50'} />
                   <TagLabel color="brand.50">{item.quantity} </TagLabel>
                 </Tag>
                 <Spacer />
@@ -52,18 +52,18 @@ export function Tasks() {
                     color="brand.50"
                   />
                   <TagLabel color="brand.50">
-                    {(item.quantity * selected.rate).toLocaleString("en-US")}
+                    {(item.quantity * selected.rate).toLocaleString('en-US')}
                   </TagLabel>
                 </Tag>
                 <Spacer />
                 <DeleteTask itemId={item.id} />
               </Flex>
             </Flex>
-          );
+          )
         }
       })}
     </SimpleGrid>
-  );
+  )
 
-  return <div className="tasks">{itemCards}</div>;
+  return <div className="tasks">{itemCards}</div>
 }
