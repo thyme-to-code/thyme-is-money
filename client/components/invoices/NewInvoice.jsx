@@ -67,6 +67,7 @@ export function NewInvoice() {
     <>
       {clientItems.length > 0 && (
         <Button
+          mt={2}
           leftIcon={<MdAddCircle />}
           onClick={onOpen}
           bg="brand.100"
