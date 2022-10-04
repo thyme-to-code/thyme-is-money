@@ -6,19 +6,13 @@ import {
   CircularProgress,
   Divider,
   Flex,
-  Heading,
   Spacer,
   Tab,
-  Table,
-  TableContainer,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  Tbody,
-  Td,
-  Thead,
-  Tr,
+  SimpleGrid,
 } from '@chakra-ui/react'
 
 import { ClientDetails } from './clients/ClientDetails'
@@ -26,6 +20,7 @@ import { NewInvoice } from './invoices/NewInvoice'
 import { NewTask } from './tasks/NewTask'
 import { Tasks } from './tasks/Tasks'
 import { Overview } from './Overview'
+import { InvoiceCard } from './invoices/InvoiceCard'
 
 export function Content() {
   const { selected, loading } = useSelector((state) => state.clients)
@@ -39,82 +34,14 @@ export function Content() {
     )
   }
 
-  const clientInvoiceTable = (
-    <TableContainer>
-      <Table p="1" variant="striped" colorScheme="table">
-        <Thead>
-          <Tr>
-            <Td py="1">
-              <Heading as="h3" size="sm">
-                Invoice
-              </Heading>
-            </Td>
-            <Td py="1" isNumeric={true}>
-              <Heading as="h3" size="sm">
-                Date Sent
-              </Heading>
-            </Td>
-            <Td py="1" isNumeric={true}>
-              <Heading as="h3" size="sm">
-                Date Paid
-              </Heading>
-            </Td>
-            <Td py="1" isNumeric={true}>
-              <Heading as="h3" size="sm">
-                $ Paid
-              </Heading>
-            </Td>
-            <Td py="1" isNumeric={true}>
-              <Heading as="h3" size="sm">
-                $ Invoiced
-              </Heading>
-            </Td>
-            <Td py="1" isNumeric={true}>
-              <Heading as="h3" size="sm">
-                Details
-              </Heading>
-            </Td>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {invoices?.length === 0 ? ( // This could potentially be handled better
-            <Tr key="something">
-              <Td>No invoices! Are you a freelancer or what?</Td>
-              <Td></Td>
-              <Td></Td>
-              <Td></Td>
-            </Tr>
-          ) : (
-            invoices?.map((invoice) => {
-              if (invoice?.client_id === selected.id) {
-                return (
-                  <Tr key={invoice.invoice_number}>
-                    <Td py="1">INV-{invoice.invoice_number}</Td>
-                    <Td py="1" isNumeric={true}>
-                      {new Date(invoice.date_sent).toLocaleDateString('en-NZ')}
-                    </Td>
-                    <Td py="1" isNumeric={true}>
-                      {invoice.date_paid &&
-                        new Date(invoice.date_paid).toLocaleDateString('en-NZ')}
-                    </Td>
-                    <Td py="1" isNumeric={true}>
-                      {invoice.amount_paid &&
-                        '$' + invoice.amount_paid.toLocaleString('en-NZ')}
-                    </Td>
-                    <Td py="1" isNumeric={true}>
-                      ${invoice.total.toLocaleString('en-NZ')}
-                    </Td>
-                    <Td py="1" isNumeric={true}>
-                      JSON
-                    </Td>
-                  </Tr>
-                )
-              }
-            })
-          )}
-        </Tbody>
-      </Table>
-    </TableContainer>
+  const invoiceCards = (
+    <SimpleGrid minChildWidth="260px" spacing="11px">
+      {invoices
+        ?.filter((invoice) => invoice.client_id === selected.id)
+        .map((invoice) => {
+          return <InvoiceCard key={invoice.invoice_number} invoice={invoice} />
+        })}
+    </SimpleGrid>
   )
 
   return (
@@ -145,7 +72,7 @@ export function Content() {
               <TabPanel>
                 <Tasks />
               </TabPanel>
-              <TabPanel>{clientInvoiceTable}</TabPanel>
+              <TabPanel>{invoiceCards}</TabPanel>
             </TabPanels>
           </Tabs>
         </>
