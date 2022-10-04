@@ -12,22 +12,15 @@ import {
   Td,
   Text,
   SimpleGrid,
-  Flex,
-  Spacer,
-  Tag,
-  TagLeftIcon,
-  TagLabel,
   Tab,
   Tabs,
   TabList,
   TabPanel,
   TabPanels,
 } from '@chakra-ui/react'
-import { MdAttachMoney, MdHourglassBottom } from 'react-icons/md'
 
-import { EditTask } from './tasks/EditTask'
-import { DeleteTask } from './tasks/DeleteTask'
 import { InvoiceCard } from './invoices/InvoiceCard'
+import { ItemCard } from './tasks/ItemCard'
 
 export function Overview() {
   const { uninvoiced, loading } = useSelector((state) => state.items)
@@ -56,41 +49,7 @@ export function Overview() {
         <SimpleGrid minChildWidth="260px" spacing="11px">
           {uninvoiced?.map((item) => {
             if (item.client_id === client.id) {
-              return (
-                <Flex
-                  maxWidth="480px"
-                  bg="brand.300"
-                  borderBottomRadius="lg"
-                  borderColor={'brand.200'}
-                  borderWidth={2}
-                  direction="column"
-                  key={item.id}
-                >
-                  <Text p={3}> {item.description}</Text>
-                  <Spacer />
-                  <Flex bg={'brand.200'} direction="row">
-                    <EditTask value={{ item }} />
-                    <Spacer />
-                    <Tag p={1} variant="ghost" fontSize="2xl">
-                      <TagLeftIcon as={MdHourglassBottom} color={'brand.50'} />
-                      <TagLabel color="brand.50">{item.quantity} </TagLabel>
-                    </Tag>
-                    <Spacer />
-                    <Tag p={1} variant="ghost" fontSize="2xl">
-                      <TagLeftIcon
-                        boxSize="24px"
-                        as={MdAttachMoney}
-                        color="brand.50"
-                      />
-                      <TagLabel color="brand.50">
-                        {(item.quantity * client.rate).toLocaleString('en-US')}
-                      </TagLabel>
-                    </Tag>
-                    <Spacer />
-                    <DeleteTask itemId={item.id} />
-                  </Flex>
-                </Flex>
-              )
+              return <ItemCard key={item.id} item={item} rate={client.rate} />
             }
           })}
         </SimpleGrid>
