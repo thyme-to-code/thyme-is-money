@@ -1,4 +1,3 @@
-// @ts-check
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
@@ -12,6 +11,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from '@chakra-ui/react'
+import { MdAddCircle } from 'react-icons/md'
 
 import { getUninvoicedItems } from '../../reducers/items'
 import { clearCurrentInvoice, getInvoices } from '../../reducers/invoices'
@@ -67,12 +67,16 @@ export function NewInvoice() {
     <>
       {clientItems.length > 0 && (
         <Button
+          mt={2}
+          leftIcon={<MdAddCircle />}
           onClick={onOpen}
           bg="brand.100"
           color="brand.50"
+          justifyContent={'left'}
           _hover={{ bg: 'brand.200' }}
+          w="100%"
         >
-          Create Invoice
+          Invoice
         </Button>
       )}
       <Modal

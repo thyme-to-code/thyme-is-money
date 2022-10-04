@@ -1,22 +1,22 @@
-// @ts-check
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import request from 'superagent'
 import { Formik } from 'formik'
 import {
-  useDisclosure,
+  Button,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalCloseButton,
-  Button,
+  useDisclosure,
 } from '@chakra-ui/react'
 
 import { setSelectedClient, getActiveClients } from '../../reducers/clients'
 import { ClientForm } from './ClientForm'
+import { MdEdit } from 'react-icons/md'
 
-export function UpdateClient() {
+export function EditClient() {
   const dispatch = useDispatch()
   const { selected } = useSelector((state) => state.clients)
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -24,18 +24,19 @@ export function UpdateClient() {
   return (
     <>
       <Button
+        leftIcon={<MdEdit />}
+        _hover={{ color: 'bisque' }}
         onClick={onOpen}
-        mr={5}
-        bg="brand.100"
-        color="brand.50"
-        _hover={{ bg: 'brand.200' }}
-      >
-        Edit Client
-      </Button>
+        pt={1.5}
+        fontWeight="600"
+        fontSize="1.4em"
+        variant="ghost"
+      />
+
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color="#0CA789">Update client</ModalHeader>
+          <ModalHeader color="#0CA789">Edit client</ModalHeader>
           <ModalCloseButton />
           <Formik
             initialValues={selected}

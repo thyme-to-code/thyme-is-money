@@ -1,70 +1,34 @@
 // @ts-check
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { Grid, GridItem } from '@chakra-ui/react'
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Grid, GridItem, Spacer, Stack } from "@chakra-ui/react";
 
-import { getActiveClients } from '../reducers/clients'
-import { getInvoices } from '../reducers/invoices'
-import { getUninvoicedItems } from '../reducers/items'
+import { getActiveClients } from "../reducers/clients";
+import { getInvoices } from "../reducers/invoices";
+import { getUninvoicedItems } from "../reducers/items";
 
-import { Content } from './Content'
-import { Footer } from './Footer'
-import { Header } from './Header'
-import { ClientSelector } from './clients/ClientSelector'
+import { Content } from "./Content";
+import { Footer } from "./Footer";
+import { Header } from "./Header";
+import { ClientSelector } from "./clients/ClientSelector";
 
 export function Main() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getActiveClients())
-    dispatch(getInvoices())
-    dispatch(getUninvoicedItems())
-  }, [])
+    dispatch(getActiveClients());
+    dispatch(getInvoices());
+    dispatch(getUninvoicedItems());
+  }, []);
 
   return (
-    <Grid
-      templateAreas={`"header"
-                  "main"
-                  "footer"`}
-      gridTemplateRows={'111px 1fr 30px'}
-      gridTemplateColumns={'1fr'}
-      h="100vh"
-      gap="0"
-      color="blackAlpha.700"
-    >
-      <GridItem
-        bg="brand.100"
-        area={'header'}
-        fontSize="3xl"
-        pt="25px"
-        pl="50px"
-        pb="25px"
-      >
-        <Header />
-      </GridItem>
-      {/* <GridItem
-        pl="2"
-        bg="brand.50"
-        area={'nav'}
-        pt="25px"
-        pr="10px"
-        boxShadow="base"
-      ></GridItem> */}
-      <GridItem pl="25px" bg="brand.300" area={'main'} pt="25px" pb="25px">
+    <>
+      <Header />
+      <Stack mt={3} marginX={3} gap={3} direction={"column"}>
         <ClientSelector />
         <Content />
-      </GridItem>
-      <GridItem
-        pl="2"
-        bg="#c7eae2"
-        area={'footer'}
-        color="blackAlpha.500"
-        textAlign="center"
-        fontSize="sm"
-        sx={{ position: 'sticky', bottom: 0 }}
-      >
         <Footer />
-      </GridItem>
-    </Grid>
-  )
+      </Stack>
+    </>
+  );
 }

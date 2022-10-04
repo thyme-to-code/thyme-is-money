@@ -1,10 +1,8 @@
-// @ts-check
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {
   Center,
   CircularProgress,
-  Divider,
   Heading,
   TableContainer,
   Table,
@@ -13,7 +11,16 @@ import {
   Tr,
   Td,
   Text,
+  SimpleGrid,
+  Tab,
+  Tabs,
+  TabList,
+  TabPanel,
+  TabPanels,
 } from '@chakra-ui/react'
+
+import { InvoiceCard } from './invoices/InvoiceCard'
+import { ItemCard } from './tasks/ItemCard'
 
 export function Overview() {
   const { uninvoiced, loading } = useSelector((state) => state.items)
@@ -28,156 +35,127 @@ export function Overview() {
     )
   }
 
+  const itemCards = clients.active.map((client) => {
+    if (
+      uninvoiced?.find((item) => item.client_id === client.id) === undefined
+    ) {
+      return <div key={client.id}></div>
+    }
+    return (
+      <div key={client.id}>
+        <Heading my={2} as="h2" size="md" color="brand.100">
+          {client.business_name}
+        </Heading>
+        <SimpleGrid minChildWidth="260px" spacing="11px">
+          {uninvoiced?.map((item) => {
+            if (item.client_id === client.id) {
+              return <ItemCard key={item.id} item={item} rate={client.rate} />
+            }
+          })}
+        </SimpleGrid>
+      </div>
+    )
+  })
+
+  const invoiceCards = (
+    <SimpleGrid minChildWidth="260px" spacing="11px">
+      {invoices?.map((invoice) => {
+        return <InvoiceCard key={invoice.invoice_number} invoice={invoice} />
+      })}
+    </SimpleGrid>
+  )
+
+  const invoicesTable = (
+    <TableContainer mr={10}>
+      <Table p="1" variant="striped" colorScheme="table">
+        <Thead color="brand.100">
+          <Tr>
+            <Td py="1">
+              <Heading as="h3" size="sm">
+                Client
+              </Heading>
+            </Td>
+            <Td py="1" isNumeric={true}>
+              <Heading as="h3" size="sm">
+                Date Sent
+              </Heading>
+            </Td>
+            <Td py="1" isNumeric={true}>
+              <Heading as="h3" size="sm">
+                $ Invoiced
+              </Heading>
+            </Td>
+            <Td py="1" isNumeric={true}>
+              <Heading as="h3" size="sm">
+                Date Paid
+              </Heading>
+            </Td>
+            <Td py="1" isNumeric={true}>
+              <Heading as="h3" size="sm">
+                $ Paid
+              </Heading>
+            </Td>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {invoices?.length === 0 ? (
+            <Tr>
+              <Td>No invoices! Are you a freelancer or what?</Td>
+              <Td></Td>
+              <Td></Td>
+              <Td></Td>
+            </Tr>
+          ) : (
+            invoices?.map((invoice) => (
+              <Tr key={invoice.invoice_number}>
+                <Td py="1">{invoice.business_name}</Td>
+                <Td py="1" isNumeric={true}>
+                  {new Date(invoice.date_sent).toLocaleDateString('en-NZ')}
+                </Td>
+                <Td py="1" isNumeric={true}>
+                  $ {invoice.total.toFixed(2).toLocaleString('en-US')}
+                </Td>
+                <Td py="1" isNumeric={true}>
+                  {invoice.date_paid ? (
+                    new Date(invoice.date_paid).toLocaleDateString('en-NZ')
+                  ) : (
+                    <></>
+                  )}
+                </Td>
+                <Td py="1" isNumeric={true}>
+                  {invoice.amount_paid &&
+                    (invoice.amount_paid == invoice.total ? (
+                      '$ ' + invoice.amount_paid.toLocaleString('en-US')
+                    ) : (
+                      <Text color="red">
+                        $&nbsp;
+                        {invoice.amount_paid.toFixed(2).toLocaleString('en-US')}
+                      </Text>
+                    ))}
+                </Td>
+              </Tr>
+            ))
+          )}
+        </Tbody>
+      </Table>
+    </TableContainer>
+  )
+
   return (
     <>
-      <Heading as="h2" size="md" color="brand.100">
-        Uninvoiced Tasks
-      </Heading>
-      <Divider my={1} />
-      <TableContainer mr={5}>
-        <Table p="1" variant="striped" colorScheme="table">
-          <Thead color="brand.100">
-            <Tr>
-              <Td py="1">
-                <Heading as="h3" size="sm">
-                  Description
-                </Heading>
-              </Td>
-              <Td py="1">
-                <Heading as="h3" size="sm">
-                  Client
-                </Heading>
-              </Td>
-              <Td py="1" isNumeric={true}>
-                <Heading as="h3" size="sm">
-                  Hours
-                </Heading>
-              </Td>
-              <Td py="1" isNumeric={true}>
-                <Heading as="h3" size="sm">
-                  Amount
-                </Heading>
-              </Td>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {uninvoiced?.length === 0 ? (
-              <Tr>
-                <Td>No uninvoiced tasks? Go do some work!</Td>
-                <Td></Td>
-                <Td></Td>
-                <Td></Td>
-              </Tr>
-            ) : (
-              uninvoiced?.map((task, i) => (
-                <Tr key={i}>
-                  <Td py="1">{task.description}</Td>
-                  <Td py="1">
-                    {
-                      clients.active.find(
-                        (client) => client.id == task.client_id
-                      ).business_name
-                    }
-                  </Td>
-                  <Td py="1" isNumeric={true}>
-                    {task.quantity}
-                  </Td>
-                  <Td py="1" isNumeric={true}>
-                    $&nbsp;
-                    {(
-                      clients.active.find(
-                        (client) => client.id == task.client_id
-                      ).rate * task.quantity
-                    ).toLocaleString('en-US')}
-                  </Td>
-                </Tr>
-              ))
-            )}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      <Tabs>
+        <TabList>
+          <Tab key="TaskTab">Tasks</Tab>
+          <Tab key="InvoiceTab">Invoices</Tab>
+          <Tab key="InvoiceTableTab">Invoice Table</Tab>
+        </TabList>
 
-      <Divider my="5" />
-
-      <Heading as="h2" size="md" color="brand.100">
-        Recent Invoices
-      </Heading>
-      <Divider my={1} />
-      <TableContainer mr={10}>
-        <Table p="1" variant="striped" colorScheme="table">
-          <Thead color="brand.100">
-            <Tr>
-              <Td py="1">
-                <Heading as="h3" size="sm">
-                  Client
-                </Heading>
-              </Td>
-              <Td py="1" isNumeric={true}>
-                <Heading as="h3" size="sm">
-                  Date Sent
-                </Heading>
-              </Td>
-              <Td py="1" isNumeric={true}>
-                <Heading as="h3" size="sm">
-                  $ Invoiced
-                </Heading>
-              </Td>
-              <Td py="1" isNumeric={true}>
-                <Heading as="h3" size="sm">
-                  Date Paid
-                </Heading>
-              </Td>
-              <Td py="1" isNumeric={true}>
-                <Heading as="h3" size="sm">
-                  $ Paid
-                </Heading>
-              </Td>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {invoices?.length === 0 ? (
-              <Tr>
-                <Td>No invoices! Are you a freelancer or what?</Td>
-                <Td></Td>
-                <Td></Td>
-                <Td></Td>
-              </Tr>
-            ) : (
-              invoices?.map((invoice) => (
-                <Tr key={invoice.invoice_number}>
-                  <Td py="1">{invoice.business_name}</Td>
-                  <Td py="1" isNumeric={true}>
-                    {new Date(invoice.date_sent).toLocaleDateString('en-NZ')}
-                  </Td>
-                  <Td py="1" isNumeric={true}>
-                    $ {invoice.total.toFixed(2).toLocaleString('en-US')}
-                  </Td>
-                  <Td py="1" isNumeric={true}>
-                    {invoice.date_paid ? (
-                      new Date(invoice.date_paid).toLocaleDateString('en-NZ')
-                    ) : (
-                      <></>
-                    )}
-                  </Td>
-                  <Td py="1" isNumeric={true}>
-                    {invoice.amount_paid &&
-                      (invoice.amount_paid == invoice.total ? (
-                        '$ ' + invoice.amount_paid.toLocaleString('en-US')
-                      ) : (
-                        <Text color="red">
-                          $&nbsp;
-                          {invoice.amount_paid
-                            .toFixed(2)
-                            .toLocaleString('en-US')}
-                        </Text>
-                      ))}
-                  </Td>
-                </Tr>
-              ))
-            )}
-          </Tbody>
-        </Table>
-      </TableContainer>
+        <TabPanels>
+          <TabPanel key="TaskPanel">{itemCards}</TabPanel>
+          <TabPanel key="InvoicePanel">{invoiceCards}</TabPanel>
+          <TabPanel key="InvoiceTablePanel">{invoicesTable}</TabPanel>
+        </TabPanels>
+      </Tabs>
     </>
   )
 }

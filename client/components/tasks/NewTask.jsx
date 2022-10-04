@@ -20,6 +20,7 @@ import {
 
 import { getUninvoicedItems } from '../../reducers/items'
 import { addTask } from '../../apis/tasks'
+import { MdAddCircle } from 'react-icons/md'
 
 export function NewTask() {
   const dispatch = useDispatch()
@@ -29,13 +30,15 @@ export function NewTask() {
   return (
     <>
       <Button
-        mr={3}
+        leftIcon={<MdAddCircle />}
         onClick={onOpen}
         bg="brand.100"
         color="brand.50"
+        justifyContent={'left'}
         _hover={{ bg: 'brand.200' }}
+        w="100%"
       >
-        Create Task
+        Task
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
