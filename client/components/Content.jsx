@@ -26,13 +26,10 @@ import { NewInvoice } from './invoices/NewInvoice'
 import { NewTask } from './tasks/NewTask'
 import { Tasks } from './tasks/Tasks'
 import { Overview } from './Overview'
-import { ClientInvoiceList } from './invoices/ClientInvoiceList'
 
 export function Content() {
   const { selected, loading } = useSelector((state) => state.clients)
-  const { all: invoices, loading: loadingInvoices } = useSelector(
-    (state) => state.invoices
-  )
+  const { all: invoices } = useSelector((state) => state.invoices)
 
   if (loading) {
     return (
