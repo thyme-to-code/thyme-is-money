@@ -48,21 +48,11 @@ export function Overview() {
       return <div key={client.id}></div>
     }
     return (
-      <>
-        <Heading
-          key={'client' + client.id}
-          my={2}
-          as="h2"
-          size="md"
-          color="brand.100"
-        >
+      <div key={client.id}>
+        <Heading my={2} as="h2" size="md" color="brand.100">
           {client.business_name}
         </Heading>
-        <SimpleGrid
-          key={client.id + 'items'}
-          minChildWidth="260px"
-          spacing="11px"
-        >
+        <SimpleGrid minChildWidth="260px" spacing="11px">
           {uninvoiced?.map((item) => {
             if (item.client_id === client.id) {
               return (
@@ -103,7 +93,7 @@ export function Overview() {
             }
           })}
         </SimpleGrid>
-      </>
+      </div>
     )
   })
 
@@ -119,23 +109,32 @@ export function Overview() {
             direction="column"
             key={invoice.invoice_number}
           >
-            <Text p={3}>{invoice.business_name}</Text>
-            <Text p={3}>Date Sent: {invoice.date_sent}</Text>
-            <Text p={3}>Date Paid: {invoice.date_paid}</Text>
+            <Heading p={3} as="h3" size="md" color="brand.100">
+              {invoice.business_name}
+            </Heading>
+            <Text px={3}>
+              Sent: {new Date(invoice.date_sent).toLocaleDateString('en-US')}
+            </Text>
+            <Text px={3}>
+              Paid:{' '}
+              {invoice.date_paid ? (
+                new Date(invoice.date_paid).toLocaleDateString('en-US')
+              ) : (
+                <>unpaid</>
+              )}
+            </Text>
             <Spacer />
-            <Flex bg={'brand.200'} direction="row">
+            <Flex color="brand.50" bg={'brand.200'} direction="column">
               <Tag p={1} variant="ghost" fontSize="2xl">
+                <Text>Amount</Text>
                 <TagLeftIcon as={MdAttachMoney} color={'brand.50'} />
-                <TagLabel color="brand.50">{invoice.total} </TagLabel>
+                <TagLabel>{invoice.total} </TagLabel>
               </Tag>
               <Spacer />
               <Tag p={1} variant="ghost" fontSize="2xl">
-                <TagLeftIcon
-                  boxSize="24px"
-                  as={MdAttachMoney}
-                  color="brand.50"
-                />
-                <TagLabel color="brand.50">{invoice.amount_paid * 1}</TagLabel>
+                <Text>Paid</Text>
+                <TagLeftIcon boxSize="24px" as={MdAttachMoney} />
+                <TagLabel>{invoice.amount_paid}</TagLabel>
               </Tag>
             </Flex>
           </Flex>
