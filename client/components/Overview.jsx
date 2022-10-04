@@ -27,6 +27,7 @@ import { MdAttachMoney, MdHourglassBottom } from 'react-icons/md'
 
 import { EditTask } from './tasks/EditTask'
 import { DeleteTask } from './tasks/DeleteTask'
+import { InvoiceCard } from './invoices/InvoiceCard'
 
 export function Overview() {
   const { uninvoiced, loading } = useSelector((state) => state.items)
@@ -100,45 +101,7 @@ export function Overview() {
   const invoiceCards = (
     <SimpleGrid minChildWidth="260px" spacing="11px">
       {invoices?.map((invoice) => {
-        return (
-          <Flex
-            bg="brand.300"
-            borderBottomRadius="lg"
-            borderColor={'brand.200'}
-            borderWidth={2}
-            direction="column"
-            key={invoice.invoice_number}
-          >
-            <Heading p={3} as="h3" size="md" color="brand.100">
-              {invoice.business_name}
-            </Heading>
-            <Text px={3}>
-              Sent: {new Date(invoice.date_sent).toLocaleDateString('en-US')}
-            </Text>
-            <Text px={3}>
-              Paid:{' '}
-              {invoice.date_paid ? (
-                new Date(invoice.date_paid).toLocaleDateString('en-US')
-              ) : (
-                <>unpaid</>
-              )}
-            </Text>
-            <Spacer />
-            <Flex color="brand.50" bg={'brand.200'} direction="column">
-              <Tag p={1} variant="ghost" fontSize="2xl">
-                <Text>Amount</Text>
-                <TagLeftIcon as={MdAttachMoney} color={'brand.50'} />
-                <TagLabel>{invoice.total} </TagLabel>
-              </Tag>
-              <Spacer />
-              <Tag p={1} variant="ghost" fontSize="2xl">
-                <Text>Paid</Text>
-                <TagLeftIcon boxSize="24px" as={MdAttachMoney} />
-                <TagLabel>{invoice.amount_paid}</TagLabel>
-              </Tag>
-            </Flex>
-          </Flex>
-        )
+        return <InvoiceCard key={invoice.invoice_number} invoice={invoice} />
       })}
     </SimpleGrid>
   )
