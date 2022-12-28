@@ -1,7 +1,56 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { getInvoiceCsv } from '../apis/invoices'
 
-const initialState = {
+interface Invoice {
+  invoice_number: number,
+  total: number,
+  date_sent: string,
+  date_paid: string,
+  amount_paid: number,
+  client_id: number,
+  business_name: string,
+  contact_name: string,
+  email: string,
+  rate: number
+}
+
+interface InvoiceItem {
+  name: string,
+  quantity: number,
+  unit_cost: number
+}
+
+interface InvoiceJSON {
+  header: string,
+  tax_title: string,
+  logo: string,
+  from: string,
+  to: string,
+  currency: string,
+  number: string,
+  payment_terms: string,
+  items: InvoiceItem[],
+  fields: {
+    tax: string,
+  },
+  tax: number,
+  notes: string,
+  terms: string,
+}
+
+interface InitState {
+  loading: boolean,
+  all: Invoice[],
+  current: {
+    total: number,
+    amount: number,
+    pdfUrl: string,
+    json: InvoiceJSON,
+  },
+}
+
+
+const initialState: InitState = {
   loading: true,
   all: [], // TODO adjust to recent
   current: {
@@ -46,10 +95,10 @@ export const invoicesSlice = createSlice({
     // so we can do things like this state.current = action.payload
     // Will this update all of state.current or only the state.current.total key
     // working on the immer library. It may not work quite as expected.
-    setInvoiceJson: (state, action) => {
+    setInvoiceJson: (state, action: PayloadAction<InvoiceJSON>) => {
       state.current.json = action.payload
     },
-    setInvoicePdfUrl: (state, action) => {
+    setInvoicePdfUrl: (state, action: PayloadAction<string>) => {
       state.current.pdfUrl = action.payload
     },
     clearCurrentInvoice: (state) => {
@@ -71,6 +120,5 @@ export const invoicesSlice = createSlice({
   },
 })
 
-export const { setInvoiceJson, setInvoicePdfUrl, clearCurrentInvoice } =
-  invoicesSlice.actions
+export const { setInvoiceJson, setInvoicePdfUrl, clearCurrentInvoice } = invoicesSlice.actions
 export default invoicesSlice.reducer
