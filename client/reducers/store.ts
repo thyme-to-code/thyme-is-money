@@ -1,4 +1,3 @@
-// @ts-check
 import { configureStore } from '@reduxjs/toolkit'
 
 import clients from './clients'
@@ -14,3 +13,5 @@ export const store = configureStore({
     invoices,
   },
 })
+
+export type RootState = ReturnType<typeof store.getState>

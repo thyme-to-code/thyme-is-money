@@ -4,12 +4,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { cacheUser } from "../auth0-utils";
 
+import { useAppSelector } from "../reducers/hooks";
 import { Landing } from "./Landing";
 import { Paths } from "./Paths";
+import { RootState } from "../reducers/store";
 
 function App() {
   cacheUser(useAuth0);
-  const token = useSelector((state) => state.user.token);
+  const token = useAppSelector((state) => state.user.token);
   const navigate = useNavigate();
 
   useEffect(() => {
