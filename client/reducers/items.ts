@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { getItems } from '../apis/items'
 
-interface Item {
+export interface Item {
   id: number,
   user_id: number,
   client_id: number,

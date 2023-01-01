@@ -1,5 +1,34 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { getClients } from '../apis/clients'
+import { Item } from './items'
+
+interface Client {
+  id:number,
+  user_id:number,
+  business_name: string,
+  contact_name: string,
+  email: string,
+  phone: string,
+  address: string,
+  rate:number,
+  isActive:number,
+  created_at: string,
+  updated_at: string
+}
+interface Totals {
+  amount: number,
+  quantity: number
+}
+interface TotalData {
+  items: Item[],
+  rate: number
+}
+interface InitState {
+  loading: boolean,
+  active: Client[],
+  selected: Client,
+  totals: Totals 
+}
 
 const initialState = {
   loading: true,
@@ -28,13 +57,13 @@ export const clientSlice = createSlice({
   name: 'clients',
   initialState,
   reducers: {
-    setSelectedClient: (state, action) => {
+    setSelectedClient: (state, action: PayloadAction<Client>) => {
       state.selected = action.payload
     },
     clearSelectedClient: (state) => {
       state.selected = {}
     },
-    setTotals: (state, action) => {
+    setTotals: (state, action: PayloadAction<TotalData>) => {
       const { items, rate } = action.payload
       state.totals.quantity = 0
       items.forEach(
@@ -50,6 +79,7 @@ export const clientSlice = createSlice({
     builder.addCase(getActiveClients.rejected, (state) => {
       state.loading = false
     })
+    // look into typing for Redux Thunks
     builder.addCase(getActiveClients.fulfilled, (state, { payload }) => {
       state.loading = false
       state.active = payload
