@@ -1,8 +1,14 @@
 // @ts-check
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+interface InitState {
+  auth0Id: string;
+  email: string;
+  token: string;
+}
 
 // state.user containts this object
-const getInitialState = () => {
+const getInitialState = (): InitState => {
   return {
     auth0Id: '',
     email: '',
@@ -14,7 +20,7 @@ export const loggedInUserSlice = createSlice({
   name: 'user',
   initialState: getInitialState(),
   reducers: {
-    setLoggedInUser: (state, action) => {
+    setLoggedInUser: (state, action: PayloadAction<InitState>) => {
       // state = { ...action.payload } doesn't seem to work
       state.auth0Id = action.payload.auth0Id
       state.email = action.payload.email
