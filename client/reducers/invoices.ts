@@ -113,7 +113,7 @@ export const invoicesSlice = createSlice({
     builder.addCase(getInvoices.rejected, (state) => {
       state.loading = false
     })
-    builder.addCase(getInvoices.fulfilled, (state, { payload }) => {
+    builder.addCase(getInvoices.fulfilled, (state, { payload } : PayloadAction<Invoice[]>) => {
       state.loading = false
       state.all = payload
     })
