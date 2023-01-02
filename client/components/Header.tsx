@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../reducers/hooks";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
   Flex,
@@ -21,7 +21,7 @@ import { InvoiceCsv } from "./invoices/InvoiceCsv";
 
 export function Header() {
   const { logout } = useAuth0();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   function handleLogOut(event) {
     event.preventDefault();
