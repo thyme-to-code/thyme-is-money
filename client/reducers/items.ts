@@ -21,7 +21,20 @@ interface InitState {
 
 const initialState: InitState = {
   loading: true,
-  uninvoiced: [],
+  uninvoiced: [
+    {
+      id: 0,
+      user_id: 0,
+      client_id: 0,
+      invoice_id: 0,
+      type: 0,
+      description: '', 
+      quantity: 0,
+      cost: 0,
+      created_at: '',
+      updated_at: ''
+    }
+  ],
 }
 
 export const getUninvoicedItems = createAsyncThunk(

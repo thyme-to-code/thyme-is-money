@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../reducers/hooks'
 import {
   Center,
   CircularProgress,
@@ -23,9 +23,9 @@ import { InvoiceCard } from './invoices/InvoiceCard'
 import { ItemCard } from './tasks/ItemCard'
 
 export function Overview() {
-  const { uninvoiced, loading } = useSelector((state) => state.items)
-  const invoices = useSelector((state) => state.invoices.all)
-  const clients = useSelector((state) => state.clients)
+  const { uninvoiced, loading } = useAppSelector((state) => state.items)
+  const invoices = useAppSelector((state) => state.invoices.all)
+  const clients = useAppSelector((state) => state.clients)
 
   if (loading && clients.loading) {
     return (
@@ -113,7 +113,7 @@ export function Overview() {
                   {new Date(invoice.date_sent).toLocaleDateString('en-NZ')}
                 </Td>
                 <Td py="1" isNumeric={true}>
-                  $ {invoice.total.toFixed(2).toLocaleString('en-US')}
+                  $ {invoice.total.toFixed(2).toLocaleString()}
                 </Td>
                 <Td py="1" isNumeric={true}>
                   {invoice.date_paid ? (
@@ -129,7 +129,7 @@ export function Overview() {
                     ) : (
                       <Text color="red">
                         $&nbsp;
-                        {invoice.amount_paid.toFixed(2).toLocaleString('en-US')}
+                        {invoice.amount_paid.toFixed(2).toLocaleString()}
                       </Text>
                     ))}
                 </Td>

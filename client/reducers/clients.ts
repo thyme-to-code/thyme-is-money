@@ -3,15 +3,15 @@ import { getClients } from '../apis/clients'
 import { Item } from './items'
 
 interface Client {
-  id:number,
-  user_id:number,
+  id: number,
+  user_id: number,
   business_name: string,
   contact_name: string,
   email: string,
   phone: string,
   address: string,
-  rate:number,
-  isActive:number,
+  rate: number,
+  isActive: number,
   created_at: string,
   updated_at: string
 }
@@ -30,11 +30,21 @@ interface InitState {
   totals: Totals 
 }
 
-const initialState = {
+const initialState: InitState = {
   loading: true,
   active: [],
   selected: {
     id: 0,
+    user_id: 0,
+    business_name: '',
+    contact_name: '',
+    email: '',
+    phone: '',
+    address: '',
+    rate: 0,
+    isActive: 0,
+    created_at: '',
+    updated_at: ''
   },
   totals: {
     amount: 0,
