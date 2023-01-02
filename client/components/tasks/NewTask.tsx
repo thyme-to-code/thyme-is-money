@@ -1,6 +1,6 @@
 // @ts-check
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector, useAppDispatch } from '../../reducers/hooks'
 import { Formik, Form, Field } from 'formik'
 import {
   Modal,
@@ -23,8 +23,8 @@ import { addTask } from '../../apis/tasks'
 import { MdAddCircle } from 'react-icons/md'
 
 export function NewTask() {
-  const dispatch = useDispatch()
-  const { selected } = useSelector((state) => state.clients)
+  const dispatch = useAppDispatch()
+  const { selected } = useAppSelector((state) => state.clients)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
