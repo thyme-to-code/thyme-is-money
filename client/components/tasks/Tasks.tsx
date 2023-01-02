@@ -1,12 +1,12 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../reducers/hooks'
 import { SimpleGrid } from '@chakra-ui/react'
 
 import { ItemCard } from './ItemCard'
 
 export function Tasks() {
-  const { selected } = useSelector((state) => state.clients)
-  const items = useSelector((state) => state.items)
+  const { selected } = useAppSelector((state) => state.clients)
+  const items = useAppSelector((state) => state.items)
 
   if (items.loading) {
     return <>Loading ...</>
