@@ -21,10 +21,11 @@ import { NewTask } from './tasks/NewTask'
 import { Tasks } from './tasks/Tasks'
 import { Overview } from './Overview'
 import { InvoiceCard } from './invoices/InvoiceCard'
+import { useAppSelector } from '../reducers/hooks'
 
 export function Content() {
-  const { selected, loading } = useSelector((state) => state.clients)
-  const { all: invoices } = useSelector((state) => state.invoices)
+  const { selected, loading } = useAppSelector((state) => state.clients)
+  const { all: invoices } = useAppSelector((state) => state.invoices)
 
   if (loading) {
     return (

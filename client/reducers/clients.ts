@@ -33,7 +33,9 @@ interface InitState {
 const initialState = {
   loading: true,
   active: [],
-  selected: {},
+  selected: {
+    id: 0,
+  },
   totals: {
     amount: 0,
     quantity: 0,
@@ -61,7 +63,7 @@ export const clientSlice = createSlice({
       state.selected = action.payload
     },
     clearSelectedClient: (state) => {
-      state.selected = {}
+      state.selected = initialState.selected
     },
     setTotals: (state, action: PayloadAction<TotalData>) => {
       const { items, rate } = action.payload
