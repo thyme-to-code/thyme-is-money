@@ -1,6 +1,6 @@
 // @ts-check
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../reducers/hooks";
 import { Formik, Form, Field } from "formik";
 import {
   Modal,
@@ -25,7 +25,7 @@ import { getUninvoicedItems } from "../../reducers/items";
 import { updateTask } from "../../apis/tasks.js";
 
 export function EditTask(props) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { description, quantity, id, client_id } = props.value.item;
 
