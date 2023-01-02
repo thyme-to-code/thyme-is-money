@@ -1,12 +1,12 @@
 // @ts-check
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../reducers/hooks'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 import { Main } from './Main'
 
 export function Paths() {
-  const token = useSelector((state) => state.user.token)
+  const token = useAppSelector((state) => state.user.token)
   const navigate = useNavigate()
 
   useEffect(() => {
