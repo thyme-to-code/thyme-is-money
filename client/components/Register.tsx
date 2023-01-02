@@ -1,6 +1,7 @@
 // @ts-check
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useAppSelector } from '../reducers/hooks'
 import { Formik, Form, Field } from 'formik'
 import {
   Modal,
@@ -19,7 +20,7 @@ import {
 } from '@chakra-ui/react'
 
 export function Register() {
-  const user = useSelector((state) => state.user)
+  const user = useAppSelector((state) => state.user)
   const [formUserData, setFormUserData] = useState({
     auth0Id: '',
     name: '',
