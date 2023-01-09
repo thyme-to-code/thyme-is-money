@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import {
   Box,
   Heading,
@@ -20,9 +20,9 @@ import {
 import { setTotals } from "../../reducers/clients";
 
 export function ClientDetails() {
-  const dispatch = useDispatch();
-  const { totals, selected } = useSelector((state) => state.clients);
-  const { uninvoiced } = useSelector((state) => state.items);
+  const dispatch = useAppDispatch();
+  const { totals, selected } = useAppSelector((state) => state.clients);
+  const { uninvoiced } = useAppSelector((state) => state.items);
 
   const items = uninvoiced.filter((item) => item.client_id === selected.id);
 
