@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector, useAppDispatch } from '../../reducers/hooks'
 import {
   Button,
   Modal,
@@ -20,11 +20,11 @@ import { saveInvoice } from '../../apis/invoices'
 import { ShowPDF } from './ShowPDF'
 
 export function NewInvoice() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { totals, selected } = useSelector((state) => state.clients)
-  const items = useSelector((state) => state.items)
-  const { pdfUrl, json } = useSelector((state) => state.invoices.current)
+  const { totals, selected } = useAppSelector((state) => state.clients)
+  const items = useAppSelector((state) => state.items)
+  const { pdfUrl, json } = useAppSelector((state) => state.invoices.current)
   const [isApproved, setIsApproved] = useState(false)
 
   const clientItems = items.uninvoiced.filter(
