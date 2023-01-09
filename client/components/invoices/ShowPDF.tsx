@@ -1,6 +1,5 @@
-// @ts-check
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../reducers/hooks'
 import { Spinner } from '@chakra-ui/react'
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 
@@ -20,18 +19,18 @@ function invoiceNumber() {
   const month = myDate.getMonth()
   const year = myDate.getFullYear()
 
-  function pad(n) {
-    return n < 10 ? '0' + n : n
+  function pad(n: number): string {
+    return n < 10 ? '0' + n : n.toString()
   }
 
   return year + pad(month + 1) + pad(dayOfMonth)
 }
 
 export function ShowPDF() {
-  const dispatch = useDispatch()
-  const { selected } = useSelector((state) => state.clients)
-  const items = useSelector((state) => state.items)
-  const { json, pdfUrl } = useSelector((state) => state.invoices.current)
+  const dispatch = useAppDispatch()
+  const { selected } = useAppSelector((state) => state.clients)
+  const items = useAppSelector((state) => state.items)
+  const { json, pdfUrl } = useAppSelector((state) => state.invoices.current)
 
   const [numPages, setNumPages] = useState(null)
 
