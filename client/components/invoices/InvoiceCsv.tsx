@@ -26,6 +26,7 @@ export function InvoiceCsv() {
           email,
           rate,
         } = invoiceData
+        
         df_data.push([
           invoice_number,
           total,

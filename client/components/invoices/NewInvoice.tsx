@@ -31,14 +31,14 @@ export function NewInvoice() {
     (item) => item.client_id === selected.id
   )
 
-  const saveFile = async (pdfUrl) => {
+  const saveFile = async (pdfUrl: string) => {
     const a = document.createElement('a')
     a.download = `${selected.business_name}-invoice.pdf`
     a.href = pdfUrl
     a.click()
   }
 
-  async function handleClick(e) {
+  async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     const invoice = {
       client_id: selected.id,
