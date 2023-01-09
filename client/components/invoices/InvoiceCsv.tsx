@@ -7,7 +7,8 @@ import { getInvoiceCsv } from '../../apis/invoices'
 
 export function InvoiceCsv() {
   function handleClick() {
-    let df_data = []
+    // This type will need to be updated when we type what is returned by getInvoiceCsv()
+    let df_data: any[] = []
 
     return getInvoiceCsv().then((invoiceData) => {
       const df_columns = Object.keys(invoiceData[0])
