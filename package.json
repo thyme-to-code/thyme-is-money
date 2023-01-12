@@ -5,7 +5,7 @@
   "engines": {
     "node": ">=16"
   },
-  "repository": "https://github.com/mako-goblin-2022/thyme-is-money",
+  "repository": "https://github.com/thyme-to-code/thyme-is-money",
   "main": "server/index.js",
   "scripts": {
     "build": "run-p build:client build:server",
@@ -20,7 +20,7 @@
     "dev:server": "nodemon --watch server server/index.js",
     "webpack": "webpack --config ./client/webpack.config.js",
     "knex": "knex --knexfile ./server/db/knexfile.js",
-    "lint": "eslint --ext .js,.jsx .",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "rmdb": "rm ./server/db/dev.sqlite3",
     "migrate": "npm run knex -- migrate:latest",
     "seed": "npm run knex -- seed:run",
@@ -31,19 +31,13 @@
   "keywords": [
     "fullstack"
   ],
-  "author": "EDA",
+  "author": "david, adam, nicole, yuri",
   "license": "ISC",
   "babel": {
     "presets": [
       "@babel/preset-typescript",
       "@babel/preset-env",
       "@babel/preset-react"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "eda/react",
-    "ignorePatterns": [
-      "bundle.js"
     ]
   },
   "devDependencies": {
@@ -56,9 +50,13 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.1",
+    "@types/eslint": "^8.4.10",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.3.0",
-    "eslint": "^8.10.0",
+    "eslint": "^8.31.0",
     "eslint-config-eda": "^1.2.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jest": "^26.1.1",
