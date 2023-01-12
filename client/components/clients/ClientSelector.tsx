@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../reducers/hooks";
 import { Box, Select, Stack } from "@chakra-ui/react";
 import { setSelectedClient, clearSelectedClient } from "../../reducers/clients";
 import { MdOutlineArrowDropDownCircle } from "react-icons/md";
@@ -7,22 +7,19 @@ import { MdOutlineArrowDropDownCircle } from "react-icons/md";
 import { EditClient } from "./EditClient";
 
 export function ClientSelector() {
-  const dispatch = useDispatch();
-  const clients = useSelector((state) => state.clients);
+  const dispatch = useAppDispatch();
+  const clients = useAppSelector((state) => state.clients);
 
   const orderedCompanyNames = clients.active
     .map((client) => client.business_name)
     .sort();
 
-  function handleChange(e) {
-    if (e.target.value) {
-      const myClient = clients.active.find(
-        (client) => client.business_name == e.target.value
-      );
-      return dispatch(setSelectedClient(myClient));
-    } else {
-      return dispatch(clearSelectedClient());
-    }
+  function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const myClient = clients.active.find(
+      (client) => client.business_name == e.target.value
+    );
+    myClient ? dispatch(setSelectedClient(myClient)) 
+      : dispatch(clearSelectedClient());
   }
 
   if (clients.loading) {
@@ -36,7 +33,7 @@ export function ClientSelector() {
           {clients.selected.id && <EditClient />}
           <Select
             icon={<MdOutlineArrowDropDownCircle />}
-            iconSize={50}
+            iconSize={'50'}
             onChange={handleChange}
             size="lg"
             p="0px"

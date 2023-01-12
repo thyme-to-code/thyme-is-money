@@ -1,4 +1,3 @@
-// @ts-check
 import React from "react";
 import { Field, Form } from "formik";
 import {

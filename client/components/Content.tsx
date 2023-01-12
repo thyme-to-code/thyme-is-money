@@ -36,13 +36,16 @@ export function Content() {
   }
 
   const invoiceCards = (
-    <SimpleGrid minChildWidth="260px" spacing="11px">
-      {invoices
-        ?.filter((invoice) => invoice.client_id === selected.id)
-        .map((invoice) => {
-          return <InvoiceCard key={invoice.invoice_number} invoice={invoice} />
-        })}
-    </SimpleGrid>
+    <TabPanel>
+      <SimpleGrid minChildWidth="260px" spacing="11px">
+        {invoices
+          ?.filter((invoice) => invoice.client_id === selected.id)
+            .map((invoice) => {
+             return <InvoiceCard key={invoice.invoice_number} invoice={invoice} />
+            })
+        }
+      </SimpleGrid>
+    </TabPanel>   
   )
 
   return (
@@ -73,7 +76,7 @@ export function Content() {
               <TabPanel>
                 <Tasks />
               </TabPanel>
-              <TabPanel>{invoiceCards}</TabPanel>
+{invoiceCards}
             </TabPanels>
           </Tabs>
         </>
