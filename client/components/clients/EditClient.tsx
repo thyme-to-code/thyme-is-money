@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppSelector, useAppDispatch } from '../../reducers/hooks'
 import request from 'superagent'
 import { Formik } from 'formik'
 import {
@@ -17,8 +17,8 @@ import { ClientForm } from './ClientForm'
 import { MdEdit } from 'react-icons/md'
 
 export function EditClient() {
-  const dispatch = useDispatch()
-  const { selected } = useSelector((state) => state.clients)
+  const dispatch = useAppDispatch()
+  const { selected } = useAppSelector((state) => state.clients)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
