@@ -1,4 +1,5 @@
 import React from "react";
+import { useAppDispatch } from "../../reducers/hooks";
 import { useDispatch } from "react-redux";
 import request from "superagent";
 import { Formik } from "formik";
@@ -18,7 +19,7 @@ import { ClientForm } from "./ClientForm";
 
 export function NewClient() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <>
