@@ -1,10 +1,10 @@
 // @ts-check
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from './reducers/hooks'
 import { setLoggedInUser } from './reducers/user'
 
 export const cacheUser = async (useAuth0) => {
-  const dispatch = useDispatch()
-  const loggedInUser = useSelector((state) => state.user)
+  const dispatch = useAppDispatch()
+  const loggedInUser = useAppSelector((state) => state.user)
   const { getAccessTokenSilently, isAuthenticated, user } = useAuth0()
 
   if (isAuthenticated && !loggedInUser?.token) {
